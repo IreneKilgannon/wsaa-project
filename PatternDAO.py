@@ -99,7 +99,7 @@ class PatternDAO:
 # View by Owner Name
     def findByOwner(self, name):
         cursor = self.getCursor()
-        sql = "SELECT p.*, u.name FROM patterns p join users u on p.ownerID = u.userID WHERE u.name = %s"
+        sql = "SELECT p.* FROM patterns p join users u on p.ownerID = u.userID WHERE u.name = %s"
         values = (name, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
@@ -119,10 +119,10 @@ class PatternDAO:
         return newid
     
 # Update a pattern
-    def update(self, patternID, pattern):
+    def update(self, pattern):
         cursor = self.getCursor()
-        sql = "UPDATE patterns SET brand = %s, category = %s, fabric_type = %s, description = %s, ownerID= %s where patternID = %s"
-        values = (pattern.get("brand"), pattern.get("category"), pattern.get("fabric_type"), pattern.get("description"), pattern.get('ownerID'), patternID)
+        sql = "UPDATE patterns SET brand = %s, category = %s, fabric_type = %s, description = %s, ownerID= %s WHERE patternID = %s"
+        values = (pattern.get("brand"), pattern.get("category"), pattern.get("fabric_type"), pattern.get("description"), pattern.get('ownerID'), pattern.get("patternID"))
         cursor.execute(sql, values)
         self.connection.commit()
         self.closeAll()

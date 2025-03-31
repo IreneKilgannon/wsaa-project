@@ -35,8 +35,8 @@ My dream project would have the following features:
 
 - [x] Set up the database, sewing_patterns. 
 - [x] Create the tables, users and patterns
-- [ ] Config file
-- [ ] Write and test the DAO
+- [x] Config file
+- [x] Write and test the DAO
 - [ ] Write the Flask file
 - [ ] Test Flask file in the virtual environment. Need requirements.txt file
 - [ ] Create HTML web pages. Think about layout. A lot of research needed here to make web page look nice. Needs to be stylish. 
