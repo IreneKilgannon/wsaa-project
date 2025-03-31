@@ -19,7 +19,7 @@ __Project Outline__
 
 My hobby is dressmaking and I have an extensive collection of sewing patterns. I also have 4 close relations who also sew and a common question in our group chat is does anyone have x pattern? Or who has my pattern? 
 
-My plan for this project is to have a database of sewing patterns. The database will have two tables, users and patterns. Each user will be to perform CRUD operations on the data.
+My plan for this project is to have a database of sewing patterns. The database will have two tables, users and patterns. Each user will be to perform CRUD operations on the data. There is also an optional third table, borrow_logs for borrowing patterns. 
 
 My dream project would have the following features:
 
@@ -33,8 +33,8 @@ My dream project would have the following features:
 
     Checkboxes to indicate if a user has borrowed a pattern and when. Ability to send an email at the click of a button if the owner would like the pattern returned!
 
-- [ ] Set up the database, sewing_patterns. 
-- [ ] Create the tables, users and patterns
+- [x] Set up the database, sewing_patterns. 
+- [x] Create the tables, users and patterns
 - [ ] Config file
 - [ ] Write and test the DAO
 - [ ] Write the Flask file
