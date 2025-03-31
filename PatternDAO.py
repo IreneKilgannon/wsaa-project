@@ -69,7 +69,7 @@ class PatternDAO:
         sql = "SELECT * FROM patterns WHERE category = %s"
         values = (category, )
         cursor.execute(sql, values)
-        result = cursor.fetchone()
+        result = cursor.fetchall()
         returnvalue = self.convertToDictionary(result)
         self.closeAll()
         return returnvalue 
@@ -80,7 +80,7 @@ class PatternDAO:
         sql = "SELECT * FROM patterns WHERE brand = %s"
         values = (brand, )
         cursor.execute(sql, values)
-        result = cursor.fetchone()
+        result = cursor.fetchall()
         returnvalue = self.convertToDictionary(result)
         self.closeAll()
         return returnvalue 
@@ -91,7 +91,7 @@ class PatternDAO:
         sql = "SELECT * FROM patterns WHERE fabric_type = %s"
         values = (fabric_type, )
         cursor.execute(sql, values)
-        result = cursor.fetchone()
+        result = cursor.fetchall()
         returnvalue = self.convertToDictionary(result)
         self.closeAll()
         return returnvalue 
@@ -99,10 +99,10 @@ class PatternDAO:
 # View by Owner Name
     def findByOwner(self, name):
         cursor = self.getCursor()
-        sql = "SELECT p.*, u.name FROM patterns p join users u on p.ownerID = u.usersID WHERE u.name = %s"
+        sql = "SELECT p.*, u.name FROM patterns p join users u on p.ownerID = u.userID WHERE u.name = %s"
         values = (name, )
         cursor.execute(sql, values)
-        result = cursor.fetchone()
+        result = cursor.fetchall()
         returnvalue = self.convertToDictionary(result)
         self.closeAll()
         return returnvalue 
@@ -122,7 +122,7 @@ class PatternDAO:
     def update(self, patternID, pattern):
         cursor = self.getCursor()
         sql = "UPDATE patterns SET brand = %s, category = %s, fabric_type = %s, description = %s, ownerID= %s where patternID = %s"
-        values = (pattern.get("brand"), pattern.get("category"), pattern.get("fabric_type"), pattern.get("description"), patternID)
+        values = (pattern.get("brand"), pattern.get("category"), pattern.get("fabric_type"), pattern.get("description"), pattern.get('ownerID'), patternID)
         cursor.execute(sql, values)
         self.connection.commit()
         self.closeAll()
