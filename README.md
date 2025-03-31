@@ -21,11 +21,16 @@ My hobby is dressmaking and I have an extensive collection of sewing patterns. I
 
 My plan for this project is to have a database of sewing patterns. The database will have two tables, users and patterns. Each user will be to perform CRUD operations on the data.
 
-My dream project would be the following:
-    Each user logs into the web page
-    View the patterns, images would be great.
+My dream project would have the following features:
+
+    Each user logs into the web page.
+
+    View the patterns with images.
+
     Add their own patterns. Delete patterns.
+
     Search the patterns by number or by description e.g. find a V-neck dress pattern.
+
     Checkboxes to indicate if a user has borrowed a pattern and when. Ability to send an email at the click of a button if the owner would like the pattern returned!
 
 - [ ] Set up the database, sewing_patterns. 
@@ -38,4 +43,10 @@ My dream project would be the following:
 - [ ] Research how to send emails with Python.
 - [ ] Rewatch lectures on AJAX and HTML again. Research. 
 - [ ] Host the application online e.g. Azure or PythonAnywhere. Research. 
+
+
+
+__References__
+
+https://stackoverflow.com/questions/15735450/images-as-links-in-mysql-database
 
