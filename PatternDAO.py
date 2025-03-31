@@ -86,7 +86,7 @@ class PatternDAO:
         return returnvalue 
 
 # View by Fabric Type
-    def findByBrand(self, fabric_type):
+    def findByFabric(self, fabric_type):
         cursor = self.getCursor()
         sql = "SELECT * FROM patterns WHERE fabric_type = %s"
         values = (fabric_type, )
