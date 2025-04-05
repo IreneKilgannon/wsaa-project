@@ -16,7 +16,7 @@
 <body>
     <div class="container p-3 my-5 bg-light border-primary">
     <h1>Sewing Patterns</h1>
-    <div><button id="showCreate()">Add a sewing pattern</button></div>
+    <div><button id="button-showCreate" onclick="showCreate()">Add a sewing pattern</button></div>
     
     <table id="patternTable">
         <thead>
@@ -27,6 +27,8 @@
                 <th>Fabric Type</th>
                 <th>Description</th>
                 <th>OwnerID</th>
+                <th>Update</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -37,28 +39,59 @@
                 <td>Woven</td>
                 <td>Gathered Skirt</td>
                 <td>1</td>
+                <td><button onclick="showUpdate(this)">Update</button></td>
+                <td><button onclick="doDelete(this)">Delete</button></td>
             </tr>
             <tr>
-                <td>S4567</td>
+                <td>S8014</td>
                 <td>Simplicity</td>
                 <td>Dress</td>
                 <td>Woven</td>
-                <td>Gathered Skirt</td>
+                <td>Shirt dress</td>
                 <td>1</td>
+                <td><button onclick="showUpdate(this)">Update</button></td>
+                <td><button onclick="doDelete(this)">Delete</button></td>
             </tr>
             <tr>
-                <td>B6789</td>
-                <td>Butterick</td>
-                <td>Skirt</td>
+                <td>S2247</td>
+                <td>Simplicity</td>
+                <td>Dress</td>
                 <td>Woven</td>
-                <td>Gathered Skirt</td>
+                <td>Princess seam dress with short sleeves</td>
                 <td>1</td>
+                <td><button onclick="showUpdate(this)">Update</button></td>
+                <td><button onclick="doDelete(this)">Delete</button></td>
+            </tr>
+            <tr>
+                <td>B6720</td>
+                <td>Butterick</td>
+                <td>Coat</td>
+                <td>Woven</td>
+                <td>Loose fitting coat with belt</td>
+                <td>1</td>
+                <td><button onclick="showUpdate(this)">Update</button></td>
+                <td><button onclick="doDelete(this)">Delete</button></td>
             </tr>
         </tbody>
     </table>
     </div>
 
-
+    <br/>
+    <div id="createUpdateForm" style="display:none">
+        <!-- spans are like divs but do not go onto a new line -->
+        <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update this</span> Sewing Pattern</h2>
+        Pattern Number <input type="text" name="patternNumber"><br/>
+        Brand <input type="text" name="brand"><br/>
+        Category <input type="text" name="category"><br/>
+        Fabric Type<input type="text" name="fabricType"><br/>
+        Description<input type="text" name="description"><br>
+        OwnerID<input type="number" name="ownerID"><br>
+        <span><button id="button-doCreate" onclick="doCreate()">Create</button></span>
+        <span><button id="button-doUpdate" onclick="doUpdate()">Update</button></span>
+         <!-- "display:none" will make it hidden-->
+    
+    </div>
+       
     <!--DataTable JS-->
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -71,4 +104,214 @@
     <!--Custom JS-->
     <script src="script.js"></script>
 </body>
+
+<script>
+    //console.log("hello world")
+    function showCreate(){
+        document.getElementById("createUpdateForm").style.display = "block"
+        document.getElementById("button-doCreate").style.display = "block"
+        document.getElementById("button-doUpdate").style.display = "none"
+        document.getElementById("createLabel").style.display = "inline"
+        document.getElementById("updateLabel").style.display = "none"
+        document.getElementById("button-showCreate").style.display = "none"
+        document.getElementById("patternTable").style.display = "none"
+        
+    }
+    function showUpdate(buttonElement){
+        document.getElementById("createUpdateForm").style.display = "block"
+        document.getElementById("button-doCreate").style.display = "none"
+        document.getElementById("button-doUpdate").style.display = "block"
+        document.getElementById("createLabel").style.display = "none"
+        document.getElementById("updateLabel").style.display = "inline"
+        document.getElementById("button-showCreate").style.display = "none"
+        document.getElementById("patternTable").style.display = "none"
+
+        rowElement= buttonElement.parentNode.parentNode
+        pattern = getPatternFromRow(rowElement)
+        //console.log("updating")
+        //console.log(Pattern)
+        populateFormWithPattern(pattern)
+        
+    }
+    function showViewall(){
+        document.getElementById("createUpdateForm").style.display = "none"
+        document.getElementById("button-showCreate").style.display = "block"
+        document.getElementById("patternTable").style.display = "block"
+        
+    }
+    function clearForm(){
+        var form = document.getElementById('createUpdateForm')
+
+        form.querySelector('input[name="patternNumber"]').disabled = false
+        form.querySelector('input[name="patternNumber"]').value =''
+        form.querySelector('input[name="brand"]').value=''
+        form.querySelector('input[name="category"]').value =''
+        form.querySelector('input[name="fabricType"]').value= ''
+        form.querySelector('input[name="description"]').value=''
+        form.querySelector('input[name="ownerID"]').value=''
+    }
+    
+    function getPatternFromForm(){
+        var form = document.getElementById('createUpdateForm')
+        var pattern = {}
+
+        pattern.patternNumber = form.querySelector('input[name="patternNumber"]').value
+        pattern.brand = form.querySelector('input[name="brand"]').value
+        pattern.category = form.querySelector('input[name="category"]').value
+        pattern.fabricType = form.querySelector('input[name="fabricType"]').value
+        pattern.description = form.querySelector('input[name="description"]').value
+        pattern.ownerID = form.querySelector('input[name="ownerID"]').value
+        //console.log(JSON.stringify(pattern))
+        return pattern
+    }
+
+    function populateFormWithPattern(pattern){
+        var form = document.getElementById('createUpdateForm')
+
+        form.querySelector('input[name="patternNumber"]').disabled = true
+        form.querySelector('input[name="patternNumber"]').value  = pattern.patternNumber
+        form.querySelector('input[name="brand"]').value= pattern.brand
+        form.querySelector('input[name="category"]').value= pattern.category
+        form.querySelector('input[name="fabricType"]').value= pattern.fabricType
+        form.querySelector('input[name = "description"]').value = pattern.description
+        form.querySelector('input[name="ownerID"]').value = pattern.ownerID
+    }
+
+
+    function addPatternToTable(pattern){
+        var tableElement = document.getElementById('patternTable')
+        var rowElement = tableElement.insertRow(-1)
+        
+        rowElement.setAttribute('patternNumber', pattern.patternNumber)
+        
+        var cell1 = rowElement.insertCell(0);
+        cell1.innerHTML = pattern.patternNumber
+        var cell2 = rowElement.insertCell(1);
+        cell2.innerHTML = pattern.brand
+        var cell3 = rowElement.insertCell(2);
+        cell3.innerHTML = pattern.category
+        var cell4 = rowElement.insertCell(3);
+        cell4.innerHTML = pattern.fabricType
+        var cell5 = rowElement.insertCell(4);
+        cell5.innerHTML = pattern.description
+        var cell6 = rowElement.insertCell(5);
+        cell6.innerHTML = pattern.ownerID
+        var cell7 = rowElement.insertCell(6);
+        cell7.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        var cell8 = rowElement.insertCell(7);
+        cell8.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+    }
+
+    function getPatternFromRow(rowElement){
+        var pattern ={}
+
+        pattern.patternNumber  = rowElement.cells[0].firstChild.textContent
+        pattern.brand = rowElement.cells[1].firstChild.textContent
+        pattern.category = rowElement.cells[2].firstChild.textContent
+        pattern.fabricType = rowElement.cells[3].firstChild.textContent
+        pattern.description = rowElement.cells[4].firstChild.textContent
+        pattern.ownerID = rowElement.cells[5].firstChild.textContent
+        return pattern
+    }
+
+    function setPatternInRow(rowElement, pattern){
+        rowElement.cells[0].firstChild.textContent= pattern.patternNumber
+        rowElement.cells[1].firstChild.textContent= pattern.brand
+        rowElement.cells[2].firstChild.textContent= pattern.category
+        rowElement.cells[3].firstChild.textContent= pattern.fabricType
+        rowElement.cells[4].firstChild.textContent= pattern.description
+        rowElement.cells[5].firstChild.textContent= pattern.ownerID
+    
+}
+
+    function doCreate(){
+        console.log("creating a sewing pattern")
+        pattern = getPatternFromForm()
+        //console.log(pattern)
+        // I need to wait until I get the id from the server before adding this to the
+        // so  I put that code in the callback function
+        processCreateResponse(convertDisplayPatternToServerPattern(pattern));
+       
+    }
+    function doUpdate(){
+        pattern= getPatternFromForm()
+        console.log(pattern)
+        var rowElement = document.getElementById(pattern.patternNumber)
+        setPatternInRow(rowElement, pattern)
+        // now I am updating on the server
+        // yes there is a change that it will be updated on the table and not the serv
+        updatePattern(convertDisplayPatternToServerPattern(pattern), doNothing)
+        showViewall()
+        clearForm()
+    }
+
+    function doDelete(buttonElement){
+        console.log("in delete")
+        var tableElement = document.getElementById('patternTable')
+        var rowElement = buttonElement.parentNode.parentNode;
+        // I need the pattern number
+        patternNumber = rowElement.getAttribute("patternNumber")
+        console.log("deleting "+ patternNumber)
+        deletePattern(patternNumber, doNothing)
+       
+
+        index = rowElement.rowIndex
+        tableElement.deleteRow(index);
+    }
+
+    // populate the table
+    function processGetAllResponse(result){
+        console.log("in process")
+        //console.log(result)
+        for (pattern of result){
+            //console.log(pattern)
+            // issue the format of the pattern object is different from lab06.02
+            // there are two solutions change the pattern object in lan06.02 to have capitals
+            // or convert
+            displayPattern = {}
+            displayPattern.patternNumber = pattern.patternNumber
+            displayPattern.brand = pattern.brand
+            displayPattern.category = pattern.category
+            displayPattern.fabricType = pattern.fabricType
+            displayPattern.description = pattern.description
+            displayPattern.ownerID = pattern.ownerID
+
+            // you can now pass it to addPatternToTable
+            //console.log(displayPattern)
+            addPatternToTable(displayPattern)
+        }
+    }
+    function convertDisplayPatternToServerPattern(displayPattern){
+        serverPattern = {}
+        serverPattern.patternNumber = displayPattern.patternNumber
+        serverPattern.brand = displayPattern.brand
+        serverPattern.category = displayPattern.category
+        serverPattern.description = displayPattern.description
+        serverPattern.ownerID = displayPattern.ownerID 
+        //serverPattern.price = parseInt(displayPattern.price) // convert the string to an int
+        return serverPattern
+    }
+    function convertServerPatternToDisplayPattern(pattern){
+        displayPattern = {}
+        displayPattern.patternNumber = pattern.patternNumber
+        displayPattern.brand = pattern.brand
+        displayPattern.category = pattern.category
+        displayPattern.description = pattern.description
+        displayPattern.ownerID = pattern.ownerID
+        return displayPattern
+    }
+    function processCreateResponse(result){
+        displayPattern = convertServerPatternToDisplayPattern(result)
+        addPatternToTable(displayPattern)
+        showViewall()
+        clearForm()
+    }
+    // I should set this as the default function for the callback
+    function doNothing(result){
+        console.log("nothing:"+result)
+        return "done"
+    }
+     getAll(processGetAllResponse)
+
+</script>
 </html>
