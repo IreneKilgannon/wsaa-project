@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View sewing patterns</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="./ajaxcalls.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <!--DataTables-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.4/css/responsive.bootstrap5.css">
+
+</head>
+<body>
+    <div class="container p-3 my-5 bg-light border-primary">
+    <h1>Sewing Patterns</h1>
+    <div><button id="showCreate()">Add a sewing pattern</button></div>
+    
+    <table id="patternTable">
+        <thead>
+            <tr>
+                <th>Pattern Number</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th>Fabric Type</th>
+                <th>Description</th>
+                <th>OwnerID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>V9075</td>
+                <td>Vogue</td>
+                <td>Dress</td>
+                <td>Woven</td>
+                <td>Gathered Skirt</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>S4567</td>
+                <td>Simplicity</td>
+                <td>Dress</td>
+                <td>Woven</td>
+                <td>Gathered Skirt</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>B6789</td>
+                <td>Butterick</td>
+                <td>Skirt</td>
+                <td>Woven</td>
+                <td>Gathered Skirt</td>
+                <td>1</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+
+    <!--DataTable JS-->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.4/js/dataTables.responsive.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.4/js/responsive.bootstrap5.js"></script>
+
+
+    <!--Custom JS-->
+    <script src="script.js"></script>
+</body>
+</html>

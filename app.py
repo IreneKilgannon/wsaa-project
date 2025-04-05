@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request, redirect, abort, jsonify
+from flask import Flask, url_for, request, redirect, abort, jsonify, render_template
 from PatternDAO import patternDAO
 
 app = Flask(__name__, static_url_path='', static_folder='staticpages')
@@ -6,7 +6,7 @@ app = Flask(__name__, static_url_path='', static_folder='staticpages')
 
 @app.route('/')
 def index():
-    return "This is Sewing Pattern Database."
+    return render_template('index.html')
 
 
 # Get all patterns

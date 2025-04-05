@@ -50,3 +50,12 @@ __References__
 
 https://stackoverflow.com/questions/15735450/images-as-links-in-mysql-database
 
+
+Render templates Flask for beginners 2 (how to render HTML templates) https://www.youtube.com/watch?v=LuuSFH-RuBU
+
+YouTube Tech with Tim Flask Tutorial #2 - HTML Template https://www.youtube.com/watch?app=desktop&v=xIgPMguqyws&t=286s
+
+HTML & CSS Full Course for free, Bro Code, YouTube
+
+Modern Responsive Table Using DataTable, Step by step guide devRasen https://www.youtube.com/watch?v=1CPli6lkKCY
+
