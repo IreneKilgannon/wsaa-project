@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View sewing patterns</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="./ajaxcalls.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <!--DataTables-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.4/css/responsive.bootstrap5.css">
 
 </head>
 <body>
@@ -21,7 +15,7 @@
     <table id="patternTable">
         <thead>
             <tr>
-                <th>Pattern Number</th>
+                <th>PatternID</th>
                 <th>Brand</th>
                 <th>Category</th>
                 <th>Fabric Type</th>
@@ -80,10 +74,10 @@
     <div id="createUpdateForm" style="display:none">
         <!-- spans are like divs but do not go onto a new line -->
         <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update this</span> Sewing Pattern</h2>
-        Pattern Number <input type="text" name="patternNumber"><br/>
+        PatternID<input type="text" name="patternID"><br/>
         Brand <input type="text" name="brand"><br/>
         Category <input type="text" name="category"><br/>
-        Fabric Type<input type="text" name="fabricType"><br/>
+        Fabric Type<input type="text" name="fabric_type"><br/>
         Description<input type="text" name="description"><br>
         OwnerID<input type="number" name="ownerID"><br>
         <span><button id="button-doCreate" onclick="doCreate()">Create</button></span>
@@ -91,19 +85,8 @@
          <!-- "display:none" will make it hidden-->
     
     </div>
-       
-    <!--DataTable JS-->
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
-    <script src="https://cdn.datatables.net/responsive/3.0.4/js/dataTables.responsive.js"></script>
-    <script src="https://cdn.datatables.net/responsive/3.0.4/js/responsive.bootstrap5.js"></script>
 
-
-    <!--Custom JS-->
-    <script src="script.js"></script>
-</body>
+<br>
 
 <script>
     //console.log("hello world")
@@ -115,8 +98,8 @@
         document.getElementById("updateLabel").style.display = "none"
         document.getElementById("button-showCreate").style.display = "none"
         document.getElementById("patternTable").style.display = "none"
-        
     }
+
     function showUpdate(buttonElement){
         document.getElementById("createUpdateForm").style.display = "block"
         document.getElementById("button-doCreate").style.display = "none"
@@ -131,8 +114,8 @@
         //console.log("updating")
         //console.log(Pattern)
         populateFormWithPattern(pattern)
-        
     }
+
     function showViewall(){
         document.getElementById("createUpdateForm").style.display = "none"
         document.getElementById("button-showCreate").style.display = "block"
@@ -142,11 +125,11 @@
     function clearForm(){
         var form = document.getElementById('createUpdateForm')
 
-        form.querySelector('input[name="patternNumber"]').disabled = false
-        form.querySelector('input[name="patternNumber"]').value =''
+        form.querySelector('input[name="patternID"]').disabled = false
+        form.querySelector('input[name="patternID"]').value =''
         form.querySelector('input[name="brand"]').value=''
         form.querySelector('input[name="category"]').value =''
-        form.querySelector('input[name="fabricType"]').value= ''
+        form.querySelector('input[name="fabric_type"]').value= ''
         form.querySelector('input[name="description"]').value=''
         form.querySelector('input[name="ownerID"]').value=''
     }
@@ -155,10 +138,10 @@
         var form = document.getElementById('createUpdateForm')
         var pattern = {}
 
-        pattern.patternNumber = form.querySelector('input[name="patternNumber"]').value
+        pattern.patternID = form.querySelector('input[name="patternID"]').value
         pattern.brand = form.querySelector('input[name="brand"]').value
         pattern.category = form.querySelector('input[name="category"]').value
-        pattern.fabricType = form.querySelector('input[name="fabricType"]').value
+        pattern.fabric_type = form.querySelector('input[name="fabric_type"]').value
         pattern.description = form.querySelector('input[name="description"]').value
         pattern.ownerID = form.querySelector('input[name="ownerID"]').value
         //console.log(JSON.stringify(pattern))
@@ -166,15 +149,15 @@
     }
 
     function populateFormWithPattern(pattern){
-        var form = document.getElementById('createUpdateForm')
+        var form = document.getElementById('createUpdateForm');
 
-        form.querySelector('input[name="patternNumber"]').disabled = true
-        form.querySelector('input[name="patternNumber"]').value  = pattern.patternNumber
-        form.querySelector('input[name="brand"]').value= pattern.brand
-        form.querySelector('input[name="category"]').value= pattern.category
-        form.querySelector('input[name="fabricType"]').value= pattern.fabricType
-        form.querySelector('input[name = "description"]').value = pattern.description
-        form.querySelector('input[name="ownerID"]').value = pattern.ownerID
+        form.querySelector('input[name="patternID"]').disabled = true;
+        form.querySelector('input[name="patternID"]').value  = pattern.patternID;
+        form.querySelector('input[name="brand"]').value= pattern.brand;
+        form.querySelector('input[name="category"]').value= pattern.category;
+        form.querySelector('input[name="fabric_type"]').value= pattern.fabric_type;
+        form.querySelector('input[name = "description"]').value = pattern.description;
+        form.querySelector('input[name="ownerID"]').value = pattern.ownerID;
     }
 
 
@@ -182,16 +165,16 @@
         var tableElement = document.getElementById('patternTable')
         var rowElement = tableElement.insertRow(-1)
         
-        rowElement.setAttribute('patternNumber', pattern.patternNumber)
+        rowElement.id = pattern.patternID
         
         var cell1 = rowElement.insertCell(0);
-        cell1.innerHTML = pattern.patternNumber
+        cell1.innerHTML = pattern.patternID
         var cell2 = rowElement.insertCell(1);
         cell2.innerHTML = pattern.brand
         var cell3 = rowElement.insertCell(2);
         cell3.innerHTML = pattern.category
         var cell4 = rowElement.insertCell(3);
-        cell4.innerHTML = pattern.fabricType
+        cell4.innerHTML = pattern.fabric_type
         var cell5 = rowElement.insertCell(4);
         cell5.innerHTML = pattern.description
         var cell6 = rowElement.insertCell(5);
@@ -205,58 +188,53 @@
     function getPatternFromRow(rowElement){
         var pattern ={}
 
-        pattern.patternNumber  = rowElement.cells[0].firstChild.textContent
-        pattern.brand = rowElement.cells[1].firstChild.textContent
-        pattern.category = rowElement.cells[2].firstChild.textContent
-        pattern.fabricType = rowElement.cells[3].firstChild.textContent
-        pattern.description = rowElement.cells[4].firstChild.textContent
-        pattern.ownerID = rowElement.cells[5].firstChild.textContent
+        pattern.patternID  = rowElement.cells[0].textContent
+        pattern.brand = rowElement.cells[1].textContent
+        pattern.category = rowElement.cells[2].textContent
+        pattern.fabric_type = rowElement.cells[3].textContent
+        pattern.description = rowElement.cells[4].textContent
+        pattern.ownerID = rowElement.cells[5].textContent
         return pattern
     }
 
     function setPatternInRow(rowElement, pattern){
-        rowElement.cells[0].firstChild.textContent= pattern.patternNumber
+        rowElement.cells[0].firstChild.textContent= pattern.patternID
         rowElement.cells[1].firstChild.textContent= pattern.brand
         rowElement.cells[2].firstChild.textContent= pattern.category
-        rowElement.cells[3].firstChild.textContent= pattern.fabricType
+        rowElement.cells[3].firstChild.textContent= pattern.fabric_type
         rowElement.cells[4].firstChild.textContent= pattern.description
         rowElement.cells[5].firstChild.textContent= pattern.ownerID
     
-}
+    }
 
     function doCreate(){
         console.log("creating a sewing pattern")
         pattern = getPatternFromForm()
         //console.log(pattern)
-        // I need to wait until I get the id from the server before adding this to the
-        // so  I put that code in the callback function
-        processCreateResponse(convertDisplayPatternToServerPattern(pattern));
-       
+        createPatternAjax(pattern)
     }
+
     function doUpdate(){
         pattern= getPatternFromForm()
-        console.log(pattern)
-        var rowElement = document.getElementById(pattern.patternNumber)
+        var rowElement = document.getElementById(pattern.patternID)
+
+        updatePatternAjax(pattern)
         setPatternInRow(rowElement, pattern)
-        // now I am updating on the server
-        // yes there is a change that it will be updated on the table and not the serv
-        updatePattern(convertDisplayPatternToServerPattern(pattern), doNothing)
-        showViewall()
         clearForm()
+        showViewall()
     }
 
     function doDelete(buttonElement){
         console.log("in delete")
-        var tableElement = document.getElementById('patternTable')
+        var tableElement = document.getElementById('patternTable');
         var rowElement = buttonElement.parentNode.parentNode;
+        var index = rowElement.rowIndex;
         // I need the pattern number
-        patternNumber = rowElement.getAttribute("patternNumber")
-        console.log("deleting "+ patternNumber)
-        deletePattern(patternNumber, doNothing)
-       
-
-        index = rowElement.rowIndex
+        
+        //console.log("deleting "+ rowElement.getAttribute("patternID"))
+        deletePatternAjax(rowElement.getAttribute("patternID"))
         tableElement.deleteRow(index);
+        showViewall()
     }
 
     // populate the table
@@ -269,10 +247,10 @@
             // there are two solutions change the pattern object in lan06.02 to have capitals
             // or convert
             displayPattern = {}
-            displayPattern.patternNumber = pattern.patternNumber
+            displayPattern.patternID = pattern.patternID
             displayPattern.brand = pattern.brand
             displayPattern.category = pattern.category
-            displayPattern.fabricType = pattern.fabricType
+            displayPattern.fabric_type = pattern.fabric_type
             displayPattern.description = pattern.description
             displayPattern.ownerID = pattern.ownerID
 
@@ -281,9 +259,10 @@
             addPatternToTable(displayPattern)
         }
     }
+
     function convertDisplayPatternToServerPattern(displayPattern){
         serverPattern = {}
-        serverPattern.patternNumber = displayPattern.patternNumber
+        serverPattern.patternID = displayPattern.patternID
         serverPattern.brand = displayPattern.brand
         serverPattern.category = displayPattern.category
         serverPattern.description = displayPattern.description
@@ -291,27 +270,106 @@
         //serverPattern.price = parseInt(displayPattern.price) // convert the string to an int
         return serverPattern
     }
+
     function convertServerPatternToDisplayPattern(pattern){
         displayPattern = {}
-        displayPattern.patternNumber = pattern.patternNumber
+        displayPattern.patternID = pattern.patternID
         displayPattern.brand = pattern.brand
         displayPattern.category = pattern.category
         displayPattern.description = pattern.description
         displayPattern.ownerID = pattern.ownerID
         return displayPattern
     }
+
     function processCreateResponse(result){
         displayPattern = convertServerPatternToDisplayPattern(result)
         addPatternToTable(displayPattern)
         showViewall()
         clearForm()
     }
+
     // I should set this as the default function for the callback
     function doNothing(result){
         console.log("nothing:"+result)
         return "done"
     }
-     getAll(processGetAllResponse)
+     //getAll(processGetAllResponse)
 
+    function getAllAjax(){
+    $.ajax({
+        "url": "/patterns",
+        "method":"GET",
+        "data":"",
+        "dataType": "JSON",
+        "success":function(result){
+            //console.log(result);
+            for (pattern of result){
+                addPatternToTable(pattern);
+            }
+            
+        },
+        "error":function(xhr,status,error){
+            console.log("error: "+status+" msg:"+error);
+        }
+    });
+    }
+function createPatternAjax(pattern){
+    //var pattern = {"title":"yoto", "author":"momo","price":800}
+    console.log(JSON.stringify(pattern));
+    $.ajax({
+        "url": "/patterns",
+        "method":"POST",
+        "data":JSON.stringify(pattern),
+        "dataType": "JSON",
+        contentType: "application/json; charset=utf-8",
+        "success":function(result){
+            //console.log(result);
+            pattern.patternID = result.patternID
+            addPatternToTable(pattern)
+            clearForm()
+            showViewAll()
+        },
+        "error":function(xhr,status,error){
+            console.log("error: "+status+" msg:"+error);
+        }
+    });
+}
+function updatePatternAjax(pattern){
+    //var book = {"title":"yoto", "author":"momo","price":800}
+    console.log(JSON.stringify(pattern));
+    $.ajax({
+        "url": "/patterns/"+encodeURI(pattern.patternID),
+        "method":"PUT",
+        "data":JSON.stringify(pattern),
+        "dataType": "JSON",
+        contentType: "application/json; charset=utf-8",
+        "success":function(result){
+           // console.log(result);
+              
+        },
+        "error":function(xhr,status,error){
+            console.log("error: "+status+" msg:"+error);
+        }
+    });
+}
+function deletePatternAjax(patternID){
+    
+    //console.log(JSON.stringify('deleting '+id));
+    $.ajax({
+        "url": "/patterns/"+encodeURI(patternID),
+        "method":"DELETE",
+        "data":"",
+        "dataType": "JSON",
+        contentType: "application/json; charset=utf-8",
+        "success":function(result){
+            //console.log(result);
+              
+        },
+        "error":function(xhr,status,error){
+            console.log("error: "+status+" msg:"+error);
+        }
+    });
+}
+getAllAjax();
 </script>
 </html>

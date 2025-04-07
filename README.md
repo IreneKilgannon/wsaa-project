@@ -59,3 +59,5 @@ HTML & CSS Full Course for free, Bro Code, YouTube
 
 Modern Responsive Table Using DataTable, Step by step guide devRasen https://www.youtube.com/watch?v=1CPli6lkKCY
 
+
+How to use MySQL Database with Flask, Codemy.com https://www.youtube.com/watch?v=hQl2wyJvK5k
