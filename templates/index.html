@@ -6,6 +6,9 @@
     <title>View sewing patterns</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 <body>
     <div class="container p-3 my-5 bg-light border-primary">
@@ -26,46 +29,6 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>V9075</td>
-                <td>Vogue</td>
-                <td>Dress</td>
-                <td>Woven</td>
-                <td>Gathered Skirt</td>
-                <td>1</td>
-                <td><button onclick="showUpdate(this)">Update</button></td>
-                <td><button onclick="doDelete(this)">Delete</button></td>
-            </tr>
-            <tr>
-                <td>S8014</td>
-                <td>Simplicity</td>
-                <td>Dress</td>
-                <td>Woven</td>
-                <td>Shirt dress</td>
-                <td>1</td>
-                <td><button onclick="showUpdate(this)">Update</button></td>
-                <td><button onclick="doDelete(this)">Delete</button></td>
-            </tr>
-            <tr>
-                <td>S2247</td>
-                <td>Simplicity</td>
-                <td>Dress</td>
-                <td>Woven</td>
-                <td>Princess seam dress with short sleeves</td>
-                <td>1</td>
-                <td><button onclick="showUpdate(this)">Update</button></td>
-                <td><button onclick="doDelete(this)">Delete</button></td>
-            </tr>
-            <tr>
-                <td>B6720</td>
-                <td>Butterick</td>
-                <td>Coat</td>
-                <td>Woven</td>
-                <td>Loose fitting coat with belt</td>
-                <td>1</td>
-                <td><button onclick="showUpdate(this)">Update</button></td>
-                <td><button onclick="doDelete(this)">Delete</button></td>
-            </tr>
         </tbody>
     </table>
     </div>
@@ -84,9 +47,38 @@
         <span><button id="button-doUpdate" onclick="doUpdate()">Update</button></span>
          <!-- "display:none" will make it hidden-->
     
+        <form action="">
+            <label for="patternID">PatternID: </label><br>
+            <input type="text" id="patternID" name="patternID"><br>
+            <label for="brand">Brand: </label><br>
+            <input type="text" id="brand" name="brand"><br>
+            <label for="category">Category: </label>
+            <select name="category" id="category">
+                <option value="coat">Coat</option>
+                <option value="coordinates">Coordinates</option>
+                <option value="dress">Dress</option>
+                <option value="jacket">Jacket</option>
+                <option value="shirt">Shirt</option>
+                <option value="skirt">Skirt</option>
+                <option value="sleepwear">Sleepwear</option>
+                <option value="trousers">Trousers</option>
+                <option value="top">Top</option>
+            </select><br>
+            <label for="fabric_type">Fabric Type: </label>
+            <select name="fabric_type" id="fabric_type">
+                <option value="woven">Woven</option>
+                <option value="stretch">Stretch</option>
+            </select><br>
+            <label for="description">Description: </label><br>
+            <input type="text" id="description" name="description"><br>
+            <label for="ownerID">OwnerID: </label><br>
+            <input type="text" id="ownerID" name="ownerID"><br>
+        </form>
     </div>
 
+
 <br>
+</body>
 
 <script>
     //console.log("hello world")
@@ -109,8 +101,8 @@
         document.getElementById("button-showCreate").style.display = "none"
         document.getElementById("patternTable").style.display = "none"
 
-        rowElement= buttonElement.parentNode.parentNode
-        pattern = getPatternFromRow(rowElement)
+        var rowElement= buttonElement.parentNode.parentNode
+        var pattern = getPatternFromRow(rowElement)
         //console.log("updating")
         //console.log(Pattern)
         populateFormWithPattern(pattern)
@@ -122,10 +114,10 @@
         document.getElementById("patternTable").style.display = "block"
         
     }
+
     function clearForm(){
         var form = document.getElementById('createUpdateForm')
 
-        form.querySelector('input[name="patternID"]').disabled = false
         form.querySelector('input[name="patternID"]').value =''
         form.querySelector('input[name="brand"]').value=''
         form.querySelector('input[name="category"]').value =''
@@ -144,7 +136,7 @@
         pattern.fabric_type = form.querySelector('input[name="fabric_type"]').value
         pattern.description = form.querySelector('input[name="description"]').value
         pattern.ownerID = form.querySelector('input[name="ownerID"]').value
-        //console.log(JSON.stringify(pattern))
+        console.log(JSON.stringify(pattern))
         return pattern
     }
 
@@ -157,15 +149,15 @@
         form.querySelector('input[name="category"]').value= pattern.category;
         form.querySelector('input[name="fabric_type"]').value= pattern.fabric_type;
         form.querySelector('input[name = "description"]').value = pattern.description;
-        form.querySelector('input[name="ownerID"]').value = pattern.ownerID;
+        form.querySelector('input[name="ownerID"]').value = pattern.ownerID
+        return pattern
     }
-
 
     function addPatternToTable(pattern){
         var tableElement = document.getElementById('patternTable')
         var rowElement = tableElement.insertRow(-1)
         
-        rowElement.id = pattern.patternID
+        rowElement.setAttribute('patternID', pattern.patternID)
         
         var cell1 = rowElement.insertCell(0);
         cell1.innerHTML = pattern.patternID
@@ -182,13 +174,13 @@
         var cell7 = rowElement.insertCell(6);
         cell7.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
         var cell8 = rowElement.insertCell(7);
-        cell8.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+        cell8.innerHTML = '<button onclick=doDelete(this)>Delete</button>'
     }
 
     function getPatternFromRow(rowElement){
         var pattern ={}
 
-        pattern.patternID  = rowElement.cells[0].textContent
+        pattern.patternID  = rowElement.getAttribute('patternID')
         pattern.brand = rowElement.cells[1].textContent
         pattern.category = rowElement.cells[2].textContent
         pattern.fabric_type = rowElement.cells[3].textContent
@@ -208,31 +200,38 @@
     }
 
     function doCreate(){
-        console.log("creating a sewing pattern")
-        pattern = getPatternFromForm()
+        var form = document.getElementById('createUpdateForm');
+        var pattern = {}
+
+        pattern.patternID = form.querySelector('input[name="patternID"]').value
+        pattern.brand = form.querySelector('input[name="brand"]').value
+        pattern.category = form.querySelector('input[name="category"]').value
+        pattern.fabric_type = form.querySelector('input[name="fabric_type"]').value
+        pattern.description = form.querySelector('input[name="description"]').value
+        pattern.ownerID = form.querySelector('input[name="ownerID"]').value
+        console.log(JSON.stringify(pattern))
         //console.log(pattern)
         createPatternAjax(pattern)
     }
 
     function doUpdate(){
         pattern= getPatternFromForm()
-        var rowElement = document.getElementById(pattern.patternID)
+        var rowElement = document.getElementById(pattern.patternID);
 
-        updatePatternAjax(pattern)
+        updatePatternAjax(pattern);
         setPatternInRow(rowElement, pattern)
-        clearForm()
-        showViewall()
+        clearForm();
     }
 
-    function doDelete(buttonElement){
+    function doDelete(r){
         console.log("in delete")
         var tableElement = document.getElementById('patternTable');
-        var rowElement = buttonElement.parentNode.parentNode;
+        var rowElement = r.parentNode.parentNode;
         var index = rowElement.rowIndex;
         // I need the pattern number
         
         //console.log("deleting "+ rowElement.getAttribute("patternID"))
-        deletePatternAjax(rowElement.getAttribute("patternID"))
+        deletePatternAjax(rowElement.getAttribute("patternID"));
         tableElement.deleteRow(index);
         showViewall()
     }
@@ -312,64 +311,66 @@
             console.log("error: "+status+" msg:"+error);
         }
     });
+        }
+    function createPatternAjax(pattern){
+        //var pattern = {"title":"yoto", "author":"momo","price":800}
+        console.log(JSON.stringify(pattern));
+        $.ajax({
+            "url": "/patterns",
+            "method":"POST",
+            "data":JSON.stringify(pattern),
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+                //console.log(result);
+                pattern.patternID = result.patternID
+                addPatternToTable(pattern)
+                clearForm()
+                showViewAll()
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
     }
-function createPatternAjax(pattern){
-    //var pattern = {"title":"yoto", "author":"momo","price":800}
-    console.log(JSON.stringify(pattern));
-    $.ajax({
-        "url": "/patterns",
-        "method":"POST",
-        "data":JSON.stringify(pattern),
-        "dataType": "JSON",
-        contentType: "application/json; charset=utf-8",
-        "success":function(result){
-            //console.log(result);
-            pattern.patternID = result.patternID
-            addPatternToTable(pattern)
-            clearForm()
-            showViewAll()
-        },
-        "error":function(xhr,status,error){
-            console.log("error: "+status+" msg:"+error);
-        }
-    });
-}
-function updatePatternAjax(pattern){
-    //var book = {"title":"yoto", "author":"momo","price":800}
-    console.log(JSON.stringify(pattern));
-    $.ajax({
-        "url": "/patterns/"+encodeURI(pattern.patternID),
-        "method":"PUT",
-        "data":JSON.stringify(pattern),
-        "dataType": "JSON",
-        contentType: "application/json; charset=utf-8",
-        "success":function(result){
-           // console.log(result);
-              
-        },
-        "error":function(xhr,status,error){
-            console.log("error: "+status+" msg:"+error);
-        }
-    });
-}
-function deletePatternAjax(patternID){
+    function updatePatternAjax(pattern){
+        //var book = {"title":"yoto", "author":"momo","price":800}
+        console.log(JSON.stringify(pattern));
+        $.ajax({
+            "url": "/patterns/"+encodeURI(pattern.patternID),
+            "method":"PUT",
+            "data":JSON.stringify(pattern),
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+                console.log(result);
+                  
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
     
-    //console.log(JSON.stringify('deleting '+id));
-    $.ajax({
-        "url": "/patterns/"+encodeURI(patternID),
-        "method":"DELETE",
-        "data":"",
-        "dataType": "JSON",
-        contentType: "application/json; charset=utf-8",
-        "success":function(result){
-            //console.log(result);
-              
-        },
-        "error":function(xhr,status,error){
-            console.log("error: "+status+" msg:"+error);
-        }
-    });
-}
-getAllAjax();
+    function deletePatternAjax(patternID){
+        
+        //console.log(JSON.stringify('deleting '+id));
+        $.ajax({
+            "url": "/patterns/"+encodeURI(patternID),
+            "method":"DELETE",
+            "data":"",
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+                //console.log(result);
+                  
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+
+    getAllAjax();
 </script>
 </html>

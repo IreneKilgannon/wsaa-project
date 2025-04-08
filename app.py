@@ -10,7 +10,7 @@ def index():
 
 
 # Get all patterns
-@app.route('/')
+@app.route('/patterns', methods = ['GET'])
 def getAll():
     return jsonify(patternDAO.getAll())
 
@@ -60,7 +60,7 @@ def create():
 
 # Update a pattern
 @app.route('/patterns/<patternID>', methods=['PUT'])
-def update_age(patternID):
+def update_pattern(patternID):
     foundPattern = patternDAO.findByID(patternID)
     print (foundPattern)
     if foundPattern == {}:
@@ -83,7 +83,7 @@ def update_age(patternID):
 
 
 #  Delete
-@app.route('/patterns', methods=['DELETE'])
+@app.route('/patterns/<patternID>', methods=['DELETE'])
 def delete(patternID):
     patternDAO.delete(patternID)
     return jsonify({"done": True})

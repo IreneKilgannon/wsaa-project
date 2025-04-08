@@ -50,7 +50,7 @@ class PatternDAO:
         for row in results:
             patterns.append(self.convertToDictionary(row))
         self.closeAll()
-        return results
+        return patterns
 
 # View by ID
     def findByID(self, patternID):
@@ -70,7 +70,7 @@ class PatternDAO:
         values = (category, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
-        returnvalue = self.convertToDictionary(result)
+        returnvalue = [self.convertToDictionary(row) for row in result]
         self.closeAll()
         return returnvalue 
 
@@ -81,7 +81,7 @@ class PatternDAO:
         values = (brand, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
-        returnvalue = self.convertToDictionary(result)
+        returnvalue = [self.convertToDictionary(row) for row in result]
         self.closeAll()
         return returnvalue 
 
@@ -92,7 +92,7 @@ class PatternDAO:
         values = (fabric_type, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
-        returnvalue = self.convertToDictionary(result)
+        returnvalue = [self.convertToDictionary(row) for row in result]
         self.closeAll()
         return returnvalue 
 
@@ -103,7 +103,7 @@ class PatternDAO:
         values = (name, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
-        returnvalue = self.convertToDictionary(result)
+        returnvalue = [self.convertToDictionary(row) for row in result]
         self.closeAll()
         return returnvalue 
     
@@ -127,6 +127,7 @@ class PatternDAO:
         self.connection.commit()
         self.closeAll()
         return pattern
+
 
 # Delete
     def delete(self, patternID):
