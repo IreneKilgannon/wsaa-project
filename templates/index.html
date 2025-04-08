@@ -23,6 +23,7 @@
                 <th>Category</th>
                 <th>Fabric Type</th>
                 <th>Description</th>
+                <th>Format</th>
                 <th>OwnerID</th>
                 <th>Update</th>
                 <th>Delete</th>
@@ -42,6 +43,7 @@
         Category <input type="text" name="category"><br/>
         Fabric Type<input type="text" name="fabric_type"><br/>
         Description<input type="text" name="description"><br>
+        Format<input type="text" name="format"><br>
         OwnerID<input type="number" name="ownerID"><br>
         <span><button id="button-doCreate" onclick="doCreate()">Create</button></span>
         <span><button id="button-doUpdate" onclick="doUpdate()">Update</button></span>
@@ -71,6 +73,11 @@
             </select><br>
             <label for="description">Description: </label><br>
             <input type="text" id="description" name="description"><br>
+            <label for="format">Format: </label>
+            <select name="format" id="format">
+                <option value="Paper">Paper</option>
+                <option value="PDF">PDF</option>
+            </select><br>
             <label for="ownerID">OwnerID: </label><br>
             <input type="text" id="ownerID" name="ownerID"><br>
         </form>
@@ -123,6 +130,7 @@
         form.querySelector('input[name="category"]').value =''
         form.querySelector('input[name="fabric_type"]').value= ''
         form.querySelector('input[name="description"]').value=''
+        form.querySelector('input[name="format"]').value=''
         form.querySelector('input[name="ownerID"]').value=''
     }
     
@@ -135,6 +143,7 @@
         pattern.category = form.querySelector('input[name="category"]').value
         pattern.fabric_type = form.querySelector('input[name="fabric_type"]').value
         pattern.description = form.querySelector('input[name="description"]').value
+        pattern.format = form.querySelector('input[name="format"]').value=''
         pattern.ownerID = form.querySelector('input[name="ownerID"]').value
         console.log(JSON.stringify(pattern))
         return pattern
@@ -149,7 +158,8 @@
         form.querySelector('input[name="category"]').value= pattern.category;
         form.querySelector('input[name="fabric_type"]').value= pattern.fabric_type;
         form.querySelector('input[name = "description"]').value = pattern.description;
-        form.querySelector('input[name="ownerID"]').value = pattern.ownerID
+        form.querySelector('input[name="format"]').value= pattern.format;
+        form.querySelector('input[name="ownerID"]').value = pattern.ownerID;
         return pattern
     }
 
@@ -170,11 +180,13 @@
         var cell5 = rowElement.insertCell(4);
         cell5.innerHTML = pattern.description
         var cell6 = rowElement.insertCell(5);
-        cell6.innerHTML = pattern.ownerID
+        cell6.innerHTML = pattern.format
         var cell7 = rowElement.insertCell(6);
-        cell7.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        cell7.innerHTML = pattern.ownerID
         var cell8 = rowElement.insertCell(7);
-        cell8.innerHTML = '<button onclick=doDelete(this)>Delete</button>'
+        cell8.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        var cell9 = rowElement.insertCell(8);
+        cell9.innerHTML = '<button onclick=doDelete(this)>Delete</button>'
     }
 
     function getPatternFromRow(rowElement){
@@ -185,7 +197,8 @@
         pattern.category = rowElement.cells[2].textContent
         pattern.fabric_type = rowElement.cells[3].textContent
         pattern.description = rowElement.cells[4].textContent
-        pattern.ownerID = rowElement.cells[5].textContent
+        pattern.format = rowElement.cells[5].textContent
+        pattern.ownerID = rowElement.cells[6].textContent
         return pattern
     }
 
@@ -195,7 +208,8 @@
         rowElement.cells[2].firstChild.textContent= pattern.category
         rowElement.cells[3].firstChild.textContent= pattern.fabric_type
         rowElement.cells[4].firstChild.textContent= pattern.description
-        rowElement.cells[5].firstChild.textContent= pattern.ownerID
+        rowElement.cells[5].firstChild.textContent= pattern.format
+        rowElement.cells[6].firstChild.textContent= pattern.ownerID
     
     }
 
@@ -208,6 +222,7 @@
         pattern.category = form.querySelector('input[name="category"]').value
         pattern.fabric_type = form.querySelector('input[name="fabric_type"]').value
         pattern.description = form.querySelector('input[name="description"]').value
+        pattern.format = form.querySelector('input[name="format"]').value
         pattern.ownerID = form.querySelector('input[name="ownerID"]').value
         console.log(JSON.stringify(pattern))
         //console.log(pattern)
@@ -241,16 +256,14 @@
         console.log("in process")
         //console.log(result)
         for (pattern of result){
-            //console.log(pattern)
-            // issue the format of the pattern object is different from lab06.02
-            // there are two solutions change the pattern object in lan06.02 to have capitals
-            // or convert
+            console.log(pattern)
             displayPattern = {}
             displayPattern.patternID = pattern.patternID
             displayPattern.brand = pattern.brand
             displayPattern.category = pattern.category
             displayPattern.fabric_type = pattern.fabric_type
             displayPattern.description = pattern.description
+            displayPattern.format = pattern.format
             displayPattern.ownerID = pattern.ownerID
 
             // you can now pass it to addPatternToTable
@@ -265,6 +278,7 @@
         serverPattern.brand = displayPattern.brand
         serverPattern.category = displayPattern.category
         serverPattern.description = displayPattern.description
+        serverPattern.format = displayPattern.format
         serverPattern.ownerID = displayPattern.ownerID 
         //serverPattern.price = parseInt(displayPattern.price) // convert the string to an int
         return serverPattern
@@ -276,6 +290,7 @@
         displayPattern.brand = pattern.brand
         displayPattern.category = pattern.category
         displayPattern.description = pattern.description
+        displayPattern.format = pattern.format
         displayPattern.ownerID = pattern.ownerID
         return displayPattern
     }
@@ -301,7 +316,7 @@
         "data":"",
         "dataType": "JSON",
         "success":function(result){
-            //console.log(result);
+            console.log(result);
             for (pattern of result){
                 addPatternToTable(pattern);
             }
@@ -312,6 +327,7 @@
         }
     });
         }
+
     function createPatternAjax(pattern){
         //var pattern = {"title":"yoto", "author":"momo","price":800}
         console.log(JSON.stringify(pattern));
@@ -351,7 +367,7 @@
             }
         });
     }
-    
+
     function deletePatternAjax(patternID){
         
         //console.log(JSON.stringify('deleting '+id));

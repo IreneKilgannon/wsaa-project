@@ -32,7 +32,7 @@ class PatternDAO:
         self.cursor.close()
 #
     def convertToDictionary(self, resultLine):
-        attkeys=['patternID', 'brand','category', 'fabric_type', 'description', 'ownerID']
+        attkeys=['patternID', 'brand','category', 'fabric_type', 'description', 'format', 'ownerID']
         pattern = {}
         currentkey = 0
         for attrib in resultLine:
@@ -110,8 +110,8 @@ class PatternDAO:
 # Create a pattern
     def create(self, pattern):
         cursor = self.getCursor()
-        sql = "INSERT INTO patterns (patternID, brand, category, fabric_type, description, ownerID) VALUES (%s, %s, %s, %s, %s, %s)"
-        values = [pattern['patternID'], pattern['brand'], pattern['category'], pattern['fabric_type'], pattern['description'], pattern['ownerID']]
+        sql = "INSERT INTO patterns (patternID, brand, category, fabric_type, description, format, ownerID) VALUES (%s, %s, %s, %s, %s, %s)"
+        values = [pattern['patternID'], pattern['brand'], pattern['category'], pattern['fabric_type'], pattern['description'], pattern['format'], pattern['ownerID']]
         cursor.execute(sql, values)
         self.connection.commit()
         newid = cursor.lastrowid
@@ -121,8 +121,8 @@ class PatternDAO:
 # Update a pattern
     def update(self, pattern):
         cursor = self.getCursor()
-        sql = "UPDATE patterns SET brand = %s, category = %s, fabric_type = %s, description = %s, ownerID= %s WHERE patternID = %s"
-        values = (pattern.get("brand"), pattern.get("category"), pattern.get("fabric_type"), pattern.get("description"), pattern.get('ownerID'), pattern.get("patternID"))
+        sql = "UPDATE patterns SET brand = %s, category = %s, fabric_type = %s, description = %s, format = %s, ownerID= %s WHERE patternID = %s"
+        values = (pattern.get("brand"), pattern.get("category"), pattern.get("fabric_type"), pattern.get("description"), pattern.get('format'), pattern.get('ownerID'), pattern.get("patternID"))
         cursor.execute(sql, values)
         self.connection.commit()
         self.closeAll()
