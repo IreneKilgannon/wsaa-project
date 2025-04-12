@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View sewing patterns</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    
 
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    
 </head>
 <body>
     <div class="container p-3 my-5 bg-light border-primary">
     <h1>Sewing Patterns</h1>
-    <div><button id="button-showCreate" onclick="showCreate()">Add a sewing pattern</button></div>
+    <div><button id="button-showCreate" onclick="showCreate()">Add a sewing pattern</button></div><br>
     
-    <table id="patternTable">
+    <table class="table" id="patternTable">
         <thead>
             <tr>
                 <th>PatternID</th>
@@ -29,62 +30,46 @@
                 <th>Delete</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table table-hover">
         </tbody>
     </table>
-    </div>
+    
 
     <br/>
     <div id="createUpdateForm" style="display:none">
         <!-- spans are like divs but do not go onto a new line -->
         <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update this</span> Sewing Pattern</h2>
-        PatternID<input type="text" name="patternID"><br/>
-        Brand <input type="text" name="brand"><br/>
-        Category <input type="text" name="category"><br/>
-        Fabric Type<input type="text" name="fabric_type"><br/>
-        Description<input type="text" name="description"><br>
-        Format<input type="text" name="format"><br>
-        OwnerID<input type="number" name="ownerID"><br>
+        PatternID <br><input type="text" name="patternID"><br/>
+        Brand <br><input type="text" name="brand"><br/>
+        Category <br><select name="category">
+            <option value="coat">Coat</option>
+            <option value="coordinates">Coordinates</option>
+            <option value="dress">Dress</option>
+            <option value="jacket">Jacket</option>
+            <option value="shirt">Shirt</option>
+            <option value="skirt">Skirt</option>
+            <option value="sleepwear">Sleepwear</option>
+            <option value="trousers">Trousers</option>
+            <option value="top">Top</option><br>
+            </select><br/>
+        Fabric Type <br><select name="fabric_type">
+            <option value="woven">Woven</option>
+            <option value="stretch">Stretch</option>
+            <option value="all">All</option><br/>
+            </select><br/>
+        Description <br><input name="description"><br>
+        Format<br><select name="format">
+            <option value="Paper">Paper</option>
+            <option value="PDF">PDF</option>
+            </select><br>
+        OwnerID<br><input type="number" name="ownerID"><br><br>
         <span><button id="button-doCreate" onclick="doCreate()">Create</button></span>
         <span><button id="button-doUpdate" onclick="doUpdate()">Update</button></span>
          <!-- "display:none" will make it hidden-->
-    
-        <form action="">
-            <label for="patternID">PatternID: </label><br>
-            <input type="text" id="patternID" name="patternID"><br>
-            <label for="brand">Brand: </label><br>
-            <input type="text" id="brand" name="brand"><br>
-            <label for="category">Category: </label>
-            <select name="category" id="category">
-                <option value="coat">Coat</option>
-                <option value="coordinates">Coordinates</option>
-                <option value="dress">Dress</option>
-                <option value="jacket">Jacket</option>
-                <option value="shirt">Shirt</option>
-                <option value="skirt">Skirt</option>
-                <option value="sleepwear">Sleepwear</option>
-                <option value="trousers">Trousers</option>
-                <option value="top">Top</option>
-            </select><br>
-            <label for="fabric_type">Fabric Type: </label>
-            <select name="fabric_type" id="fabric_type">
-                <option value="woven">Woven</option>
-                <option value="stretch">Stretch</option>
-            </select><br>
-            <label for="description">Description: </label><br>
-            <input type="text" id="description" name="description"><br>
-            <label for="format">Format: </label>
-            <select name="format" id="format">
-                <option value="Paper">Paper</option>
-                <option value="PDF">PDF</option>
-            </select><br>
-            <label for="ownerID">OwnerID: </label><br>
-            <input type="text" id="ownerID" name="ownerID"><br>
-        </form>
     </div>
 
 
-<br>
+</div>
 </body>
 
 <script>
@@ -115,36 +100,37 @@
         populateFormWithPattern(pattern)
     }
 
-    function showViewall(){
+    function showViewAll(){
+        console.log('showing view all')
         document.getElementById("createUpdateForm").style.display = "none"
         document.getElementById("button-showCreate").style.display = "block"
-        document.getElementById("patternTable").style.display = "block"
+        document.getElementById("patternTable").style.display = "table"
         
     }
 
     function clearForm(){
         var form = document.getElementById('createUpdateForm')
 
-        form.querySelector('input[name="patternID"]').value =''
-        form.querySelector('input[name="brand"]').value=''
-        form.querySelector('input[name="category"]').value =''
-        form.querySelector('input[name="fabric_type"]').value= ''
-        form.querySelector('input[name="description"]').value=''
-        form.querySelector('input[name="format"]').value=''
-        form.querySelector('input[name="ownerID"]').value=''
+        form.querySelector('[name="patternID"]').value =''
+        form.querySelector('[name="brand"]').value=''
+        form.querySelector('[name="category"]').value =''
+        form.querySelector('[name="fabric_type"]').value= ''
+        form.querySelector('[name="description"]').value=''
+        form.querySelector('[name="format"]').value=''
+        form.querySelector('[name="ownerID"]').value=''
     }
     
     function getPatternFromForm(){
         var form = document.getElementById('createUpdateForm')
         var pattern = {}
 
-        pattern.patternID = form.querySelector('input[name="patternID"]').value
-        pattern.brand = form.querySelector('input[name="brand"]').value
-        pattern.category = form.querySelector('input[name="category"]').value
-        pattern.fabric_type = form.querySelector('input[name="fabric_type"]').value
-        pattern.description = form.querySelector('input[name="description"]').value
-        pattern.format = form.querySelector('input[name="format"]').value=''
-        pattern.ownerID = form.querySelector('input[name="ownerID"]').value
+        pattern.patternID = form.querySelector('[name="patternID"]').value
+        pattern.brand = form.querySelector('[name="brand"]').value
+        pattern.category = form.querySelector('[name="category"]').value
+        pattern.fabric_type = form.querySelector('[name="fabric_type"]').value
+        pattern.description = form.querySelector('[name="description"]').value
+        pattern.format = form.querySelector('[name="format"]').value
+        pattern.ownerID = form.querySelector('[name="ownerID"]').value
         console.log(JSON.stringify(pattern))
         return pattern
     }
@@ -152,14 +138,14 @@
     function populateFormWithPattern(pattern){
         var form = document.getElementById('createUpdateForm');
 
-        form.querySelector('input[name="patternID"]').disabled = true;
-        form.querySelector('input[name="patternID"]').value  = pattern.patternID;
-        form.querySelector('input[name="brand"]').value= pattern.brand;
-        form.querySelector('input[name="category"]').value= pattern.category;
-        form.querySelector('input[name="fabric_type"]').value= pattern.fabric_type;
-        form.querySelector('input[name = "description"]').value = pattern.description;
-        form.querySelector('input[name="format"]').value= pattern.format;
-        form.querySelector('input[name="ownerID"]').value = pattern.ownerID;
+        form.querySelector('[name="patternID"]').disabled = true;
+        form.querySelector('[name="patternID"]').value  = pattern.patternID;
+        form.querySelector('[name="brand"]').value= pattern.brand;
+        form.querySelector('[name="category"]').value= pattern.category;
+        form.querySelector('[name="fabric_type"]').value= pattern.fabric_type;
+        form.querySelector('[name = "description"]').value = pattern.description;
+        form.querySelector('[name="format"]').value= pattern.format;
+        form.querySelector('[name="ownerID"]').value = pattern.ownerID;
         return pattern
     }
 
@@ -217,13 +203,13 @@
         var form = document.getElementById('createUpdateForm');
         var pattern = {}
 
-        pattern.patternID = form.querySelector('input[name="patternID"]').value
-        pattern.brand = form.querySelector('input[name="brand"]').value
-        pattern.category = form.querySelector('input[name="category"]').value
-        pattern.fabric_type = form.querySelector('input[name="fabric_type"]').value
-        pattern.description = form.querySelector('input[name="description"]').value
-        pattern.format = form.querySelector('input[name="format"]').value
-        pattern.ownerID = form.querySelector('input[name="ownerID"]').value
+        pattern.patternID = form.querySelector('[name="patternID"]').value
+        pattern.brand = form.querySelector('[name="brand"]').value
+        pattern.category = form.querySelector('[name="category"]').value
+        pattern.fabric_type = form.querySelector('[name="fabric_type"]').value
+        pattern.description = form.querySelector('[name="description"]').value
+        pattern.format = form.querySelector('[name="format"]').value
+        pattern.ownerID = form.querySelector('[name="ownerID"]').value
         console.log(JSON.stringify(pattern))
         //console.log(pattern)
         createPatternAjax(pattern)
@@ -248,7 +234,7 @@
         //console.log("deleting "+ rowElement.getAttribute("patternID"))
         deletePatternAjax(rowElement.getAttribute("patternID"));
         tableElement.deleteRow(index);
-        showViewall()
+        showViewAll()
     }
 
     // populate the table
@@ -298,7 +284,7 @@
     function processCreateResponse(result){
         displayPattern = convertServerPatternToDisplayPattern(result)
         addPatternToTable(displayPattern)
-        showViewall()
+        showViewAll()
         clearForm()
     }
 
@@ -340,9 +326,9 @@
             "success":function(result){
                 //console.log(result);
                 pattern.patternID = result.patternID
-                addPatternToTable(pattern)
-                clearForm()
-                showViewAll()
+                addPatternToTable(pattern);
+                clearForm();
+                showViewAll();
             },
             "error":function(xhr,status,error){
                 console.log("error: "+status+" msg:"+error);
@@ -360,6 +346,8 @@
             contentType: "application/json; charset=utf-8",
             "success":function(result){
                 console.log(result);
+                clearForm();
+                showViewAll()
                   
             },
             "error":function(xhr,status,error){

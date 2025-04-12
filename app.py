@@ -1,7 +1,7 @@
 from flask import Flask, url_for, request, redirect, abort, jsonify, render_template
 from PatternDAO import patternDAO
 
-app = Flask(__name__, static_url_path='', static_folder='staticpages')
+app = Flask(__name__, static_url_path='', static_folder='static')
 
 
 @app.route('/')

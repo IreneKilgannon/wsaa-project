@@ -110,7 +110,7 @@ class PatternDAO:
 # Create a pattern
     def create(self, pattern):
         cursor = self.getCursor()
-        sql = "INSERT INTO patterns (patternID, brand, category, fabric_type, description, format, ownerID) VALUES (%s, %s, %s, %s, %s, %s)"
+        sql = "INSERT INTO patterns (patternID, brand, category, fabric_type, description, format, ownerID) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         values = [pattern['patternID'], pattern['brand'], pattern['category'], pattern['fabric_type'], pattern['description'], pattern['format'], pattern['ownerID']]
         cursor.execute(sql, values)
         self.connection.commit()
@@ -127,7 +127,6 @@ class PatternDAO:
         self.connection.commit()
         self.closeAll()
         return pattern
-
 
 # Delete
     def delete(self, patternID):
