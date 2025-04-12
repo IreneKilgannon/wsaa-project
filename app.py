@@ -56,7 +56,7 @@ def create():
         "format": request.json["format"],
         "ownerID": request.json["ownerID"]
     }
-    return jsonify(patternDAO.create(pattern))
+    return jsonify(patternDAO.create(pattern)), 201
 
 
 # Update a pattern
