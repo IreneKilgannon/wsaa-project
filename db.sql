@@ -17,9 +17,11 @@ create table patterns (
     fabric_type ENUM ('Woven', 'Stretch', 'All') NOT NULL,
     description VARCHAR(255),
     format ENUM ('Paper', 'PDF')
-    ownerID INTEGER NOT NULL,
+    userID INTEGER NOT NULL,
     PRIMARY KEY (patternID),
-    FOREIGN KEY (ownerID) REFERENCES users (userID)
+    FOREIGN KEY (userID) REFERENCES users (userID)
+    ON DELETE cascade
+    ON UPDATE cascate
     );
 
 

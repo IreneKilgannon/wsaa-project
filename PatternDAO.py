@@ -32,7 +32,7 @@ class PatternDAO:
         self.cursor.close()
 #
     def convertToDictionary(self, resultLine):
-        attkeys=['patternID', 'brand','category', 'fabric_type', 'description', 'format', 'ownerID']
+        attkeys=['patternID', 'brand','category', 'fabric_type', 'description', 'format', 'userID']
         pattern = {}
         currentkey = 0
         for attrib in resultLine:
@@ -99,7 +99,7 @@ class PatternDAO:
 # View by Owner Name
     def findByOwner(self, name):
         cursor = self.getCursor()
-        sql = "SELECT p.* FROM patterns p join users u on p.ownerID = u.userID WHERE u.name = %s"
+        sql = "SELECT p.* FROM patterns p join users u on p.userID = u.userID WHERE u.name = %s"
         values = (name, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
@@ -110,8 +110,8 @@ class PatternDAO:
 # Create a pattern
     def create(self, pattern):
         cursor = self.getCursor()
-        sql = "INSERT INTO patterns (patternID, brand, category, fabric_type, description, format, ownerID) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        values = [pattern['patternID'], pattern['brand'], pattern['category'], pattern['fabric_type'], pattern['description'], pattern['format'], pattern['ownerID']]
+        sql = "INSERT INTO patterns (patternID, brand, category, fabric_type, description, format, userID) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        values = [pattern['patternID'], pattern['brand'], pattern['category'], pattern['fabric_type'], pattern['description'], pattern['format'], pattern['userID']]
         cursor.execute(sql, values)
         self.connection.commit()
         newid = cursor.lastrowid
@@ -121,8 +121,8 @@ class PatternDAO:
 # Update a pattern
     def update(self, pattern):
         cursor = self.getCursor()
-        sql = "UPDATE patterns SET brand = %s, category = %s, fabric_type = %s, description = %s, format = %s, ownerID= %s WHERE patternID = %s"
-        values = (pattern.get("brand"), pattern.get("category"), pattern.get("fabric_type"), pattern.get("description"), pattern.get('format'), pattern.get('ownerID'), pattern.get("patternID"))
+        sql = "UPDATE patterns SET brand = %s, category = %s, fabric_type = %s, description = %s, format = %s, userID= %s WHERE patternID = %s"
+        values = (pattern.get("brand"), pattern.get("category"), pattern.get("fabric_type"), pattern.get("description"), pattern.get('format'), pattern.get('userID'), pattern.get("patternID"))
         cursor.execute(sql, values)
         self.connection.commit()
         self.closeAll()

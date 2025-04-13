@@ -54,7 +54,7 @@ def create():
         "fabric_type": request.json["fabric_type"],
         "description": request.json["description"],
         "format": request.json["format"],
-        "ownerID": request.json["ownerID"]
+        "userID": request.json["userID"]
     }
     return jsonify(patternDAO.create(pattern)), 201
 
@@ -79,8 +79,8 @@ def update_pattern(patternID):
         currentPattern['description'] = request.json['description']
     if 'format' in request.json:
         currentPattern['format'] = request.json['format']
-    if 'ownerID' in request.json:
-        currentPattern['ownerID'] = request.json['ownerID']
+    if 'userID' in request.json:
+        currentPattern['userID'] = request.json['userID']
     patternDAO.update(currentPattern)
     return jsonify(currentPattern)
 

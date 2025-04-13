@@ -24,7 +24,7 @@
                 <th>Fabric Type</th>
                 <th>Description</th>
                 <th>Format</th>
-                <th>OwnerID</th>
+                <th>userID</th>
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
@@ -61,7 +61,7 @@
             <option value="Paper">Paper</option>
             <option value="PDF">PDF</option>
             </select><br>
-        OwnerID<br><input type="number" name="ownerID"><br><br>
+        userID<br><input type="number" name="userID"><br><br>
         <span><button id="button-doCreate" onclick="doCreate()">Create</button></span>
         <span><button id="button-doUpdate" onclick="doUpdate()">Update</button></span>
     </div>
@@ -114,7 +114,7 @@
         pattern.fabric_type = form.querySelector('[name="fabric_type"]').value
         pattern.description = form.querySelector('input[name="description"]').value
         pattern.format = form.querySelector('[name="format"]').value
-        pattern.ownerID = form.querySelector('input[name="ownerID"]').value
+        pattern.userID = form.querySelector('input[name="userID"]').value
         console.log(JSON.stringify(pattern))
         //console.log(pattern)
         createPatternAjax(pattern)
@@ -166,7 +166,7 @@
         var cell6 = rowElement.insertCell(5);
         cell6.innerHTML = pattern.format
         var cell7 = rowElement.insertCell(6);
-        cell7.innerHTML = pattern.ownerID
+        cell7.innerHTML = pattern.userID
         var cell8 = rowElement.insertCell(7);
         cell8.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
         var cell9 = rowElement.insertCell(8);
@@ -182,7 +182,7 @@
         form.querySelector('[name="fabric_type"]').value= ''
         form.querySelector('input[name="description"]').value=''
         form.querySelector('[name="format"]').value=''
-        form.querySelector('input[name="ownerID"]').value=''
+        form.querySelector('input[name="userID"]').value=''
     }
 
     function getPatternFromRow(rowElement){
@@ -194,7 +194,7 @@
         pattern.fabric_type = rowElement.cells[3].textContent;
         pattern.description = rowElement.cells[4].textContent;
         pattern.format = rowElement.cells[5].textContent;
-        pattern.ownerID = rowElement.cells[6].textContent;
+        pattern.userID = rowElement.cells[6].textContent;
         return pattern
     }
 
@@ -205,7 +205,7 @@
         rowElement.cells[3].firstChild.textContent = pattern.fabric_type;
         rowElement.cells[4].firstChild.textContent = pattern.description;
         rowElement.cells[5].firstChild.textContent = pattern.format;
-        rowElement.cells[6].firstChild.textContent = pattern.ownerID;
+        rowElement.cells[6].firstChild.textContent = pattern.userID;
     }
     
     function populateFormWithPattern(pattern){
@@ -228,7 +228,7 @@
         var formatSelect = form.querySelector('[name="format"]');
         formatSelect.value= pattern.format;
 
-        form.querySelector('input[name="ownerID"]').value = pattern.ownerID;
+        form.querySelector('input[name="userID"]').value = pattern.userID;
         return pattern;
     }
 
@@ -243,7 +243,7 @@
         pattern.fabric_type = form.querySelector('[name="fabric_type"]').value
         pattern.description = form.querySelector('[name="description"]').value
         pattern.format = form.querySelector('[name="format"]').value
-        pattern.ownerID = form.querySelector('[name="ownerID"]').value
+        pattern.userID = form.querySelector('[name="userID"]').value
         console.log(JSON.stringify(pattern))
         return pattern
     }
