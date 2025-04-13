@@ -139,9 +139,47 @@ class PatternDAO:
         print("Pattern deleted")
 
 
-# DO LATER. GET Basics working first.
+###### User functions  LEAVING OUT password authentication for now. 
+    def get_all_users(self):
+        cursor = self.getCursor()
+        sql = "SELECT userID, first_name, last_name, email FROM users"
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        users = []
+        for row in results:
+            users.append(self.convertToDictionary(row))
+        self.closeAll()
+        return users
 
-# Send email to Borrow a pattern
+    def create_user(self, user):
+        cursor = self.getCursor()
+        sql = "INSERT INTO users (userID, first_name, last_name, email) VALUES (%s, %s, %s, %s)"
+        values = [user['userID'], user['first_name'], user['last_name'], user['email']]
+        cursor.execute(sql, values)
+        self.connection.commit()
+        newid = cursor.lastrowid
+        self.closeAll()
+        return newid
+    
+    def delete_user(self, userID):
+        cursor = self.getCursor()
+        sql = "DELETE FROM users WHERE userID = %s"
+        values = (userID, )
+        cursor.execute(sql, values)
+        self.connection.commit()
+        self.closeAll()
+        print("User deleted")
+
+# Borrow a pattern
+    def create_borrow_request(self, borrow):
+        cursor = self.getCursor()
+        sql = "INSERT INTO borrow_request (loadID, userID, patternID) VALUES (%s, %s, %s) "
+        values = [borrow['loadID'], borrow['userID'], borrow['patternID']]
+        cursor.execute(sql, values)
+        self.connection.commit()
+        newid = cursor.lastrowid
+        self.closeAll()
+        return newid
 
 
 # Send email to Request return of a pattern

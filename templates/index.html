@@ -248,63 +248,6 @@
         return pattern
     }
    
-    // populate the table
-    function processGetAllResponse(result){
-        console.log("in process")
-        //console.log(result)
-        for (pattern of result){
-            console.log(pattern)
-            displayPattern = {}
-            displayPattern.patternID = pattern.patternID
-            displayPattern.brand = pattern.brand
-            displayPattern.category = pattern.category
-            displayPattern.fabric_type = pattern.fabric_type
-            displayPattern.description = pattern.description
-            displayPattern.format = pattern.format
-            displayPattern.ownerID = pattern.ownerID
-
-            // you can now pass it to addPatternToTable
-            //console.log(displayPattern)
-            addPatternToTable(displayPattern)
-        }
-    }
-
-    function convertDisplayPatternToServerPattern(displayPattern){
-        serverPattern = {}
-        serverPattern.patternID = displayPattern.patternID
-        serverPattern.brand = displayPattern.brand
-        serverPattern.category = displayPattern.category
-        serverPattern.description = displayPattern.description
-        serverPattern.format = displayPattern.format
-        serverPattern.ownerID = displayPattern.ownerID 
-        //serverPattern.price = parseInt(displayPattern.price) // convert the string to an int
-        return serverPattern
-    }
-
-    function convertServerPatternToDisplayPattern(pattern){
-        displayPattern = {}
-        displayPattern.patternID = pattern.patternID
-        displayPattern.brand = pattern.brand
-        displayPattern.category = pattern.category
-        displayPattern.description = pattern.description
-        displayPattern.format = pattern.format
-        displayPattern.ownerID = pattern.ownerID
-        return displayPattern
-    }
-
-    function processCreateResponse(result){
-        displayPattern = convertServerPatternToDisplayPattern(result)
-        addPatternToTable(displayPattern)
-        showViewAll()
-        clearForm()
-    }
-
-    // I should set this as the default function for the callback
-    function doNothing(result){
-        console.log("nothing:"+result)
-        return "done"
-    }
-     //getAll(processGetAllResponse)
 
     function getAllAjax(){
     $.ajax({

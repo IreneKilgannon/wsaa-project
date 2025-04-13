@@ -2,7 +2,8 @@ use sewing_patterns;
 
 create table users (
     userID INTEGER AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
     email VARCHAR(320) NOT NULL,
     password VARCHAR (255),
     PRIMARY KEY (userID)
@@ -22,12 +23,11 @@ create table patterns (
     );
 
 
-create table borrow_logs (
+create table borrow_requests (
     loanID INTEGER AUTO_INCREMENT,
-    borrow_date DATE NOT NULL,
-    borrowerID INTEGER NOT NULL,
+    userID INTEGER NOT NULL,
     patternID VARCHAR(100) NOT NULL,
     PRIMARY KEY (loanID),
-    FOREIGN KEY (borrowerID) REFERENCES users (userID),
+    FOREIGN KEY (userID) REFERENCES users (userID),
     FOREIGN KEY (patternID) REFERENCES patterns (patternID)
 );

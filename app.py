@@ -8,7 +8,7 @@ app = Flask(__name__, static_url_path='', static_folder='static')
 def index():
     return render_template('index.html')
 
-
+###### Pattern Routes
 # Get all patterns
 @app.route('/patterns', methods = ['GET'])
 def getAll():
@@ -92,5 +92,16 @@ def delete(patternID):
     return jsonify({"done": True})
 
 
+######## User Routes
+@app.route('/users', methods = ['GET'])
+def get_all_users():
+    return jsonify(patternDAO.getAllUsers())
+
+
+
+
+
+
+######## Borrow Routes
 if __name__ == "__main__":
     app.run(debug=True)
