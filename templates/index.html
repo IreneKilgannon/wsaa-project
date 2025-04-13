@@ -61,7 +61,8 @@
             <option value="Paper">Paper</option>
             <option value="PDF">PDF</option>
             </select><br>
-        userID<br><input type="number" name="userID"><br><br>
+        userID<br><input type = "number" name = "userID">
+            <br><br>
         <span><button id="button-doCreate" onclick="doCreate()">Create</button></span>
         <span><button id="button-doUpdate" onclick="doUpdate()">Update</button></span>
     </div>
@@ -108,16 +109,16 @@
         var form = document.getElementById('createUpdateForm');
         var pattern = {}
 
-        pattern.patternID = form.querySelector('input[name="patternID"]').value
-        pattern.brand = form.querySelector('input[name="brand"]').value
-        pattern.category = form.querySelector('[name="category"]').value
-        pattern.fabric_type = form.querySelector('[name="fabric_type"]').value
-        pattern.description = form.querySelector('input[name="description"]').value
-        pattern.format = form.querySelector('[name="format"]').value
-        pattern.userID = form.querySelector('input[name="userID"]').value
-        console.log(JSON.stringify(pattern))
+        pattern.patternID = form.querySelector('input[name="patternID"]').value;
+        pattern.brand = form.querySelector('input[name="brand"]').value;
+        pattern.category = form.querySelector('[name="category"]').value;
+        pattern.fabric_type = form.querySelector('[name="fabric_type"]').value;
+        pattern.description = form.querySelector('input[name="description"]').value;
+        pattern.format = form.querySelector('[name="format"]').value;
+        pattern.userID = form.querySelector('input[name="userID"]').value;
+        console.log(JSON.stringify(pattern));
         //console.log(pattern)
-        createPatternAjax(pattern)
+        createPatternAjax(pattern);
     }
     
     function doUpdate(){
@@ -228,7 +229,7 @@
         var formatSelect = form.querySelector('[name="format"]');
         formatSelect.value= pattern.format;
 
-        form.querySelector('input[name="userID"]').value = pattern.userID;
+        form.querySelector('input[name="userID"]')
         return pattern;
     }
 
@@ -243,11 +244,10 @@
         pattern.fabric_type = form.querySelector('[name="fabric_type"]').value
         pattern.description = form.querySelector('[name="description"]').value
         pattern.format = form.querySelector('[name="format"]').value
-        pattern.userID = form.querySelector('[name="userID"]').value
+        pattern.userID = form.querySelector('input[name="userID"]').value
         console.log(JSON.stringify(pattern))
         return pattern
     }
-   
 
     function getAllAjax(){
     $.ajax({
@@ -325,6 +325,8 @@
         });
     }
 
+
     getAllAjax();
+
     </script>
 </html>

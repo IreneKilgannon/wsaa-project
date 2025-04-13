@@ -36,10 +36,11 @@ def findByCategory(category):
 def findByFabric(fabric_type):
     return jsonify(patternDAO.findByFabric(fabric_type))
 
-# Find by Patterns belonging to a specific owner by name
-@app.route('/name/<name>')
-def findByOwner(name):
-    return jsonify(patternDAO.findByOwner(name))
+# Find by patterns by userID
+@app.route('/userID/<userID>')
+def findByUserID(userID):
+    return jsonify(patternDAO.findByUserID(userID))
+
 
 # Create a pattern
 @app.route('/patterns', methods=['POST'])
@@ -95,7 +96,8 @@ def delete(patternID):
 ######## User Routes
 @app.route('/users', methods = ['GET'])
 def get_all_users():
-    return jsonify(patternDAO.getAllUsers())
+    return jsonify(patternDAO.get_all_users())
+
 
 
 
@@ -103,5 +105,7 @@ def get_all_users():
 
 
 ######## Borrow Routes
+
+
 if __name__ == "__main__":
     app.run(debug=True)

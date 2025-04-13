@@ -21,7 +21,7 @@ create table patterns (
     PRIMARY KEY (patternID),
     FOREIGN KEY (userID) REFERENCES users (userID)
     ON DELETE cascade
-    ON UPDATE cascate
+    ON UPDATE
     );
 
 

@@ -31,7 +31,7 @@ class PatternDAO:
         self.connection.close()
         self.cursor.close()
 #
-    def convertToDictionary(self, resultLine):
+    def convertToDictionaryPatterns(self, resultLine):
         attkeys=['patternID', 'brand','category', 'fabric_type', 'description', 'format', 'userID']
         pattern = {}
         currentkey = 0
@@ -39,6 +39,15 @@ class PatternDAO:
             pattern[attkeys[currentkey]] = attrib
             currentkey = currentkey + 1 
         return pattern
+
+    def convertToDictionaryUsers(self, resultLine):
+        attkeys=['userID', 'first_name','last_name', 'email', 'password']
+        user = {}
+        currentkey = 0
+        for attrib in resultLine:
+            user[attkeys[currentkey]] = attrib
+            currentkey = currentkey + 1 
+        return user
 
 # View all patterns
     def getAll(self):
@@ -48,7 +57,7 @@ class PatternDAO:
         results = cursor.fetchall()
         patterns = []
         for row in results:
-            patterns.append(self.convertToDictionary(row))
+            patterns.append(self.convertToDictionaryPatterns(row))
         self.closeAll()
         return patterns
 
@@ -59,7 +68,7 @@ class PatternDAO:
         values = (patternID, )
         cursor.execute(sql, values)
         result = cursor.fetchone()
-        returnvalue = self.convertToDictionary(result)
+        returnvalue = self.convertToDictionaryPatterns(result)
         self.closeAll()
         return returnvalue 
 
@@ -70,7 +79,7 @@ class PatternDAO:
         values = (category, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
-        returnvalue = [self.convertToDictionary(row) for row in result]
+        returnvalue = [self.convertToDictionaryPatterns(row) for row in result]
         self.closeAll()
         return returnvalue 
 
@@ -81,7 +90,7 @@ class PatternDAO:
         values = (brand, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
-        returnvalue = [self.convertToDictionary(row) for row in result]
+        returnvalue = [self.convertToDictionaryPatterns(row) for row in result]
         self.closeAll()
         return returnvalue 
 
@@ -92,18 +101,18 @@ class PatternDAO:
         values = (fabric_type, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
-        returnvalue = [self.convertToDictionary(row) for row in result]
+        returnvalue = [self.convertToDictionaryPatterns(row) for row in result]
         self.closeAll()
         return returnvalue 
 
-# View by Owner Name
-    def findByOwner(self, name):
+# View by UserID
+    def findByUserID(self, userID):
         cursor = self.getCursor()
-        sql = "SELECT p.* FROM patterns p join users u on p.userID = u.userID WHERE u.name = %s"
-        values = (name, )
+        sql = "SELECT * FROM patterns WHERE userID = %s"
+        values = (userID, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
-        returnvalue = [self.convertToDictionary(row) for row in result]
+        returnvalue = [self.convertToDictionaryPatterns(row) for row in result]
         self.closeAll()
         return returnvalue 
     
@@ -142,12 +151,12 @@ class PatternDAO:
 ###### User functions  LEAVING OUT password authentication for now. 
     def get_all_users(self):
         cursor = self.getCursor()
-        sql = "SELECT userID, first_name, last_name, email FROM users"
+        sql = "SELECT * FROM users"
         cursor.execute(sql)
         results = cursor.fetchall()
         users = []
         for row in results:
-            users.append(self.convertToDictionary(row))
+            users.append(self.convertToDictionaryUsers(row))
         self.closeAll()
         return users
 
@@ -169,6 +178,13 @@ class PatternDAO:
         self.connection.commit()
         self.closeAll()
         print("User deleted")
+
+    # Check user exists
+    def user_exists(self, userID):
+        for user in self.users:
+            if user["userID"] == userID:
+                return True
+        return False
 
 # Borrow a pattern
     def create_borrow_request(self, borrow):
