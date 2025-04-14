@@ -13,22 +13,25 @@
     <script src="https://kit.fontawesome.com/e8de472ad4.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container p-3 my-5 bg-light border-primary">
-    <h1>Sewing Patterns</h1>
-    <div><button id="button-showCreate" onclick="showCreate()">Add a sewing pattern</button></div><br>
+    <div class="container p-5 my-5 bg-light border-primary">
+    <h1>Sewing Patterns</h1><br>
     
-    <table class="table table-hover" id="patternTable">
-        <thead>
+    <input  class="input-group p-2 mb-2" type="text" id="myInput" onkeyup="filterTable()" placeholder= "Search by PatternID..."><br>     
+
+    <div><button class="btn btn-secondary border-dark" id="button-showCreate" onclick="showCreate()">Add a sewing pattern</button></div><br>
+    
+    <table class="table" id="patternTable">
+        <thead >
             <tr>
-                <th onclick="sortTable(0)">PatternID &nbsp;&#x2b83;</th>
-                <th onclick="sortTable(1)">Brand &nbsp;&#x2b83;</th>
-                <th onclick="sortTable(2)">Category &nbsp;&#x2b83;</th>
-                <th onclick="sortTable(3)">Fabric Type &nbsp;&#x2b83;</th>
-                <th onclick="sortTable(4)">Description &nbsp;&#x2b83;</th>
-                <th onclick="sortTable(5)">Format &nbsp;&#x2b83;</th>
-                <th onclick="sortTable(6)">userID &nbsp;&#x2b83;</th>
-                <th>Update</th>
-                <th>Delete</th>
+                <th onclick="sortTable(0)" class="table-success">PatternID &nbsp;&#x2b83;</th>
+                <th onclick="sortTable(1)" class="table-success">Brand &nbsp;&#x2b83;</th>
+                <th onclick="sortTable(2)" class="table-success">Category &nbsp;&#x2b83;</th>
+                <th onclick="sortTable(3)" class="table-success">Fabric Type &nbsp;&#x2b83;</th>
+                <th onclick="sortTable(4)" class="table-success">Description &nbsp;&#x2b83;</th>
+                <th onclick="sortTable(5)" class="table-success">Format &nbsp;&#x2b83;</th>
+                <th onclick="sortTable(6)"class="table-success">userID &nbsp;&#x2b83;</th>
+                <th class="table-success">Update</th>
+                <th class="table-success">Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -65,14 +68,37 @@
             </select><br>
         userID<br><input type = "number" name = "userID">
             <br><br>
-        <span><button id="button-doCreate" onclick="doCreate()">Create</button></span>
-        <span><button id="button-doUpdate" onclick="doUpdate()">Update</button></span>
+        <span><button class="btn btn-secondary border-dark" id="button-doCreate" onclick="doCreate()">Create</button></span>
+        <span><button class="btn btn-secondary border-dark" id="button-doUpdate" onclick="doUpdate()">Update</button></span>
     </div>
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 </body>
 
 <script>
+    function filterTable() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("patternTable");
+      tr = table.getElementsByTagName("tr");
+
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+
     function sortTable(n) {
       var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
       table = document.getElementById("patternTable");
@@ -129,13 +155,14 @@
     }
 
     function showCreate(){
-        document.getElementById("createUpdateForm").style.display = "block"
-        document.getElementById("button-doCreate").style.display = "block"
-        document.getElementById("button-doUpdate").style.display = "none"
-        document.getElementById("createLabel").style.display = "inline"
-        document.getElementById("updateLabel").style.display = "none"
-        document.getElementById("button-showCreate").style.display = "none"
-        document.getElementById("patternTable").style.display = "none"
+        document.getElementById("createUpdateForm").style.display = "block";
+        document.getElementById("button-doCreate").style.display = "block";
+        document.getElementById("button-doUpdate").style.display = "none";
+        document.getElementById("createLabel").style.display = "inline";
+        document.getElementById("updateLabel").style.display = "none";
+        document.getElementById("button-showCreate").style.display = "none";
+        document.getElementById("patternTable").style.display = "none";
+        document.getElementById("myInput").style.display = "none";
     }
 
     function showViewAll(){
@@ -154,6 +181,7 @@
         document.getElementById("updateLabel").style.display = "inline";
         document.getElementById("button-showCreate").style.display = "none";
         document.getElementById("patternTable").style.display = "none";
+        document.getElementById("myInput").style.display = "none";
 
         var rowElement= buttonElement.parentNode.parentNode;
         var pattern = getPatternFromRow(rowElement);

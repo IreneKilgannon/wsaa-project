@@ -66,3 +66,7 @@ How to use MySQL Database with Flask, Codemy.com https://www.youtube.com/watch?v
 W3 Schools How to - Sort a Table https://www.w3schools.com/howto/howto_js_sort_table.asp
 
 https://fontawesome.com/icons
+
+https://www.w3schools.com/bootstrap5/index.php
+
+W3 Schools How To Filter/Search Table https://www.w3schools.com/howto/howto_js_filter_table.asp
