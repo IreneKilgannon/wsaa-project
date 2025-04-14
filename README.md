@@ -61,3 +61,8 @@ Modern Responsive Table Using DataTable, Step by step guide devRasen https://www
 
 
 How to use MySQL Database with Flask, Codemy.com https://www.youtube.com/watch?v=hQl2wyJvK5k
+
+
+W3 Schools How to - Sort a Table https://www.w3schools.com/howto/howto_js_sort_table.asp
+
+https://fontawesome.com/icons
