@@ -162,14 +162,24 @@ class PatternDAO:
 
     def create_user(self, user):
         cursor = self.getCursor()
-        sql = "INSERT INTO users (userID, first_name, last_name, email) VALUES (%s, %s, %s, %s)"
-        values = [user['userID'], user['first_name'], user['last_name'], user['email']]
+        sql = "INSERT INTO users (first_name, last_name, email, password) VALUES (%s, %s, %s, %s)"
+        values = (user.get("first_name"), user.get("last_name"), user.get("email"), user.get("password"))
         cursor.execute(sql, values)
         self.connection.commit()
         newid = cursor.lastrowid
+        user['userID'] = newid
         self.closeAll()
         return newid
     
+    def update_user(self, userID, user):
+        cursor = self.getCursor()
+        sql = "UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s WHERE userID = %s"
+        values = (user.get("first_name"), user.get("last_name"), user.get("email"), user.get("password"), userID)
+        cursor.execute(sql, values)
+        self.connection.commit()
+        self.closeAll()
+        return user
+
     def delete_user(self, userID):
         cursor = self.getCursor()
         sql = "DELETE FROM users WHERE userID = %s"
@@ -180,11 +190,11 @@ class PatternDAO:
         print("User deleted")
 
     # Check user exists
-    def user_exists(self, userID):
-        for user in self.users:
-            if user["userID"] == userID:
-                return True
-        return False
+    #def user_exists(self, userID):
+    #    for user in self.users:
+    #        if user["userID"] == userID:
+    #            return True
+    #    return False
 
 # Borrow a pattern
     def create_borrow_request(self, borrow):

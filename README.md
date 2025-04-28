@@ -70,3 +70,7 @@ https://fontawesome.com/icons
 https://www.w3schools.com/bootstrap5/index.php
 
 W3 Schools How To Filter/Search Table https://www.w3schools.com/howto/howto_js_filter_table.asp
+
+ChatGPT: Create a basic python flask api with javascript and ajax and explain how it works.
+
+ChatGPT: How do I render different templates for Python Flask API?

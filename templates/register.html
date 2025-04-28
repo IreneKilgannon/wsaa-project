@@ -4,8 +4,281 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!--Awesome font-->
+    <script src="https://kit.fontawesome.com/e8de472ad4.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Register to </h1>
+    
+    <div class="container p-5 my-5 bg-light border-primary">
+        
+        <h1>Registration Form</h1>
+        <hr>
+        <div><button class="btn btn-secondary border-dark" id="button-showCreateUser" onclick="showCreateUser()">Add a user</button></div><br>
+    
+        <table class="table" id="userTable">
+            <thead >
+                <tr>
+                    <th class="table-success">UserID &nbsp;&#x2b83;</th>
+                    <th class="table-success">First Name &nbsp;&#x2b83;</th>
+                    <th class="table-success">Last Name &nbsp;&#x2b83;</th>
+                    <th class="table-success">Email &nbsp;&#x2b83;</th>
+                    <th class="table-success">Password &nbsp;&#x2b83;</th>
+                    <th class="table-success">Update</th>
+                    <th class="table-success">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+            
+    <div id="createUserUpdateForm" style="display:none">
+        <!-- Form for creating  and updating users -->
+        <h2><span id="createLabel">Become a </span>User <span id="updateLabel">Update</span> User</h2>
+        <input type="hidden" name="userID" autocomplete="off">
+        First Name<br><input type="text" name="first_name" required autocomplete="given-name"><br/>
+        Last Name<br><input type="text" name="last_name" required autocomplete="family-name"><br/>
+        Email<br><input type="email"name="email" required autocomplete="email"><br/>
+        Password<br><input type="password" name="password" required autocomplete="new-password"><br/>
+        <!--Confirm Password<br><input type="password" name="confirmPassword" required><br/>
+            <br><br>-->
+        <span><button class="btn btn-secondary border-dark" id="button-doCreateUser" onclick="doCreateUser()">Register</button></span>
+        <span><button class="btn btn-secondary border-dark" id="button-doUpdateUser" onclick="doUserUpdate()">Update</button></span>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 </body>
+
+<script>
+    function showCreateUser(){
+        document.getElementById("createUserUpdateForm").style.display = "block";
+        document.getElementById("button-doCreateUser").style.display = "block";
+        document.getElementById("button-doUpdateUser").style.display = "none";
+        document.getElementById("createLabel").style.display = "inline";
+        document.getElementById("updateLabel").style.display = "none";
+        document.getElementById("button-showCreateUser").style.display = "none";
+        document.getElementById("userTable").style.display = "none";
+        //document.getElementById("myInput").style.display = "none";
+    }
+
+    function showViewAllUsers(){
+        console.log('Showing view all')
+        document.getElementById("createUserUpdateForm").style.display = "none"
+        document.getElementById("button-showCreateUser").style.display = "block"
+        document.getElementById("userTable").style.display = "block"
+    }
+
+    function showUserUpdate(buttonElement){
+        //console.log('Updating user...');
+        document.getElementById("createUserUpdateForm").style.display = "block";
+        document.getElementById("button-doCreateUser").style.display = "none";
+        document.getElementById("button-doUpdateUser").style.display = "block";
+        document.getElementById("createLabel").style.display = "none";
+        document.getElementById("updateLabel").style.display = "inline";
+        document.getElementById("button-showCreateUser").style.display = "none";
+        document.getElementById("userTable").style.display = "none";
+        //document.getElementById("myInput").style.display = "none";
+        var rowElement= buttonElement.parentNode.parentNode;
+        var user = getUserFromRow(rowElement);
+        console.log('User to update:', user);
+        //console.log(User)
+        populateFormWithUser(user);
+    }
+
+    function doCreateUser(){
+        
+        var form = document.getElementById('createUserUpdateForm')
+        var user = {}
+        user.first_name = form.querySelector('input[name="first_name"]').value
+        user.last_name = form.querySelector('input[name="last_name"]').value
+        user.email = form.querySelector('input[name="email"]').value
+        user.password = form.querySelector('input[name="password"]').value
+        //user.confirmPassword = form.querySelector('input[name="confirmPassword"]').value
+        console.log(JSON.stringify(user))
+        createUserAjax(user)
+    }
+
+    function doUserUpdate(){
+        var user = getUserFromForm();
+        //var form = document.getElementById('createUserUpdateForm');
+        
+        var rowElement = document.getElementById(user.userID);
+        if (rowElement) {
+            updateUserAjax(user);
+            setUserInRow(rowElement, user);
+            clearUserForm();
+            showViewAllUsers();
+        } else {
+            console.log('Row element not found')
+        }
+    }
+
+    function doUserDelete(r){
+        console.log("in delete")
+        var tableElement = document.getElementById('userTable');
+        var rowElement = r.parentNode.parentNode;
+        var index = rowElement.rowIndex;
+        
+        //console.log("deleting "+ rowElement.getAttribute("userID"))
+        deleteUserAjax(rowElement.getAttribute("userID"));
+        tableElement.deleteRow(index);
+        showViewAllUsers()
+    }
+    
+    function addUserToTable(user){
+        var tableElement = document.getElementById('userTable')
+        var rowElement = tableElement.insertRow(-1)
+        
+        rowElement.setAttribute('userID', user.userID)
+        
+        var cell1 = rowElement.insertCell(0);
+        cell1.innerHTML = user.userID
+        var cell2 = rowElement.insertCell(1);
+        cell2.innerHTML = user.first_name
+        var cell3 = rowElement.insertCell(2);
+        cell3.innerHTML = user.last_name
+        var cell4 = rowElement.insertCell(3);
+        cell4.innerHTML = user.email
+        var cell5 = rowElement.insertCell(4);
+        cell5.innerHTML = user.password
+        var cell6 = rowElement.insertCell(5);
+        cell6.innerHTML = '<button onclick="showUserUpdate(this)">Update</button>'
+        var cell7 = rowElement.insertCell(6);
+        cell7.innerHTML = '<button onclick="doUserDelete(this)">Delete</button>'
+    }
+
+    function clearUserForm(){
+        var form = document.getElementById('createUserUpdateForm')
+
+        form.querySelector('input[name="first_name"]').value=''
+        form.querySelector('[name="last_name"]').value =''
+        form.querySelector('[name="email"]').value= ''
+        form.querySelector('input[name="password"]').value=''
+    }
+
+    function getUserFromRow(rowElement){
+        var user ={}
+
+        user.userID  = rowElement.getAttribute('userID')
+        user.first_name = rowElement.cells[1].textContent;
+        user.last_name = rowElement.cells[2].textContent;
+        user.email = rowElement.cells[3].textContent;
+        user.password = rowElement.cells[4].textContent;
+        return user
+    }
+
+    function setUserInRow(rowElement, user){
+        rowElement.cells[0].firstChild.textContent = user.userID;
+        rowElement.cells[1].firstChild.textContent = user.first_name;
+        rowElement.cells[2].firstChild.textContent = user.last_name;
+        rowElement.cells[3].firstChild.textContent = user.email;
+        rowElement.cells[4].firstChild.textContent = user.password;
+    }
+
+    function populateFormWithUser(user){
+        console.log("Populating form with user:", user);
+        var form = document.getElementById('createUserUpdateForm');
+        form.querySelector('input[name="userID"]').disabled = true;
+
+        form.querySelector('input[name="userID"]').value  = user.userID;
+        form.querySelector('input[name="first_name"]').value= user.first_name;
+        foom.querySelector('input(name= "last_name")').value = user.last_name;
+        form.querySelector('input[name="email"]').value= user.email;
+        form.querySelector('input(name= "password")').value = user.password;
+        return user;
+    }
+
+    function getUserFromForm(){
+        var form = document.getElementById('createUserUpdateForm')
+        var user = {}
+        
+        user.userID = form.querySelector('input[name="userID"]').value
+        user.first_name = form.querySelector('input[name="first_name"]').value
+        user.last_name = form.querySelector('[name="last_name"]').value
+        user.email = form.querySelector('[name="email"]').value
+        user.password = form.querySelector('[name="password"]').value
+        console.log(JSON.stringify(user))
+        return user
+    }
+
+    function getAllUserAjax(){
+        $.ajax({
+            "url": "/api/users",
+            "method":"GET",
+            "data":"",
+            "dataType": "JSON",
+            "success":function(result){
+                console.log(result);
+                for (user of result){
+                    addUserToTable(user);
+                }
+            },
+            "error":function(xhr,status,error){
+                //console.log("error: "+status+" msg:"+error);
+                //console.log("Response text: " +xhr.responseText)
+            }
+        });
+    }
+
+    function createUserAjax(user){
+        console.log("Test" , JSON.stringify(user)); 
+        $.ajax({
+            "url": "/api/users",
+            "method":"POST",
+            "data":JSON.stringify(user),
+            "dataType": "JSON",
+            "contentType": "application/json; charset=utf-8",
+            "success":function(result){
+                user.userID = result.userID
+                addUserToTable(result);
+                clearUserForm();
+                showViewAllUsers();
+        },
+            "error":function(xhr,status,error){
+                //console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+    function updateUserAjax(user){
+        console.log(JSON.stringify(user));
+        $.ajax({
+            "url": "/api/users/"+encodeURI(user.userID),
+            "method":"PUT",
+            "data":JSON.stringify(user),
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+                console.log(result);
+            
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+    function deleteUserAjax(userID){
+        $.ajax({
+            "url": "/api/users/"+encodeURI(userID),
+            "method":"DELETE",
+            "data":"",
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success":function(result){
+                //console.log(result);
+
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+
+    getAllUserAjax();
+
+    </script>
 </html>

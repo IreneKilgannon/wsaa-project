@@ -8,6 +8,10 @@ app = Flask(__name__, static_url_path='', static_folder='static')
 def index():
     return render_template('testing.html')
 
+@app.route('/users')
+def users():
+    return render_template('register.html')
+
 ###### Pattern Routes
 # Get all patterns
 @app.route('/patterns', methods = ['GET'])
@@ -94,14 +98,59 @@ def delete(patternID):
 
 
 ######## User Routes
-@app.route('/users', methods = ['GET'])
+@app.route('/api/users', methods = ['GET'])
 def get_all_users():
-    return jsonify(patternDAO.get_all_users())
+    try:
+        print("in get all")
+        users = patternDAO.get_all_users()
+        return jsonify(users)
+    except Exception as e:
+        print(f"Error fetching users {e}")
+        return jsonify({"error": "Something went wrong"}), 500
+
+# Create a user
+@app.route('/api/users', methods=['POST'])
+def create_user():
+    if not request.json:
+        abort(400)
+
+    user = {
+        #"userID": request.json["userID"],
+        "first_name": request.json["first_name"],
+        "last_name": request.json["last_name"],
+        "email": request.json["email"],
+        "password": request.json["password"],
+    }
+    return jsonify(patternDAO.create_user(user)), 201
 
 
+# Update a user
+@app.route('/api/users/<userID>', methods=['PUT'])
+def update_user(userID):
+    foundUser = patternDAO.update_user(userID)
+    print (foundUser)
+    if foundUser == {}:
+        return jsonify({}), 404
+    currentUser = foundUser
+    #if 'userID' in request.json:
+     #   currentUser['userID'] = request.json['userID']
+    if 'first_name' in request.json:
+        currentUser['first_name'] = request.json['first_name']
+    if 'last_name' in request.json:
+        currentUser['last_name'] = request.json['last_name']
+    if 'email' in request.json:
+        currentUser['email'] = request.json['email']
+    if 'password' in request.json:
+        currentUser['password'] = request.json['password']
+    patternDAO.update(currentUser)
+    return jsonify(currentUser)
 
 
-
+#  Delete
+@app.route('/api/users/<userID>', methods=['DELETE'])
+def delete_user(userID):
+    patternDAO.delete(userID)
+    return jsonify({"done": True})
 
 
 ######## Borrow Routes
