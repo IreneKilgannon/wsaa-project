@@ -105,7 +105,7 @@ class PatternDAO:
         self.closeAll()
         return returnvalue 
 
-# View by UserID
+    # View by UserID
     def findByUserID(self, userID):
         cursor = self.getCursor()
         sql = "SELECT * FROM patterns WHERE userID = %s"
@@ -160,25 +160,36 @@ class PatternDAO:
         self.closeAll()
         return users
 
+    
     def create_user(self, user):
         cursor = self.getCursor()
         sql = "INSERT INTO users (first_name, last_name, email, password) VALUES (%s, %s, %s, %s)"
         values = (user.get("first_name"), user.get("last_name"), user.get("email"), user.get("password"))
         cursor.execute(sql, values)
         self.connection.commit()
-        newid = cursor.lastrowid
-        user['userID'] = newid
+        #newid = cursor.lastrowid
+        #user['userID'] = newid
         self.closeAll()
-        return newid
+        return user
     
-    def update_user(self, userID, user):
+    def update_user(self, user):
         cursor = self.getCursor()
         sql = "UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s WHERE userID = %s"
-        values = (user.get("first_name"), user.get("last_name"), user.get("email"), user.get("password"), userID)
+        values = (user.get("first_name"), user.get("last_name"), user.get("email"), user.get("password"), user.get("userID"))
         cursor.execute(sql, values)
         self.connection.commit()
         self.closeAll()
         return user
+
+    def findByUserID_users(self, userID):
+        cursor = self.getCursor()
+        sql = "SELECT * FROM users WHERE userID = %s"
+        values = (userID, )
+        cursor.execute(sql, values)
+        result = cursor.fetchall()
+        returnvalue = self.convertToDictionaryUsers(result)
+        self.closeAll()
+        return returnvalue 
 
     def delete_user(self, userID):
         cursor = self.getCursor()

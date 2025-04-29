@@ -104,10 +104,13 @@
     }
 
     function doUserUpdate(){
+        var form = document.getElementById('createUserUpdateForm')
+        console.log("in update")
         var user = getUserFromForm();
+
         //var form = document.getElementById('createUserUpdateForm');
         
-        var rowElement = document.getElementById(user.userID);
+        var rowElement = document.querySelector(`[userID='${user.userID}']`);
         if (rowElement) {
             updateUserAjax(user);
             setUserInRow(rowElement, user);
@@ -124,7 +127,7 @@
         var rowElement = r.parentNode.parentNode;
         var index = rowElement.rowIndex;
         
-        //console.log("deleting "+ rowElement.getAttribute("userID"))
+        console.log("deleting "+ rowElement.getAttribute("userID"))
         deleteUserAjax(rowElement.getAttribute("userID"));
         tableElement.deleteRow(index);
         showViewAllUsers()
@@ -187,9 +190,9 @@
 
         form.querySelector('input[name="userID"]').value  = user.userID;
         form.querySelector('input[name="first_name"]').value= user.first_name;
-        foom.querySelector('input(name= "last_name")').value = user.last_name;
+        form.querySelector('input[name="last_name"]').value = user.last_name;
         form.querySelector('input[name="email"]').value= user.email;
-        form.querySelector('input(name= "password")').value = user.password;
+        form.querySelector('input[name= "password"]').value = user.password;
         return user;
     }
 
@@ -251,7 +254,7 @@
             "method":"PUT",
             "data":JSON.stringify(user),
             "dataType": "JSON",
-            contentType: "application/json; charset=utf-8",
+            "contentType": "application/json; charset=utf-8",
             "success":function(result){
                 console.log(result);
             
@@ -267,7 +270,7 @@
             "method":"DELETE",
             "data":"",
             "dataType": "JSON",
-            contentType: "application/json; charset=utf-8",
+            "contentType": "application/json; charset=utf-8",
             "success":function(result){
                 //console.log(result);
 

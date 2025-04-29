@@ -127,29 +127,30 @@ def create_user():
 # Update a user
 @app.route('/api/users/<userID>', methods=['PUT'])
 def update_user(userID):
-    foundUser = patternDAO.update_user(userID)
-    print (foundUser)
+    foundUser = patternDAO.findByUserID_users(userID)
+    print(f"This is foundUser {foundUser}")
     if foundUser == {}:
         return jsonify({}), 404
-    currentUser = foundUser
-    #if 'userID' in request.json:
-     #   currentUser['userID'] = request.json['userID']
+    #currentUser = foundUser
+    #print(request.json)
+    if 'userID' in request.json:
+        foundUser['userID'] = request.json['userID']
     if 'first_name' in request.json:
-        currentUser['first_name'] = request.json['first_name']
+        foundUser['first_name'] = request.json['first_name']
     if 'last_name' in request.json:
-        currentUser['last_name'] = request.json['last_name']
+        foundUser['last_name'] = request.json['last_name']
     if 'email' in request.json:
-        currentUser['email'] = request.json['email']
+        foundUser['email'] = request.json['email']
     if 'password' in request.json:
-        currentUser['password'] = request.json['password']
-    patternDAO.update(currentUser)
-    return jsonify(currentUser)
+        foundUser['password'] = request.json['password']
+    patternDAO.update_user(foundUser)
+    return jsonify(foundUser)
 
 
 #  Delete
 @app.route('/api/users/<userID>', methods=['DELETE'])
 def delete_user(userID):
-    patternDAO.delete(userID)
+    patternDAO.delete_user(userID)
     return jsonify({"done": True})
 
 
