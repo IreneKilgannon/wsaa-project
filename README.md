@@ -74,3 +74,9 @@ W3 Schools How To Filter/Search Table https://www.w3schools.com/howto/howto_js_f
 ChatGPT: Create a basic python flask api with javascript and ajax and explain how it works.
 
 ChatGPT: How do I render different templates for Python Flask API?
+
+How do hash passwords in python, uses bcrypt https://www.youtube.com/watch?v=yePHM2Ks07c
+
+YouTube, Hashing passwords with Werkzeug https://www.youtube.com/watch?v=8ebIEefhBpM
+
+YouTube Password Hashing in Flask Using Werkzeug, Pretty Printed https://www.youtube.com/watch?v=jJ4awOToB6k

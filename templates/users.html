@@ -48,7 +48,7 @@
                     <th class="table-success">First Name &nbsp;&#x2b83;</th>
                     <th class="table-success">Last Name &nbsp;&#x2b83;</th>
                     <th class="table-success">Email &nbsp;&#x2b83;</th>
-                    <th class="table-success">Password &nbsp;&#x2b83;</th>
+                    <!-- <th class="table-success">Password &nbsp;&#x2b83;</th>-->
                     <th class="table-success">Update</th>
                     <th class="table-success">Delete</th>
                 </tr>
@@ -168,12 +168,12 @@
         cell3.innerHTML = user.last_name
         var cell4 = rowElement.insertCell(3);
         cell4.innerHTML = user.email
+        //var cell5 = rowElement.insertCell(4);
+        //cell5.innerHTML = user.password
         var cell5 = rowElement.insertCell(4);
-        cell5.innerHTML = user.password
+        cell5.innerHTML = '<button onclick="showUserUpdate(this)">Update</button>'
         var cell6 = rowElement.insertCell(5);
-        cell6.innerHTML = '<button onclick="showUserUpdate(this)">Update</button>'
-        var cell7 = rowElement.insertCell(6);
-        cell7.innerHTML = '<button onclick="doUserDelete(this)">Delete</button>'
+        cell6.innerHTML = '<button onclick="doUserDelete(this)">Delete</button>'
     }
 
     function clearUserForm(){

@@ -1,6 +1,6 @@
 from flask import Flask, url_for, request, redirect, abort, jsonify, render_template
 from PatternDAO import patternDAO
-#from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 
@@ -125,7 +125,7 @@ def create_user():
         "first_name": request.json["first_name"],
         "last_name": request.json["last_name"],
         "email": request.json["email"],
-        "password": request.json["password"],
+        "password": generate_password_hash(request.json["password"]),
     }
     
     new_user = patternDAO.create_user(user)
@@ -151,7 +151,7 @@ def update_user(userID):
     if 'email' in request.json:
         foundUser['email'] = request.json['email']
     if 'password' in request.json:
-        foundUser['password'] = request.json['password']
+        foundUser['password'] = generate_password_hash(request.json['password'])
     patternDAO.update_user(foundUser)
     return jsonify(foundUser)
 

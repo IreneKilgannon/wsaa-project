@@ -79,7 +79,7 @@ class PatternDAO:
         values = (category, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
-        returnvalue = [self.convertToDictionaryPatterns(row) for row in result]
+        returnvalue = self.convertToDictionaryPatterns(result)
         self.closeAll()
         return returnvalue 
 
@@ -90,7 +90,7 @@ class PatternDAO:
         values = (brand, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
-        returnvalue = [self.convertToDictionaryPatterns(row) for row in result]
+        returnvalue = self.convertToDictionaryPatterns(result)
         self.closeAll()
         return returnvalue 
 
@@ -101,7 +101,7 @@ class PatternDAO:
         values = (fabric_type, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
-        returnvalue = [self.convertToDictionaryPatterns(row) for row in result]
+        returnvalue = self.convertToDictionaryPatterns(result)
         self.closeAll()
         return returnvalue 
 
@@ -112,7 +112,7 @@ class PatternDAO:
         values = (userID, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
-        returnvalue = [self.convertToDictionaryPatterns(row) for row in result]
+        returnvalue = self.convertToDictionaryPatterns(result)
         self.closeAll()
         return returnvalue 
     
@@ -163,7 +163,7 @@ class PatternDAO:
     
     def create_user(self, user):
         cursor = self.getCursor()
-        sql = "INSERT INTO users (first_name, last_name, email, password) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO users (first_name, last_name, email, password_hash) VALUES (%s, %s, %s, %s)"
         values = (user.get("first_name"), user.get("last_name"), user.get("email"), user.get("password"))
         cursor.execute(sql, values)
         self.connection.commit()
