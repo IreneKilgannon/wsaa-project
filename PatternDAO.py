@@ -167,8 +167,8 @@ class PatternDAO:
         values = (user.get("first_name"), user.get("last_name"), user.get("email"), user.get("password"))
         cursor.execute(sql, values)
         self.connection.commit()
-        #newid = cursor.lastrowid
-        #user['userID'] = newid
+        newid = cursor.lastrowid
+        user['userID'] = newid
         self.closeAll()
         return user
     

@@ -1,5 +1,6 @@
 from flask import Flask, url_for, request, redirect, abort, jsonify, render_template
 from PatternDAO import patternDAO
+#from werkzeug.security import generate_password_hash
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 
@@ -7,10 +8,15 @@ app = Flask(__name__, static_url_path='', static_folder='static')
 @app.route('/')
 def index():
     return render_template('testing.html')
+    #return render_template('home.html')
 
 @app.route('/users')
 def users():
-    return render_template('register.html')
+    return render_template('users.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 ###### Pattern Routes
 # Get all patterns
@@ -121,9 +127,12 @@ def create_user():
         "email": request.json["email"],
         "password": request.json["password"],
     }
-    return jsonify(patternDAO.create_user(user)), 201
+    
+    new_user = patternDAO.create_user(user)
+    return jsonify(new_user), 201
+    #return render_template('user_created.html', user = new_user)
 
-
+ 
 # Update a user
 @app.route('/api/users/<userID>', methods=['PUT'])
 def update_user(userID):

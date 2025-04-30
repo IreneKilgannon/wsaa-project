@@ -18,6 +18,27 @@
         
         <h1>Registration Form</h1>
         <hr>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('index') }}">Sewing Patterns</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          
         <div><button class="btn btn-secondary border-dark" id="button-showCreateUser" onclick="showCreateUser()">Add a user</button></div><br>
     
         <table class="table" id="userTable">
@@ -43,7 +64,7 @@
         First Name<br><input type="text" name="first_name" required autocomplete="given-name"><br/>
         Last Name<br><input type="text" name="last_name" required autocomplete="family-name"><br/>
         Email<br><input type="email"name="email" required autocomplete="email"><br/>
-        Password<br><input type="password" name="password" required autocomplete="new-password"><br/>
+        Password<br><input type="password" name="password" required autocomplete="new-password"><br/><br>
         <!--Confirm Password<br><input type="password" name="confirmPassword" required><br/>
             <br><br>-->
         <span><button class="btn btn-secondary border-dark" id="button-doCreateUser" onclick="doCreateUser()">Register</button></span>
@@ -100,7 +121,7 @@
         user.password = form.querySelector('input[name="password"]').value
         //user.confirmPassword = form.querySelector('input[name="confirmPassword"]').value
         console.log(JSON.stringify(user))
-        createUserAjax(user)
+        createUserAjax(user);
     }
 
     function doUserUpdate(){
@@ -187,7 +208,7 @@
         console.log("Populating form with user:", user);
         var form = document.getElementById('createUserUpdateForm');
         form.querySelector('input[name="userID"]').disabled = true;
-
+        
         form.querySelector('input[name="userID"]').value  = user.userID;
         form.querySelector('input[name="first_name"]').value= user.first_name;
         form.querySelector('input[name="last_name"]').value = user.last_name;
@@ -241,6 +262,7 @@
                 addUserToTable(result);
                 clearUserForm();
                 showViewAllUsers();
+                alert("Welcome " + result.first_name +". Your userID is: " +result.userID);
         },
             "error":function(xhr,status,error){
                 //console.log("error: "+status+" msg:"+error);
