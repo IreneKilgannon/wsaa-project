@@ -12,22 +12,24 @@
     <!--Awesome font-->
     <script src="https://kit.fontawesome.com/e8de472ad4.js" crossorigin="anonymous"></script>
 </head>
+
+
 <body>
     <div class="container p-5 my-5 bg-light border-primary">
-    <h1>Sewing Patterns</h1><br>
+    <h1>Sewing Patterns</h1>
+    <hr>
 
-    <br>
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light"style="background-color: #88c0e9;">
         <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
+                <a class="nav-link" href="{{ url_for('index') }}">Sewing Patterns</a>
+              </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('users') }}">Users</a>
             </li>
@@ -35,12 +37,15 @@
               <a class="nav-link" href="{{ url_for('about') }}">About</a>
             </li>
           </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" id="myInput" type="search" placeholder= "Search by PatternID..." aria-label="Search">
+          </form>
         </div>
       </nav>
       
     <br>
 
-    <input  class="input-group p-2 mb-2" type="text" id="myInput" onkeyup="filterTable()" placeholder= "Search by PatternID..."><br>     
+    <!--<input  class="input-group p-2 mb-2" type="text" id="myInput" onkeyup="filterTable()" placeholder= "Search by PatternID..."><br>-->     
 
     <div><button class="btn btn-secondary border-dark" id="button-showCreate" onclick="showCreate()">Add a sewing pattern</button></div><br>
     
@@ -101,28 +106,18 @@
 </body>
 
 <script>
-    function filterTable() {
-      // Declare variables
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("myInput");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("patternTable");
-      tr = table.getElementsByTagName("tr");
+      // https://www.w3schools.com/bootstrap/bootstrap_filters.asp#
+      $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#patternTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+      });
+    });
 
-      // Loop through all table rows, and hide those who don't match the search query
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }
-      }
-    }
 
+    // From W3 schools
     function sortTable(n) {
       var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
       table = document.getElementById("patternTable");
@@ -177,6 +172,7 @@
         }
       }
     }
+
 
     function showCreate(){
         document.getElementById("createUpdateForm").style.display = "block";
@@ -278,9 +274,9 @@
         var cell7 = rowElement.insertCell(6);
         cell7.innerHTML = pattern.userID
         var cell8 = rowElement.insertCell(7);
-        cell8.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        cell8.innerHTML = '<button class="btn btn-outline-primary" onclick="showUpdate(this)">Update</button>'
         var cell9 = rowElement.insertCell(8);
-        cell9.innerHTML = '<button onclick=doDelete(this)>Delete</button>'
+        cell9.innerHTML = '<button class="btn btn-outline-danger" onclick=doDelete(this)>Delete</button>'
     }
 
     function clearForm(){

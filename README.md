@@ -80,3 +80,5 @@ How do hash passwords in python, uses bcrypt https://www.youtube.com/watch?v=yeP
 YouTube, Hashing passwords with Werkzeug https://www.youtube.com/watch?v=8ebIEefhBpM
 
 YouTube Password Hashing in Flask Using Werkzeug, Pretty Printed https://www.youtube.com/watch?v=jJ4awOToB6k
+
+Navbar Bootstrap5 Bootstrap Navbar Tutorial, Adrian Twarog, https://www.youtube.com/watch?v=qNifU_aQRio

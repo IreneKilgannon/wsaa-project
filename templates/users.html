@@ -11,44 +11,44 @@
 
     <!--Awesome font-->
     <script src="https://kit.fontawesome.com/e8de472ad4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
     
     <div class="container p-5 my-5 bg-light border-primary">
-        
-        <h1>Registration Form</h1>
+        <h1>Users</h1>
         <hr>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div id="alert-placeholder"></div>
+        <nav class="navbar navbar-expand-sm navbar-light" style="background-color: #99caee;">
             <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">                
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('index') }}">Sewing Patterns</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('users') }}">Users</a>
+                  </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('about') }}">About</a>
                 </li>
               </ul>
             </div>
           </nav>
-          
-        <div><button class="btn btn-secondary border-dark" id="button-showCreateUser" onclick="showCreateUser()">Add a user</button></div><br>
+        <br><br>
+        <div><button class="btn btn-secondary border-dark" id="button-showCreateUser" onclick="showCreateUser()">Get your userID!</button></div><br>
     
-        <table class="table" id="userTable">
+        <table class="table table-striped" id="userTable">
             <thead >
                 <tr>
                     <th class="table-success">UserID &nbsp;&#x2b83;</th>
                     <th class="table-success">First Name &nbsp;&#x2b83;</th>
                     <th class="table-success">Last Name &nbsp;&#x2b83;</th>
                     <th class="table-success">Email &nbsp;&#x2b83;</th>
-                    <!-- <th class="table-success">Password &nbsp;&#x2b83;</th>-->
+                    <th class="table-success">Password</th>
                     <th class="table-success">Update</th>
                     <th class="table-success">Delete</th>
                 </tr>
@@ -59,17 +59,25 @@
             
     <div id="createUserUpdateForm" style="display:none">
         <!-- Form for creating  and updating users -->
-        <h2><span id="createLabel">Become a </span>User <span id="updateLabel">Update</span> User</h2>
+        <h2><span id="createLabel">Become a </span>User<span id="updateLabel">Update</span> User</h2>
         <input type="hidden" name="userID" autocomplete="off">
-        First Name<br><input type="text" name="first_name" required autocomplete="given-name"><br/>
-        Last Name<br><input type="text" name="last_name" required autocomplete="family-name"><br/>
-        Email<br><input type="email"name="email" required autocomplete="email"><br/>
-        Password<br><input type="password" name="password" required autocomplete="new-password"><br/><br>
+        First Name<br><input type="text" name="first_name" required><br/>
+        Last Name<br><input type="text" name="last_name" required><br/>
+        Email<br><input type="email"name="email" required ><br/>
+        Password<br><input type="password" name="password" required><br/><br>
         <!--Confirm Password<br><input type="password" name="confirmPassword" required><br/>
             <br><br>-->
         <span><button class="btn btn-secondary border-dark" id="button-doCreateUser" onclick="doCreateUser()">Register</button></span>
         <span><button class="btn btn-secondary border-dark" id="button-doUpdateUser" onclick="doUserUpdate()">Update</button></span>
     </div>
+
+    <div id="loginForm" style="display:none;">
+        <h2>Login</h2>
+        Email<br><input type="email" id="loginEmail" required><br>
+        Password<br><input type="password" id="loginPassword" required><br><br>
+        <button class="btn btn-primary" onclick="doLogin()">Login</button>
+    </div>
+    
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
@@ -168,12 +176,12 @@
         cell3.innerHTML = user.last_name
         var cell4 = rowElement.insertCell(3);
         cell4.innerHTML = user.email
-        //var cell5 = rowElement.insertCell(4);
-        //cell5.innerHTML = user.password
         var cell5 = rowElement.insertCell(4);
-        cell5.innerHTML = '<button onclick="showUserUpdate(this)">Update</button>'
+        cell5.innerHTML = user.password
         var cell6 = rowElement.insertCell(5);
-        cell6.innerHTML = '<button onclick="doUserDelete(this)">Delete</button>'
+        cell6.innerHTML = '<button class="btn btn-outline-primary" onclick="showUserUpdate(this)">Update</button>'
+        var cell7 = rowElement.insertCell(6);
+        cell7.innerHTML = '<button class="btn btn-outline-danger" onclick="doUserDelete(this)">Delete</button>'
     }
 
     function clearUserForm(){
@@ -192,7 +200,7 @@
         user.first_name = rowElement.cells[1].textContent;
         user.last_name = rowElement.cells[2].textContent;
         user.email = rowElement.cells[3].textContent;
-        user.password = rowElement.cells[4].textContent;
+        //user.password = rowElement.cells[4].textContent;
         return user
     }
 
@@ -201,7 +209,7 @@
         rowElement.cells[1].firstChild.textContent = user.first_name;
         rowElement.cells[2].firstChild.textContent = user.last_name;
         rowElement.cells[3].firstChild.textContent = user.email;
-        rowElement.cells[4].firstChild.textContent = user.password;
+        //rowElement.cells[4].firstChild.textContent = user.password;
     }
 
     function populateFormWithUser(user){
@@ -213,7 +221,7 @@
         form.querySelector('input[name="first_name"]').value= user.first_name;
         form.querySelector('input[name="last_name"]').value = user.last_name;
         form.querySelector('input[name="email"]').value= user.email;
-        form.querySelector('input[name= "password"]').value = user.password;
+        form.querySelector('input[name= "password"]').value = '';
         return user;
     }
 
@@ -262,6 +270,7 @@
                 addUserToTable(result);
                 clearUserForm();
                 showViewAllUsers();
+                
                 alert("Welcome " + result.first_name +". Your userID is: " +result.userID);
         },
             "error":function(xhr,status,error){

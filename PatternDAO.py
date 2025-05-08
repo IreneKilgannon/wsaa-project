@@ -148,10 +148,9 @@ class PatternDAO:
         print("Pattern deleted")
 
 
-###### User functions  LEAVING OUT password authentication for now. 
     def get_all_users(self):
         cursor = self.getCursor()
-        sql = "SELECT * FROM users"
+        sql = "SELECT userID, first_name, last_name, email FROM users"
         cursor.execute(sql)
         results = cursor.fetchall()
         users = []
@@ -174,7 +173,7 @@ class PatternDAO:
     
     def update_user(self, user):
         cursor = self.getCursor()
-        sql = "UPDATE users SET first_name = %s, last_name = %s, email = %s, password = %s WHERE userID = %s"
+        sql = "UPDATE users SET first_name = %s, last_name = %s, email = %s, password_hash = %s WHERE userID = %s"
         values = (user.get("first_name"), user.get("last_name"), user.get("email"), user.get("password"), user.get("userID"))
         cursor.execute(sql, values)
         self.connection.commit()
@@ -183,7 +182,7 @@ class PatternDAO:
 
     def findByUserID_users(self, userID):
         cursor = self.getCursor()
-        sql = "SELECT * FROM users WHERE userID = %s"
+        sql = "SELECT userID, first_name, last_name, email FROM users WHERE userID = %s"
         values = (userID, )
         cursor.execute(sql, values)
         result = cursor.fetchall()
