@@ -22,78 +22,145 @@ def about():
 # Get all patterns
 @app.route('/patterns', methods = ['GET'])
 def getAll():
-    return jsonify(patternDAO.getAll())
+    try:
+        return jsonify(patternDAO.getAll())
+    except Exception as e:
+        print(f"Error with getAll(), getting patterns: {e}")
+        return jsonify({"error: Unable to get all patterns"}), 500
 
 
 # Find By patternID
 @app.route('/patterns/<patternID>', methods = ['GET'])
 def findByID(patternID):
-    return jsonify(patternDAO.findByID(patternID))
+    try:
+        
+        pattern = patternDAO.findByID(patternID)
+
+        if not pattern:
+            return jsonify({"error": f"Pattern ID, {patternID} does not exist."}), 404
+        return jsonify(pattern)
+    
+    except Exception as e:  
+        print(f"Error finding pattern by ID: {e}")
+        return jsonify({"error": "Internal Server Error"}), 500
+        
 
 
 # Find by Brand
 @app.route('/brand/<brand>', methods = ['GET'])
 def findByBrand(brand):
-    return jsonify(patternDAO.findByBrand(brand))
+    try:
+        brand = patternDAO.findByBrand(brand)
+
+        if not brand:
+            return jsonify({"error": f"Pattern brand, {brand} does not exist."}), 404
+        return jsonify(brand)
+    
+    except Exception as e:  
+        print(f"Error finding pattern by brand: {e}")
+        return jsonify({"error": "Internal Server Error"}), 500
 
 # Find by Category
 @app.route('/category/<category>', methods = ['GET'])
 def findByCategory(category):
-    return jsonify(patternDAO.findByCategory(category))
+    try:
+        category = patternDAO.findByCategory(category)
+
+        if not category:
+            return jsonify({"error": f"Pattern category, {category} does not exist."}), 404
+        return jsonify(category)
+    
+    except Exception as e:  
+        print(f"Error finding pattern by category: {e}")
+        return jsonify({"error": "Internal Server Error"}), 500
 
 # Find by Fabric Type
 @app.route('/fabric_type/<fabric_type>')
 def findByFabric(fabric_type):
-    return jsonify(patternDAO.findByFabric(fabric_type))
-
+    try:
+        fabric_type = patternDAO.findByFabric(fabric_type)
+        
+        if not fabric_type:
+            return jsonify({"error": f"Pattern fabric type, {fabric_type} does not exist."}), 404
+        return jsonify(fabric_type)
+    except Exception as e:  
+        print(f"Error finding pattern by fabric_type: {e}")
+        return jsonify({"error": "Internal Server Error"}), 500
+    
 # Find by patterns by userID
 @app.route('/userID/<userID>')
 def findByUserID(userID):
-    return jsonify(patternDAO.findByUserID(userID))
+    try:
+        userID = patternDAO.findByUserID(userID)
 
+        if not userID:
+            return jsonify({"error": f"Pattern userID, {userID} does not exist."}), 404
+        return jsonify(userID)
+    
+    except Exception as e:  
+        print(f"Error finding by userID: {e}")
+        return jsonify({"error": "Internal Server Error"}), 500
 
 # Create a pattern
 @app.route('/patterns', methods=['POST'])
 def create():
     if not request.json:
         abort(400)
+    
+    # Chat GPT - handling missing fields
+    # Do not add to db if required field missing. 
+    required_fields = ["patternID", "brand", "category", "fabric_type", "description", "format", "userID"]
 
-    pattern = {
-        "patternID": request.json["patternID"],
-        "brand": request.json["brand"],
-        "category": request.json["category"],
-        "fabric_type": request.json["fabric_type"],
-        "description": request.json["description"],
-        "format": request.json["format"],
-        "userID": request.json["userID"]
-    }
-    return jsonify(patternDAO.create(pattern)), 201
+    for field in required_fields:
+        if field not in request.json:
+            return jsonify({"error": f"Missing required field: {field}"}), 400
+                           
+    try:
+        pattern = {
+            "patternID": request.json["patternID"],
+            "brand": request.json["brand"],
+            "category": request.json["category"],
+            "fabric_type": request.json["fabric_type"],
+            "description": request.json["description"],
+            "format": request.json["format"],
+            "userID": request.json["userID"]
+        }
+
+        return jsonify(patternDAO.create(pattern)), 201
+    
+    except Exception as e:
+        print(f"Error creating pattern: {e}")
+        return jsonify({"error": "Internal Server Error"}), 500
 
 
 # Update a pattern
 @app.route('/patterns/<patternID>', methods=['PUT'])
 def update_pattern(patternID):
-    foundPattern = patternDAO.findByID(patternID)
-    print (foundPattern)
-    if foundPattern == {}:
-        return jsonify({}), 404
-    currentPattern = foundPattern
-    if 'patternID' in request.json:
-        currentPattern['patternID'] = request.json['patternID']
-    if 'brand' in request.json:
-        currentPattern['brand'] = request.json['brand']
-    if 'category' in request.json:
-        currentPattern['category'] = request.json['category']
-    if 'fabric_type' in request.json:
-        currentPattern['fabric_type'] = request.json['fabric_type']
-    if 'description' in request.json:
-        currentPattern['description'] = request.json['description']
-    if 'format' in request.json:
-        currentPattern['format'] = request.json['format']
-    if 'userID' in request.json:
-        currentPattern['userID'] = request.json['userID']
-    patternDAO.update(currentPattern)
-    return jsonify(currentPattern)
+    try:
+        foundPattern = patternDAO.findByID(patternID)
+        print (foundPattern)
+        if foundPattern == {}:
+            return jsonify({}), 404
+        currentPattern = foundPattern
+        if 'patternID' in request.json:
+            currentPattern['patternID'] = request.json['patternID']
+        if 'brand' in request.json:
+            currentPattern['brand'] = request.json['brand']
+        if 'category' in request.json:
+            currentPattern['category'] = request.json['category']
+        if 'fabric_type' in request.json:
+            currentPattern['fabric_type'] = request.json['fabric_type']
+        if 'description' in request.json:
+            currentPattern['description'] = request.json['description']
+        if 'format' in request.json:
+            currentPattern['format'] = request.json['format']
+        if 'userID' in request.json:
+            currentPattern['userID'] = request.json['userID']
+        patternDAO.update(currentPattern)
+        return jsonify(currentPattern)
+    except Exception as e:
+        print(f"Error updating pattern: {e}")
+        return jsonify({"error": "Internal Server Error"}), 500
 
 
 #  Delete
@@ -159,8 +226,12 @@ def update_user(userID):
 #  Delete
 @app.route('/api/users/<userID>', methods=['DELETE'])
 def delete_user(userID):
-    patternDAO.delete_user(userID)
-    return jsonify({"done": True})
+    try:
+        patternDAO.delete_user(userID)
+        return jsonify({"done": True})
+    except Exception as e:
+        print(f"Error finding by delete_user: {e}")
+        return jsonify({"error": "Internal Server Error"}), 500
 
 
 ######## Borrow Routes

@@ -72,9 +72,9 @@
     <div id="createUpdateForm" style="display:none">
         <!-- Form for creating and updating patterns -->
         <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update</span> Sewing Pattern</h2>
-        PatternID <br><input type="text" name="patternID"><br/>
-        Brand <br><input type="text" name="brand"><br/>
-        Category <br><select name="category">
+        PatternID <br><input type="text" name="patternID" required><br/>
+        Brand <br><input type="text" name="brand" required><br/>
+        Category <br><select name="category" required>
             <option value="Coat">Coat</option>
             <option value="Coordinates">Coordinates</option>
             <option value="Dress">Dress</option>
@@ -85,17 +85,17 @@
             <option value="Trousers">Trousers</option>
             <option value="Top">Top</option><br>
             </select><br/>
-        Fabric Type <br><select name="fabric_type">
+        Fabric Type <br><select name="fabric_type" required>
             <option value="Woven">Woven</option>
             <option value="Stretch">Stretch</option>
             <option value="All">All</option><br/>
             </select><br/>
-        Description <br><input name="description"><br>
+        Description <br><input name="description" required><br>
         Format<br><select name="format">
             <option value="Paper">Paper</option>
             <option value="PDF">PDF</option>
             </select><br>
-        userID<br><input type = "number" name = "userID">
+        userID<br><input type = "number" name = "userID" required>
             <br><br>
         <span><button class="btn btn-secondary border-dark" id="button-doCreate" onclick="doCreate()">Create</button></span>
         <span><button class="btn btn-secondary border-dark" id="button-doUpdate" onclick="doUpdate()">Update</button></span>
