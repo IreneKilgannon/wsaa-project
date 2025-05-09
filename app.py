@@ -125,8 +125,9 @@ def create():
             "format": request.json["format"],
             "userID": request.json["userID"]
         }
-
-        return jsonify(patternDAO.create(pattern)), 201
+        
+        result = patternDAO.create(pattern)
+        return jsonify(result), 201
     
     except Exception as e:
         print(f"Error creating pattern: {e}")

@@ -82,3 +82,5 @@ YouTube, Hashing passwords with Werkzeug https://www.youtube.com/watch?v=8ebIEef
 YouTube Password Hashing in Flask Using Werkzeug, Pretty Printed https://www.youtube.com/watch?v=jJ4awOToB6k
 
 Navbar Bootstrap5 Bootstrap Navbar Tutorial, Adrian Twarog, https://www.youtube.com/watch?v=qNifU_aQRio
+
+ChatGPT How can I check form validity in HTML? 

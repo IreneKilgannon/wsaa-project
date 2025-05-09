@@ -69,10 +69,10 @@
     
 
     <br/>
-    <div id="createUpdateForm" style="display:none">
+    <form id="createUpdateForm" style="display:none" onsubmit="return false;">
         <!-- Form for creating and updating patterns -->
         <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update</span> Sewing Pattern</h2>
-        PatternID <br><input type="text" name="patternID" required><br/>
+        PatternID <br><input type="text" name="patternID" required minlength = "4"><br/>
         Brand <br><input type="text" name="brand" required><br/>
         Category <br><select name="category" required>
             <option value="Coat">Coat</option>
@@ -99,7 +99,7 @@
             <br><br>
         <span><button class="btn btn-secondary border-dark" id="button-doCreate" onclick="doCreate()">Create</button></span>
         <span><button class="btn btn-secondary border-dark" id="button-doUpdate" onclick="doUpdate()">Update</button></span>
-    </div>
+        </form>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
@@ -173,7 +173,6 @@
       }
     }
 
-
     function showCreate(){
         document.getElementById("createUpdateForm").style.display = "block";
         document.getElementById("button-doCreate").style.display = "block";
@@ -212,8 +211,14 @@
 
     function doCreate(){
         var form = document.getElementById('createUpdateForm');
-        var pattern = {}
 
+        if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+        }
+
+        var pattern = {}
+        
         pattern.patternID = form.querySelector('input[name="patternID"]').value;
         pattern.brand = form.querySelector('input[name="brand"]').value;
         pattern.category = form.querySelector('[name="category"]').value;
@@ -228,6 +233,12 @@
     
     function doUpdate(){
         var form = document.getElementById('createUpdateForm');
+
+        if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+        }
+
         var pattern= getPatternFromForm();
         var rowElement = document.querySelector(`[patternID='${pattern.patternID}']`);
 
