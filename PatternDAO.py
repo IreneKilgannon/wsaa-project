@@ -99,13 +99,18 @@ class PatternDAO:
             sql = "SELECT * FROM patterns WHERE category = %s"
             values = (category, )
             cursor.execute(sql, values)
-            result = cursor.fetchall()
+            results = cursor.fetchall()
 
-            if not result:
+            if not results:
                 return None
             
-            returnvalue = self.convertToDictionaryPatterns(result)
-            return returnvalue
+            patterns = []
+            for row in results:
+                patterns.append(self.convertToDictionaryPatterns(row))
+            return patterns
+        
+            #returnvalue = self.convertToDictionaryPatterns(result)
+            #return returnvalue
         
         except Exception as e:
             print(f"Database error in findByCategory: {e}")
@@ -120,13 +125,17 @@ class PatternDAO:
             sql = "SELECT * FROM patterns WHERE brand = %s"
             values = (brand, )
             cursor.execute(sql, values)
-            result = cursor.fetchall()
+            results = cursor.fetchall()
 
-            if not result:
+            if not results:
                 return None
             
-            returnvalue = self.convertToDictionaryPatterns(result)
-            return returnvalue
+            patterns = []
+            for row in results:
+                patterns.append(self.convertToDictionaryPatterns(row))
+            return patterns
+            #returnvalue = self.convertToDictionaryPatterns(result)
+            #return returnvalue
         
         except Exception as e:
             print(f"Database error in findByBrand: {e}")
@@ -142,13 +151,17 @@ class PatternDAO:
             sql = "SELECT * FROM patterns WHERE fabric_type = %s"
             values = (fabric_type, )
             cursor.execute(sql, values)
-            result = cursor.fetchall()
+            results = cursor.fetchall()
 
-            if not result:
+            if not results:
                 return None
             
-            returnvalue = self.convertToDictionaryPatterns(result)
-            return returnvalue
+            patterns = []
+            for row in results:
+                patterns.append(self.convertToDictionaryPatterns(row))
+            return patterns
+            #returnvalue = self.convertToDictionaryPatterns(result)
+            #return returnvalue
         except Exception as e:
             print(f"Database error in findByFabric: {e}")
             raise
@@ -162,13 +175,18 @@ class PatternDAO:
             sql = "SELECT * FROM patterns WHERE userID = %s"
             values = (userID, )
             cursor.execute(sql, values)
-            result = cursor.fetchall()
+            results = cursor.fetchall()
 
-            if not result:
+            if not results:
                 return None
+            
+            patterns = []
+            for row in results:
+                patterns.append(self.convertToDictionaryPatterns(row))
+            return patterns
 
-            returnvalue = self.convertToDictionaryPatterns(result)
-            return returnvalue
+            #returnvalue = self.convertToDictionaryPatterns(result)
+            #return returnvalue
         
         except Exception as e:
             print(f"Database error in findByUserID: {e}")

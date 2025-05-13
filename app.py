@@ -7,7 +7,7 @@ app = Flask(__name__, static_url_path='', static_folder='static')
 
 @app.route('/')
 def index():
-    return render_template('testing.html')
+    return render_template('filters.html')
     #return render_template('home.html')
 
 @app.route('/users')
