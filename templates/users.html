@@ -49,7 +49,7 @@
         <h2>Enter User ID</h2>
         <form id="userIdForm">
           <input type="text" id="userIdInput" name="user_id" placeholder="Enter User ID" required>
-          <button type="submit">View User</button>
+          <button class="btn btn-secondary border-dark" type="submit">View User</button>
         </form>
 
 
@@ -271,10 +271,10 @@
     }
 
         document.getElementById('userIdForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent page reload
-        
-        let userId = document.getElementById('userIdInput').value.trim();
-        if (!userId) return;
+            e.preventDefault(); // Prevent page reload
+            
+            let userId = document.getElementById('userIdInput').value.trim();
+            if (!userId) return;
         
         $.ajax({
             url: '/users/' + encodeURIComponent(userId),
@@ -352,6 +352,7 @@
             }
         });
     }
+
     function deleteUserAjax(userID){
         $.ajax({
             "url": "/users/"+encodeURI(userID),

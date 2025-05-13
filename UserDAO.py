@@ -98,7 +98,7 @@ class UserDAO:
             sql = "SELECT userID, first_name, last_name, email FROM users WHERE userID = %s"
             values = (userID, )
             cursor.execute(sql, values)
-            result = cursor.fetchall()
+            result = cursor.fetchone()
             returnvalue = self.convertToDictionaryUsers(result)
             return returnvalue
         
