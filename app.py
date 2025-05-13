@@ -9,7 +9,6 @@ app = Flask(__name__, static_url_path='', static_folder='static')
 @app.route('/')
 def index():
     return render_template('index.html')
-    #return render_template('home.html')
 
 @app.route('/users')
 def users():
@@ -48,7 +47,7 @@ def findByID(patternID):
 
 
 # Find by Brand
-@app.route('/brand/<brand>', methods = ['GET'])
+@app.route('/patterns/brand/<brand>', methods = ['GET'])
 def findByBrand(brand):
     try:
         brand = patternDAO.findByBrand(brand)
@@ -62,7 +61,7 @@ def findByBrand(brand):
         return jsonify({"error": "Internal Server Error"}), 500
 
 # Find by Category
-@app.route('/category/<category>', methods = ['GET'])
+@app.route('/patterns/category/<category>', methods = ['GET'])
 def findByCategory(category):
     try:
         category = patternDAO.findByCategory(category)
@@ -76,7 +75,7 @@ def findByCategory(category):
         return jsonify({"error": "Internal Server Error"}), 500
 
 # Find by Fabric Type
-@app.route('/fabric_type/<fabric_type>')
+@app.route('/patterns/fabric_type/<fabric_type>', methods=['GET'])
 def findByFabric(fabric_type):
     try:
         fabric_type = patternDAO.findByFabric(fabric_type)
@@ -89,7 +88,7 @@ def findByFabric(fabric_type):
         return jsonify({"error": "Internal Server Error"}), 500
     
 # Find by patterns by userID
-@app.route('/userID/<userID>')
+@app.route('/patterns/userID/<userID>')
 def findByUserID(userID):
     try:
         userID = patternDAO.findByUserID(userID)
@@ -141,8 +140,8 @@ def update_pattern(patternID):
     try:
         foundPattern = patternDAO.findByID(patternID)
         print (foundPattern)
-        if foundPattern == {}:
-            return jsonify({}), 404
+        if not foundPattern:
+            return jsonify({{"error": f"Pattern with ID {patternID} not found"}}), 404
         currentPattern = foundPattern
         if 'patternID' in request.json:
             currentPattern['patternID'] = request.json['patternID']
@@ -173,7 +172,7 @@ def delete(patternID):
 
 
 ######## User Routes
-@app.route('/api/users', methods = ['GET'])
+@app.route('/users', methods = ['GET'])
 def get_all_users():
     try:
         print("in get all")
@@ -184,26 +183,37 @@ def get_all_users():
         return jsonify({"error": "Something went wrong"}), 500
 
 # Create a user
-@app.route('/api/users', methods=['POST'])
+@app.route('/users', methods=['POST'])
 def create_user():
     if not request.json:
         abort(400)
 
-    user = {
-        #"userID": request.json["userID"],
-        "first_name": request.json["first_name"],
-        "last_name": request.json["last_name"],
-        "email": request.json["email"],
-        "password": generate_password_hash(request.json["password"]),
-    }
-    
-    new_user = userDAO.create_user(user)
-    return jsonify(new_user), 201
-    #return render_template('user_created.html', user = new_user)
+    try:
+        user = {
+            #"userID": request.json["userID"],
+            "first_name": request.json["first_name"],
+            "last_name": request.json["last_name"],
+            "email": request.json["email"],
+            "password": generate_password_hash(request.json["password"]),
+        }
 
- 
+        new_user = userDAO.create_user(user)
+        return jsonify(new_user), 201
+    
+    except Exception as e:
+        print(f"Error creating user: {e}")
+        return jsonify({"error": "Failed to create user"}), 500
+
+# Get information for a specific user
+@app.route('/users/<user_id>', methods=['GET'])
+def get_user_by_id(user_id):
+    user = userDAO.findByUserID_users(user_id)
+    if user:
+        return jsonify(user)
+    return jsonify({"error": "User not found"}), 404
+
 # Update a user
-@app.route('/api/users/<userID>', methods=['PUT'])
+@app.route('/users/<userID>', methods=['PUT'])
 def update_user(userID):
     foundUser = userDAO.findByUserID_users(userID)
     print(f"This is foundUser {foundUser}")
@@ -211,8 +221,8 @@ def update_user(userID):
         return jsonify({}), 404
     #currentUser = foundUser
     #print(request.json)
-    if 'userID' in request.json:
-        foundUser['userID'] = request.json['userID']
+    #if 'userID' in request.json:
+    #    foundUser['userID'] = request.json['userID']
     if 'first_name' in request.json:
         foundUser['first_name'] = request.json['first_name']
     if 'last_name' in request.json:
@@ -226,7 +236,7 @@ def update_user(userID):
 
 
 #  Delete
-@app.route('/api/users/<userID>', methods=['DELETE'])
+@app.route('/users/<userID>', methods=['DELETE'])
 def delete_user(userID):
     try:
         userDAO.delete_user(userID)

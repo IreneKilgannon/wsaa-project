@@ -101,6 +101,7 @@ class UserDAO:
             result = cursor.fetchall()
             returnvalue = self.convertToDictionaryUsers(result)
             return returnvalue
+        
         except Exception as e:
             print(f"Database error in findByUserID_users: {e}")
             raise

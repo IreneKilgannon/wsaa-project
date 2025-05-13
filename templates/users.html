@@ -44,8 +44,17 @@
           </nav>
         <br><br>
         <div><button class="btn btn-secondary border-dark" id="button-showCreateUser" onclick="showCreateUser()">Get your userID!</button></div><br>
-    
-        <table class="table table-striped" id="userTable">
+        
+        <!--Form to Enter UserID-->
+        <h2>Enter User ID</h2>
+        <form id="userIdForm">
+          <input type="text" id="userIdInput" name="user_id" placeholder="Enter User ID" required>
+          <button type="submit">View User</button>
+        </form>
+
+
+
+        <table class="table table-striped" id="userTable" style="display: none;">
             <thead >
                 <tr>
                     <th class="table-success">UserID &nbsp;&#x2b83;</th>
@@ -58,6 +67,7 @@
                 </tr>
             </thead>
             <tbody>
+                  
             </tbody>
         </table>
             
@@ -179,7 +189,9 @@
     }
     
     function addUserToTable(user){
-        var tableElement = document.getElementById('userTable')
+        console.log("DEBUG USER to table:", user);
+        var tableElement = document.getElementById('userTable').querySelector('tbody');
+        console.log("Adding user to table:", user);
         var rowElement = tableElement.insertRow(-1)
         
         rowElement.setAttribute('userID', user.userID)
@@ -193,11 +205,15 @@
         var cell4 = rowElement.insertCell(3);
         cell4.innerHTML = user.email
         var cell5 = rowElement.insertCell(4);
-        cell5.innerHTML = user.password
+        cell5.innerHTML = '********'
         var cell6 = rowElement.insertCell(5);
         cell6.innerHTML = '<button class="btn btn-outline-primary" onclick="showUserUpdate(this)">Update</button>'
         var cell7 = rowElement.insertCell(6);
         cell7.innerHTML = '<button class="btn btn-outline-danger" onclick="doUserDelete(this)">Delete</button>'
+    }
+
+    function clearUserTable() {
+        document.getElementById('userTable').querySelector('tbody').innerHTML = '';
     }
 
     function clearUserForm(){
@@ -254,9 +270,34 @@
         return user
     }
 
+        document.getElementById('userIdForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent page reload
+        
+        let userId = document.getElementById('userIdInput').value.trim();
+        if (!userId) return;
+        
+        $.ajax({
+            url: '/users/' + encodeURIComponent(userId),
+            method: 'GET',
+            dataType: 'json',
+            success: function(user) {
+                // Clear table
+                const table = document.getElementById('userTable');
+                table.querySelector('tbody').innerHTML = '';
+                addUserToTable(user);
+                table.style.display = 'table';
+            },
+            error: function(xhr) {
+                alert('User not found with ID: ' + userId);
+                document.getElementById('userTable').style.display = 'none';
+            }
+        });
+    });
+
+
     function getAllUserAjax(){
         $.ajax({
-            "url": "/api/users",
+            "url": "/users",
             "method":"GET",
             "data":"",
             "dataType": "JSON",
@@ -276,7 +317,7 @@
     function createUserAjax(user){
         console.log("Test" , JSON.stringify(user)); 
         $.ajax({
-            "url": "/api/users",
+            "url": "/users",
             "method":"POST",
             "data":JSON.stringify(user),
             "dataType": "JSON",
@@ -297,7 +338,7 @@
     function updateUserAjax(user){
         console.log(JSON.stringify(user));
         $.ajax({
-            "url": "/api/users/"+encodeURI(user.userID),
+            "url": "/users/"+encodeURI(user.userID),
             "method":"PUT",
             "data":JSON.stringify(user),
             "dataType": "JSON",
@@ -313,7 +354,7 @@
     }
     function deleteUserAjax(userID){
         $.ajax({
-            "url": "/api/users/"+encodeURI(userID),
+            "url": "/users/"+encodeURI(userID),
             "method":"DELETE",
             "data":"",
             "dataType": "JSON",
@@ -328,6 +369,7 @@
         });
     }
 
+    // Don't display the table at first
     getAllUserAjax();
 
     </script>

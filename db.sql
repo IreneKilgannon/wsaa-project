@@ -25,6 +25,19 @@ create table patterns (
     );
 
 
+create table fabrics (
+    fabricID INTEGER AUTO_INCREMENT,
+    image VARCHAR(250) NOT NULL,
+    pattern VARCHAR(100) NOT NULL,
+    category ENUM ('Woven', 'Knit', 'All') NOT NULL,
+    type VARCHAR(100) NOT NULL,
+    colour VARCHAR(50) NOT NULL,
+    use ENUM('Dress', 'Quilting', 'Furnishing') NOT NULL,
+    amount DECIMAL(5,2) NOT NULL,
+    other_details VARCHAR(255),
+    PRIMARY KEY (fabricID),
+);
+
 create table borrow_requests (
     loanID INTEGER AUTO_INCREMENT,
     userID INTEGER NOT NULL,
