@@ -1,5 +1,6 @@
 from flask import Flask, url_for, request, redirect, abort, jsonify, render_template
 from PatternDAO import patternDAO
+from UserDAO import userDAO
 from werkzeug.security import generate_password_hash
 
 app = Flask(__name__, static_url_path='', static_folder='static')
@@ -7,7 +8,7 @@ app = Flask(__name__, static_url_path='', static_folder='static')
 
 @app.route('/')
 def index():
-    return render_template('filters.html')
+    return render_template('index.html')
     #return render_template('home.html')
 
 @app.route('/users')
@@ -176,7 +177,7 @@ def delete(patternID):
 def get_all_users():
     try:
         print("in get all")
-        users = patternDAO.get_all_users()
+        users = userDAO.get_all_users()
         return jsonify(users)
     except Exception as e:
         print(f"Error fetching users {e}")
@@ -196,7 +197,7 @@ def create_user():
         "password": generate_password_hash(request.json["password"]),
     }
     
-    new_user = patternDAO.create_user(user)
+    new_user = userDAO.create_user(user)
     return jsonify(new_user), 201
     #return render_template('user_created.html', user = new_user)
 
@@ -204,7 +205,7 @@ def create_user():
 # Update a user
 @app.route('/api/users/<userID>', methods=['PUT'])
 def update_user(userID):
-    foundUser = patternDAO.findByUserID_users(userID)
+    foundUser = userDAO.findByUserID_users(userID)
     print(f"This is foundUser {foundUser}")
     if foundUser == {}:
         return jsonify({}), 404
@@ -220,7 +221,7 @@ def update_user(userID):
         foundUser['email'] = request.json['email']
     if 'password' in request.json:
         foundUser['password'] = generate_password_hash(request.json['password'])
-    patternDAO.update_user(foundUser)
+    userDAO.update_user(foundUser)
     return jsonify(foundUser)
 
 
@@ -228,7 +229,7 @@ def update_user(userID):
 @app.route('/api/users/<userID>', methods=['DELETE'])
 def delete_user(userID):
     try:
-        patternDAO.delete_user(userID)
+        userDAO.delete_user(userID)
         return jsonify({"done": True})
     except Exception as e:
         print(f"Error finding by delete_user: {e}")
