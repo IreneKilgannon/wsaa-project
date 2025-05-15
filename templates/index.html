@@ -6,27 +6,32 @@
     <title>View sewing patterns</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     
-    <!--Bootstrap CSS-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
+    <!--Google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <!--Bootstrap CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">  
+    
     <!--Awesome font-->
     <script src="https://kit.fontawesome.com/e8de472ad4.js" crossorigin="anonymous"></script>
 </head>
 
 
 <body>
-    <div class="container p-5 my-5 bg-light border-primary">
-    <h1>Sewing Patterns</h1>
-    <hr>
-
     
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #88c0e9;">
-  <div class="container-fluid d-flex align-items-center justify-content-between">
+    <div class="container p-3 my-3 bg-light border-primary">    
+        
+    <nav class="navbar navbar-expand-lg py-0" style="background-color: #696e8a;">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
     
     <!-- Brand -->
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand text-white" href="#"><i class="fa-solid fa-scissors"></i></a>
 
     <!-- Toggle for mobile -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -35,34 +40,38 @@
     </button>
 
     <!-- Nav links and search form -->
-    <div class="collapse navbar-collapse d-flex align-items-center justify-content-between" id="navbarNav">
+    <div class="collapse navbar-collapse d-flex align-items-center justify-content-between custom-navbar" id="navbarNav">
       
       <!-- Nav links -->
       <ul class="navbar-nav d-flex flex-row me-auto">
-        <li class="nav-item mx-2">
-          <a class="nav-link" href="{{ url_for('index') }}">Sewing Patterns</a>
+        <li class="nav-item mx-2 ">
+          <a class="nav-link active" href="{{ url_for('index') }}">Sewing Patterns</a>
         </li>
         <li class="nav-item mx-2">
-          <a class="nav-link" href="{{ url_for('users') }}">Users</a>
+          <a class="nav-link text-white" href="{{ url_for('users') }}">Users</a>
         </li>
         <li class="nav-item mx-2">
-          <a class="nav-link" href="{{ url_for('about') }}">About</a>
+          <a class="nav-link text-white" href="{{ url_for('about') }}">About</a>
         </li>
       </ul>
+      
+      <button class="btn custom-btn" id="button-showCreate" onclick="showCreate()"> + Add a Sewing Pattern</button>
 
       <!-- Search form -->
-      <form class="d-flex align-items-center ms-3" onsubmit="event.preventDefault(); searchByPatternID();">
-        <input class="form-control" id="myInput" type="search" placeholder="Search by PatternID..." aria-label="Search">
+      <form class="d-flex align-items-center mx-2 my-1" onsubmit="event.preventDefault(); searchByPatternID();">
+        <input class="form-control form-control-ml" id="myInput" type="search" placeholder="Search by Pattern ID..." aria-label="Search" style="margin-top: 21px;">
       </form>
-
-    </div>
-  </div>
-</nav>
-    
+        
+        </div>
+        </div>
+    </nav>
+<br>
+    <img src="{{ url_for('static', filename='banner.png') }}" alt = "Sew Organised" class="img-fluid" style="width: 100%; height: auto;">
+    <br>
     <br>
 
     <!-- Search and Filter Controls -->
-    <div class="row mb-3">
+    <div id="filterControls" class="row mb-3">
         <div class="col-md-3">
             <select id="categoryFilter" class="form-control">
                 <option value="">Filter by Category</option>
@@ -85,45 +94,46 @@
         </div>
         <div class="col-md-3">
             <select id="fabricFilter" class="form-control">
-                <option value="">Filter by Fabric</option>
+                <option value="">Filter by Fabric Type</option>
                 <option value="Woven">Woven</option>
                 <option value="Stretch">Stretch</option>
                 <option value="All">All</option>
             </select>
         </div>
         <div class="col-md-3">
-            <button id="resetFilters" class="btn btn-secondary">Reset Filters</button>
+            <button id="resetFilters" class="btn custom-btn">Reset Filters</button>
         </div>
     </div>
-
-    <div><button class="btn btn-secondary border-dark" id="button-showCreate" onclick="showCreate()">Add a sewing pattern</button></div><br>
-    
-    <table class="table" id="patternTable">
-        <thead >
+    <div id="alertContainer" class="my-3"></div>
+    <div class="table-responsive">
+    <table class="table table-hover" id="patternTable">
+        <thead style="background-color: #696e8a;">
             <tr>
-                <th onclick="sortTable(0)" class="table-success">PatternID &nbsp;&#x2b83;</th>
-                <th onclick="sortTable(1)" class="table-success">Brand &nbsp;&#x2b83;</th>
-                <th onclick="sortTable(2)" class="table-success">Category &nbsp;&#x2b83;</th>
-                <th onclick="sortTable(3)" class="table-success">Fabric Type &nbsp;&#x2b83;</th>
-                <th onclick="sortTable(4)" class="table-success">Description &nbsp;&#x2b83;</th>
-                <th onclick="sortTable(5)" class="table-success">Format &nbsp;&#x2b83;</th>
-                <th onclick="sortTable(6)"class="table-success">userID &nbsp;&#x2b83;</th>
-                <th class="table-success">Update</th>
-                <th class="table-success">Delete</th>
+                <th onclick="sortTable(0)">PatternID &nbsp;&#x2b83;</th>
+                <th onclick="sortTable(1)">Brand &nbsp;&#x2b83;</th>
+                <th onclick="sortTable(2)">Category &nbsp;&#x2b83;</th>
+                <th onclick="sortTable(3)">Fabric Type &nbsp;&#x2b83;</th>
+                <th onclick="sortTable(4)">Description &nbsp;&#x2b83;</th>
+                <th onclick="sortTable(5)">Format &nbsp;&#x2b83;</th>
+                <th onclick="sortTable(6)">userID &nbsp;&#x2b83;</th>
+                <th>Update</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
-    
+    </div>
 
     <br/>
     <form id="createUpdateForm" style="display:none" onsubmit="return false;">
         <!-- Form for creating and updating patterns -->
         <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update</span> Sewing Pattern</h2>
-        PatternID <br><input type="text" name="patternID" required minlength = "4"><br/>
-        Brand <br><input type="text" name="brand" required><br/>
-        Category <br><select name="category" required>
+        <hr>
+        <b>PatternID:</b><br><input type="text" name="patternID" class="form-control" required minlength = "4"><br/>
+        <b>Brand:</b><br><input type="text" name="brand" class="form-control"required><br/>
+        
+        <b>Category:</b><br><select name="category" class="form-control" required>
             <option value="Coat">Coat</option>
             <option value="Coordinates">Coordinates</option>
             <option value="Dress">Dress</option>
@@ -134,23 +144,43 @@
             <option value="Trousers">Trousers</option>
             <option value="Top">Top</option><br>
             </select><br/>
-        Fabric Type <br><select name="fabric_type" required>
+            <br>
+        <b>Fabric Type:</b><br><select name="fabric_type" class="form-control" required>
             <option value="Woven">Woven</option>
             <option value="Stretch">Stretch</option>
             <option value="All">All</option><br/>
             </select><br/>
-        Description <br><input name="description" required><br>
-        Format<br><select name="format">
+            <br>
+        <b>Description:</b><br>
+        <textarea name="description" rows="4" class="form-control" required></textarea><br>
+        <b>Format:</b><br><select name="format" class="form-control" required>
             <option value="Paper">Paper</option>
             <option value="PDF">PDF</option>
             </select><br>
-        userID<br><input type = "number" name = "userID" required>
+            <br>   
+        <b>userID:</b><br><input type = "number" name = "userID" class="form-control"required>
             <br><br>
         <span><button class="btn btn-secondary border-dark" id="button-doCreate" onclick="doCreate()">Create</button></span>
-        <span><button class="btn btn-secondary border-dark" id="button-doUpdate" onclick="doUpdate()">Update</button></span>
+        <span><button class="btn custom-btn border-dark" id="button-doUpdate" onclick="doUpdate()">Update</button></span>
         </form>
 
+        <footer class="text-center text-white mt-5" style="background-color: #696e8a;">
+            <div class="container p-4">
+            <section class="mb-4">
+                <p>Yes, you have way too many patterns but there's always room for one more! 
+                <br>
+                <a href="https://burdasyle.com" target="_blank" style="color: white;">burdastyle.com    </a>
+                <a href="https://www.pattydoo.de/" target="_blank" style="color: white;">pattydoo.de</a>
+                <a href="https://sewdirect.com" target="_blank" style="color: white;">sewdirect.com</a>             
+                <a href="https://www.stylearc.com/" target="_blank" style="color: white;">stylearc.com</a>
+                <a href="https://thefoldline.com/" target="_blank" style="color: white;">thefoldline.com</a>
+                </p>
+            <p class="mb-0">
+    
+            
+    
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 </body>
 
@@ -273,6 +303,17 @@
       }
     }
 
+    function showAlert(message, type = 'danger') {
+    const alertHtml = `
+      <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    `;
+    document.getElementById('alertContainer').innerHTML = alertHtml;
+}
+
+
     function showCreate(){
         document.getElementById("createUpdateForm").style.display = "block";
         document.getElementById("button-doCreate").style.display = "block";
@@ -282,6 +323,7 @@
         document.getElementById("button-showCreate").style.display = "none";
         document.getElementById("patternTable").style.display = "none";
         document.getElementById("myInput").style.display = "none";
+        document.getElementById("filterControls").style.display = "none";
     }
 
     function showViewAll(){
@@ -289,6 +331,8 @@
         document.getElementById("createUpdateForm").style.display = "none"
         document.getElementById("button-showCreate").style.display = "block"
         document.getElementById("patternTable").style.display = "block"
+        document.getElementById("filterControls").style.display = "flex";
+        document.getElementById("myInput").style.display = "inline-block";
     }
 
     function showUpdate(buttonElement){
@@ -301,6 +345,7 @@
         document.getElementById("button-showCreate").style.display = "none";
         document.getElementById("patternTable").style.display = "none";
         document.getElementById("myInput").style.display = "none";
+        document.getElementById("filterControls").style.display = "none";
 
         var rowElement= buttonElement.parentNode.parentNode;
         var pattern = getPatternFromRow(rowElement);
@@ -323,7 +368,7 @@
         pattern.brand = form.querySelector('input[name="brand"]').value;
         pattern.category = form.querySelector('[name="category"]').value;
         pattern.fabric_type = form.querySelector('[name="fabric_type"]').value;
-        pattern.description = form.querySelector('input[name="description"]').value;
+        pattern.description = form.querySelector('textarea[name="description"]').value;
         pattern.format = form.querySelector('[name="format"]').value;
         pattern.userID = form.querySelector('input[name="userID"]').value;
         console.log(JSON.stringify(pattern));
@@ -386,7 +431,7 @@
         var cell7 = rowElement.insertCell(6);
         cell7.innerHTML = pattern.userID
         var cell8 = rowElement.insertCell(7);
-        cell8.innerHTML = '<button class="btn btn-outline-primary" onclick="showUpdate(this)">Update</button>'
+        cell8.innerHTML = '<button class="btn custom-btn" onclick="showUpdate(this)">Update</button>'
         var cell9 = rowElement.insertCell(8);
         cell9.innerHTML = '<button class="btn btn-outline-danger" onclick=doDelete(this)>Delete</button>'
     }
@@ -398,7 +443,7 @@
         form.querySelector('input[name="brand"]').value=''
         form.querySelector('[name="category"]').value =''
         form.querySelector('[name="fabric_type"]').value= ''
-        form.querySelector('input[name="description"]').value=''
+        form.querySelector('textarea[name="description"]').value=''
         form.querySelector('[name="format"]').value=''
         form.querySelector('input[name="userID"]').value=''
     }
@@ -441,7 +486,7 @@
         var fabricSelect = form.querySelector('[name="fabric_type"]');
         fabricSelect.value = pattern.fabric_type;
 
-        form.querySelector('input[name = "description"]').value = pattern.description;
+        form.querySelector('textarea[name = "description"]').value = pattern.description;
 
         var formatSelect = form.querySelector('[name="format"]');
         formatSelect.value= pattern.format;
@@ -497,12 +542,12 @@
             if (pattern && pattern.patternID) {
                 addPatternToTable(pattern); // Reuse your existing function
             } else {
-                alert("Pattern not found");
+                showAlert("Pattern not found");
             }
         },
         error: function(xhr, status, error) {
             console.log("Error fetching pattern:", error);
-            alert("Pattern not found or error occurred.");
+            showAlert(`Pattern ${patternID} not found.`, 'primary');
         }
     });
 }

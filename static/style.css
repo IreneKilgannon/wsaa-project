@@ -2,7 +2,66 @@
     display: none;
 }
 body {
-  background-color: rgb(238, 224, 241);
+  background-color: #eee0f1;
+  font-family: "Roboto", "Winky Sans", sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Winky Sans', sans-serif;
+}
+
+#createUpdateForm {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 25px 35px;
+    background-color: #f8f1f5;
+    border: 2px solid #D9BFE3;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#createUserUpdateForm {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 25px 35px;
+    background-color: #f8f1f5;
+    border: 2px solid #D9BFE3;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.custom-btn {
+  background-color: #696e8a;
+  color: white;
+  border: none;
+}
+
+.custom-btn:hover {
+  background-color: #D9BFE3;
+}
+
+.nav-link.active {
+    color: #D9BFE3 !important; 
+    font-weight: bold;        
+}
+
+.custom-navbar {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+    max-height: 60px;
+}
+
+#patternTable th {
+    color: #ffffff;
+    background-color: #696e8a; 
+    height: 50px;
+}
+
+#userTable th {
+    color: #ffffff;
+    background-color: #696e8a; 
 }
 
 form {
