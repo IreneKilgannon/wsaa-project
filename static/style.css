@@ -61,7 +61,18 @@ h1, h2, h3 {
 
 #userTable th {
     color: #ffffff;
-    background-color: #696e8a; 
+    background-color: #696e8a;
+}
+
+.table-responsive {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+#userTable {
+    width: 100% !important;
+    table-layout: fixed;
 }
 
 form {

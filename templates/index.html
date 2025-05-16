@@ -105,6 +105,8 @@
         </div>
     </div>
     <div id="alertContainer" class="my-3"></div>
+
+    
     <div class="table-responsive">
     <table class="table table-hover" id="patternTable">
         <thead style="background-color: #696e8a;">
@@ -185,7 +187,8 @@
 </body>
 
 <script>
-          
+    
+    // Search by Pattern ID when Enter key is pressed
     $("#myInput").on("keypress", function(event) {
     if (event.which === 13) { // Enter key pressed
         event.preventDefault();
@@ -197,6 +200,7 @@
         }
     }
     });
+
     function searchByPatternID() {
     const patternID = $("#myInput").val().trim();
     if (patternID) {
@@ -204,7 +208,7 @@
     } else {
         getAllAjax();
     }
-}
+    }
 
 
      // Add event listeners for the new filter dropdowns
@@ -311,7 +315,7 @@
       </div>
     `;
     document.getElementById('alertContainer').innerHTML = alertHtml;
-}
+    }
 
 
     function showCreate(){
@@ -550,7 +554,7 @@
             showAlert(`Pattern ${patternID} not found.`, 'primary');
         }
     });
-}
+    }
 
        
     function getPatternsByCategory(category) {
