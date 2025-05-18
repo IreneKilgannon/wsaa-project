@@ -168,6 +168,29 @@ class PatternDAO:
         finally:
             self.closeAll()
 
+    # View by Format
+    def findByFormat(self, format):
+        try:
+            cursor = self.getCursor()
+            sql = "SELECT * FROM patterns WHERE format = %s"
+            values = (format, )
+            cursor.execute(sql, values)
+            results = cursor.fetchall()
+
+            if not results:
+                return None
+
+            patterns = []
+            for row in results:
+                patterns.append(self.convertToDictionaryPatterns(row))
+            return patterns
+        
+        except Exception as e:
+            print(f"Database error in findByFormat: {e}")
+            raise
+        finally:
+            self.closeAll()
+
     # View by UserID
     def findByUserID(self, userID):
         try:
