@@ -32,7 +32,7 @@
     <div class="container p-3 my-3 bg-light border-primary">
 
         <!-- Navigation Bar -->
-        <nav class="navbar navbar-expand-lg" style="background-color: #696e8a;">
+        <nav class="navbar navbar-expand-lg custom-navbar" style="background-color: #696e8a;">
             <div class="container-fluid d-flex align-items-center justify-content-between">
     
             <!-- Brand -->
@@ -49,7 +49,7 @@
                 
                   <!-- Nav links -->
                     <ul class="navbar-nav d-flex flex-row me-auto">
-                      <li class="nav-item mx-2 ">
+                      <li class="nav-item mx-2">
                         <a class="nav-link text-white" href="{{ url_for('index') }}">Sewing Patterns</a>
                       </li>
                       <li class="nav-item mx-2">
@@ -85,8 +85,8 @@
         <br>
 
         <!-- Table to display users -->
-        <div class="table-responsive w-100">
-            <table class="table table-striped w-100" id="userTable" style="display: none;">
+        <div class="table-responsive">
+            <table class="table table-striped" id="userTable" style="display: none;">
                 <thead >
                     <tr>
                         <th>UserID &nbsp;&#x2b83;</th>
@@ -252,10 +252,14 @@
         var rowElement = r.parentNode.parentNode;
         var index = rowElement.rowIndex;
         
-        console.log("deleting "+ rowElement.getAttribute("userID"))
-        deleteUserAjax(rowElement.getAttribute("userID"));
-        tableElement.deleteRow(index);
-        showViewAllUsers()
+        var result = confirm("Are you sure you want to delete?");
+        if (result) {
+            //Logic to delete the item
+            console.log("deleting "+ rowElement.getAttribute("userID"))
+            deleteUserAjax(rowElement.getAttribute("userID"));
+            tableElement.deleteRow(index);
+            showViewAllUsers()
+        }
     }
     
     // Function to add user to the table
@@ -277,7 +281,7 @@
         var cell5 = rowElement.insertCell(4);
         cell5.innerHTML = '********'
         var cell6 = rowElement.insertCell(5);
-        cell6.innerHTML = '<button class="btn custom-btn" onclick="showUserUpdate(this)">Update</button>'
+        cell6.innerHTML = '<button class="btn custom-btn-update" onclick="showUserUpdate(this)">Update</button>'
         var cell7 = rowElement.insertCell(6);
         cell7.innerHTML = '<button class="btn btn-outline-danger" onclick="doUserDelete(this)">Delete</button>'
     }

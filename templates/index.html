@@ -29,9 +29,9 @@
 <body>
     <div class="container p-3 my-3 bg-light border-primary">    
     
-    <!-- Navigation Bar -->
-        <nav class="navbar navbar-expand-lg py-0" style="background-color: #696e8a;">
-            <div class="container-fluid d-flex align-items-center justify-content-between">
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg custom-navbar" style="background-color: #696e8a;">
+            <div class="container-fluid d-flex align-items-center justify-content-between">_
             
             <!-- Brand -->
             <a class="navbar-brand text-white" href="#"><i class="fa-solid fa-scissors"></i></a>
@@ -47,7 +47,7 @@
                 
                     <!-- Nav links -->
                     <ul class="navbar-nav d-flex flex-row me-auto">
-                      <li class="nav-item mx-2 ">
+                      <li class="nav-item mx-2">
                         <a class="nav-link active" href="{{ url_for('index') }}">Sewing Patterns</a>
                       </li>
                       <li class="nav-item mx-2">
@@ -119,7 +119,7 @@
             </select>
         </div>
         <div class="col-md-3">
-            <input type="number" id="userIDFilter" class="form-control" placeholder="Filter by User ID">
+            <input type="number" min="1" id="userIDFilter" class="form-control" placeholder="Filter by User ID">
         </div>
         <div class="col-md-3">
             <button id="resetFilters" class="btn custom-btn">Reset Filters</button>
@@ -182,7 +182,7 @@
             </select><br> 
         <b>userID:</b><br><input type = "number" min="1" name="userID" class="form-control"required>
             <br>
-        <span><button class="btn btn-secondary border-dark" id="button-doCreate" onclick="doCreate()">Create</button></span>
+        <span><button class="btn custom-btn border-dark" id="button-doCreate" onclick="doCreate()">Create</button></span>
         <span><button class="btn custom-btn border-dark" id="button-doUpdate" onclick="doUpdate()">Update</button></span>
         </form>
 
@@ -474,7 +474,7 @@
         var rowElement = r.parentNode.parentNode;
         var index = rowElement.rowIndex;
         
-        //console.log("deleting "+ rowElement.getAttribute("patternID"))
+        var result = confirm("Are you sure you want to delete this pattern?");
         deletePatternAjax(rowElement.getAttribute("patternID"));
         tableElement.deleteRow(index);
         showViewAll()
@@ -501,7 +501,7 @@
         var cell7 = rowElement.insertCell(6);
         cell7.innerHTML = pattern.userID
         var cell8 = rowElement.insertCell(7);
-        cell8.innerHTML = '<button class="btn custom-btn" onclick="showUpdate(this)">Update</button>'
+        cell8.innerHTML = '<button class="btn custom-btn-update" onclick="showUpdate(this)">Update</button>'
         var cell9 = rowElement.insertCell(8);
         cell9.innerHTML = '<button class="btn btn-outline-danger" onclick=doDelete(this)>Delete</button>'
     }
