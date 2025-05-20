@@ -179,3 +179,5 @@ https://getbootstrap.com/docs/5.3/components/alerts/
 https://www.w3schools.com/bootstrap5/bootstrap_alerts.php?
 
 https://www.geeksforgeeks.org/how-to-create-dismissible-alerts-in-bootstrap
+
+[Stackoverflow, preventing negative input numbers](https://stackoverflow.com/questions/7372067/is-there-any-way-to-prevent-input-type-number-getting-negative-values)
