@@ -133,6 +133,10 @@ Despite declarations of _"I'm not buying any more fabric"_, every sewist has an 
 
 __References__
 
+https://github.com/andrewbeattycourseware/deploytopythonanywhere
+
+https://github.com/andrewbeattycourseware/WSAA-Courseware
+
 https://stackoverflow.com/questions/15735450/images-as-links-in-mysql-database
 
 Render templates Flask for beginners 2 (how to render HTML templates) https://www.youtube.com/watch?v=LuuSFH-RuBU
@@ -166,3 +170,12 @@ YouTube Password Hashing in Flask Using Werkzeug, Pretty Printed https://www.you
 Navbar Bootstrap5 Bootstrap Navbar Tutorial, Adrian Twarog, https://www.youtube.com/watch?v=qNifU_aQRio
 
 ChatGPT How can I check form validity in HTML? 
+
+https://www.tutorialspoint.com/how-to-submit-a-form-on-enter-button-using-jquery?
+
+
+https://getbootstrap.com/docs/5.3/components/alerts/
+
+https://www.w3schools.com/bootstrap5/bootstrap_alerts.php?
+
+https://www.geeksforgeeks.org/how-to-create-dismissible-alerts-in-bootstrap

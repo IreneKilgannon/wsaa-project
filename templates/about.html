@@ -1,4 +1,7 @@
-<!-- templates/home.html -->
+<!--
+    This is the about page for the sewing patterns database. 
+    It provides information about the database and its purpose.
+    The page includes a navigation bar, a banner image, and a footer with links to sewing pattern websites.-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,39 +24,44 @@
 
 <body>
   <div class="container p-3 my-3 bg-light border-primary">
-    <nav class="navbar navbar-expand-lg" style="background-color: #696e8a;">
-<div class="container-fluid d-flex align-items-center justify-content-between">
-    <!-- Brand -->
-    <a class="navbar-brand text-white" href="#"><i class="fa-solid fa-scissors"></i></a>
-    <!-- Toggle for mobile -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <!-- Nav links and search form -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-    
-      <!-- Nav links -->
-      <ul class="navbar-nav d-flex flex-row me-auto">
-        <li class="nav-item mx-2 ">
-          <a class="nav-link text-white" href="{{ url_for('index') }}">Sewing Patterns</a>
-        </li>
-        <li class="nav-item mx-2">
-          <a class="nav-link text-white" href="{{ url_for('users') }}">Users</a>
-        </li>
-        <li class="nav-item mx-2">
-          <a class="nav-link active" href="{{ url_for('about') }}">About</a>
-        </li>
-      </ul>
-        </div>
-        </div>
-    </nav><br>
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-expand-lg" style="background-color: #696e8a;">
+          <div class="container-fluid d-flex align-items-center justify-content-between">
+
+          <!-- Brand -->
+          <a class="navbar-brand text-white" href="#"><i class="fa-solid fa-scissors"></i></a>
+          <!-- Toggle for mobile -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+             <span class="navbar-toggler-icon"></span>
+          </button>
+
+         <!-- Nav links-->
+         <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav d-flex flex-row me-auto">
+               <li class="nav-item mx-2 ">
+                 <a class="nav-link text-white" href="{{ url_for('index') }}">Sewing Patterns</a>
+               </li>
+               <li class="nav-item mx-2">
+                 <a class="nav-link text-white" href="{{ url_for('users') }}">Users</a>
+               </li>
+               <li class="nav-item mx-2">
+                 <a class="nav-link active" href="{{ url_for('about') }}">About</a>
+               </li>
+            </ul>
+             </div>
+            </div>
+      </nav> 
+    <br>
+
+    <!-- Banner Image -->
     <img src="{{ url_for('static', filename='banner.png') }}" alt = "Sew Organised" class="img-fluid" style="width: 100%; height: auto;">
     <hr>
  
 
   <p>Add paragraph explaining the database</p>
 
+  <!--Footer-->
   <footer class="text-center text-white mt-5" style="background-color: #696e8a;">
     <div class="container p-4">
     <section class="mb-4">
