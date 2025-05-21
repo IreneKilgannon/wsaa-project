@@ -86,7 +86,6 @@ h1, h2, h3 {
             padding: 0;
         }
 
-
 form {
     display: flex;
     flex-direction: column;
@@ -120,8 +119,18 @@ form {
     color: #fff;
   }
   
+/*.container-about {
+    display: grid;
+    align-items: center; 
+    grid-template-columns: 1fr 2fr;
+    column-gap: 1px;
+    border: solid 2px #D9BFE3;
+    }
 
-
+img {
+  max-width: 100%;
+  max-height:100%;
+}*/
 
 
 

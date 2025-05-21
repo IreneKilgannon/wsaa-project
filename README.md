@@ -183,3 +183,12 @@ https://www.geeksforgeeks.org/how-to-create-dismissible-alerts-in-bootstrap
 [Stackoverflow, preventing negative input numbers](https://stackoverflow.com/questions/7372067/is-there-any-way-to-prevent-input-type-number-getting-negative-values)
 
 https://stackoverflow.com/questions/9139075/how-to-show-a-confirm-message-before-delete
+
+https://codedamn.com/news/frontend/how-to-put-image-and-text-side-by-side-in-html
+
+
+bootstrap modal https://www.sitepoint.com/understanding-bootstrap-modals/
+
+https://getbootstrap.com/docs/5.0/components/modal/
+
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_delete_modal

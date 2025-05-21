@@ -27,10 +27,10 @@
 
 
 <body>
-    <div class="container p-3 my-3 bg-light border-primary">    
+    <div class="container p-3 my-3 bg-light rounded shadow-lg border-primary">    
     
         <!-- Navigation Bar -->
-        <nav class="navbar navbar-expand-lg custom-navbar" style="background-color: #696e8a;">
+        <nav class="navbar navbar-expand-lg custom-navbar rounded shadow-lg" style="background-color: #696e8a;">
             <div class="container-fluid d-flex align-items-center justify-content-between">_
             
             <!-- Brand -->
@@ -71,12 +71,12 @@
         </nav>
     <br>
     <!-- Banner Image -->
-    <img src="{{ url_for('static', filename='banner.png') }}" alt = "Sew Organised" class="img-fluid" style="width: 100%; height: auto;">
+    <img src="{{ url_for('static', filename='banner.png') }}" alt = "Sew Organised" class="img-fluid rounded shadow-lg" style="width: 100%; height: auto;">
     <br>
     <br>
 
     <!-- Search and Filter Controls -->
-    <div id="filterControls" class="row mb-3">
+    <div id="filterControls rounded shadow-lg" class="row mb-3">
         <div class="col-md-3">
             <select id="categoryFilter" class="form-control">
                 <option value="">Filter by Category</option>
@@ -107,7 +107,7 @@
         </div>
     </div>
     
-    <div id="filterControls2" class="row mb-3">
+    <div id="filterControls2 rounded shadow-lg" class="row mb-3">
         <div class="col-md-3">
             <input type="text" id="descriptionInput" class="form-control" onkeyup="myFunction()" placeholder="Search by Description...">
         </div>
@@ -130,7 +130,7 @@
     <div id="alertContainer" class="my-3"></div>
 
     <!-- Table to display sewing patterns -->
-    <div class="table-responsive">
+    <div class="table-responsive rounded shadow-lg">
         <table class="table table-hover" id="patternTable">
             <thead style="background-color: #696e8a;">
                 <tr>
@@ -187,12 +187,12 @@
         </form>
 
         <!--Footer-->
-        <footer class="text-center text-white mt-5" style="background-color: #696e8a;">
+        <footer class="text-center text-white rounded" style="background-color: #696e8a;">
             <div class="container p-4">
             <section class="mb-4">
                 <p>Yes, you have way too many patterns but there's always room for one more! 
                 <br>
-                <a href="https://burdasyle.com" target="_blank" style="color: white;">burdastyle.com    </a>
+                <a href="https://burdastyle.com" target="_blank" style="color: white;">burdastyle.com    </a>
                 <a href="https://www.pattydoo.de/" target="_blank" style="color: white;">pattydoo.de</a>
                 <a href="https://sewdirect.com" target="_blank" style="color: white;">sewdirect.com</a>             
                 <a href="https://www.stylearc.com/" target="_blank" style="color: white;">stylearc.com</a>
@@ -887,7 +887,7 @@
     }
 
 
-    getAllAjax();
+    getAllAjax();   
 
 </script>
 </html>

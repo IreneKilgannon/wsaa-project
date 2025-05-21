@@ -29,10 +29,10 @@
 </head>
 <body>
     
-    <div class="container p-3 my-3 bg-light border-primary">
+    <div class="container p-3 my-3 bg-light rounded shadow-lg border-primary">
 
         <!-- Navigation Bar -->
-        <nav class="navbar navbar-expand-lg custom-navbar" style="background-color: #696e8a;">
+        <nav class="navbar navbar-expand-lg custom-navbar shadow-lg rounded" style="background-color: #696e8a;">
             <div class="container-fluid d-flex align-items-center justify-content-between">
     
             <!-- Brand -->
@@ -73,36 +73,36 @@
         </nav>
         <br>
         <!--Banner Image-->
-        <img src="{{ url_for('static', filename='banner.png') }}" alt = "Sew Organised" class="img-fluid" style="width: 100%; height: auto;">
+        <img src="{{ url_for('static', filename='banner.png') }}" alt = "Sew Organised" class="img-fluid rounded shadow-lg" style="width: 100%; height: auto;">
 
         <br>
 
         <!-- Bootstrap alert container for messages -->
         <div id="alertContainer" class="my-3"></div>
 
-        <!--Form to Enter UserID-->
-        <div><button class="btn custom-btn border-dark" id="button-showViewAllUsers" onclick="showViewAllUsers()">View All Users</button></div><br>
+        <!--View all users button-->
+        <!--<div><button class="btn custom-btn border-dark" id="button-showViewAllUsers" onclick="showViewAllUsers()">View All Users</button></div><br>-->
         <br>
 
         <!-- Table to display users -->
-        <div class="table-responsive">
-            <table class="table table-striped" id="userTable" style="display: none;">
-                <thead >
-                    <tr>
-                        <th>UserID &nbsp;&#x2b83;</th>
-                        <th>First Name &nbsp;&#x2b83;</th>
-                        <th>Last Name &nbsp;&#x2b83;</th>
-                        <th>Email &nbsp;&#x2b83;</th>
-                        <th>Password</th>
-                        <th>Update</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-
+            <div class="table-responsive w-100">
+                <table class="table table-striped" id="userTable" style="display: none;">
+                    <thead >
+                        <tr>
+                            <th style="width: 10%">UserID</th>
+                            <th style="width: 15%">First Name</th>
+                            <th style="width: 15%">Last Name</th>
+                            <th style="width: 25%">Email</th>
+                            <th style="width: 15%">Password</th>
+                            <th style="width: 10%">Update</th>
+                            <th style="width: 10%">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            
     <!--Form for creating and updating users.-->  
     <form id="createUserUpdateForm" style="display:none" onsubmit="return false;">
         <h2><span id="createLabel">Become a </span><span id="updateLabel">Update</span> User</h2>
@@ -118,7 +118,7 @@
         <span><button class="btn custom-btn border-dark" id="button-doUpdateUser" onclick="doUserUpdate()">Update</button></span>
     </form>
 
-    <!--Log in form, unused yet-->
+    <!--Log in form, unused-->
     <div id="loginForm" style="display:none;">
         <h2>Login</h2>
         Email<br><input type="email" id="loginEmail" required><br>
@@ -127,12 +127,12 @@
     </div>
 
     <!--Footer-->
-    <footer class="text-center text-white mt-5" style="background-color: #696e8a;">
+    <footer class="text-center text-white mt-5 rounded" style="background-color: #696e8a;">
     <div class="container p-4">
     <section class="mb-4">
         <p>Yes, you have way too many patterns but there's always room for one more! 
         <br>
-        <a href="https://burdasyle.com" target="_blank" style="color: white;">burdastyle.com    </a>
+        <a href="https://burdastyle.com" target="_blank" style="color: white;">burdastyle.com    </a>
         <a href="https://www.pattydoo.de/" target="_blank" style="color: white;">pattydoo.de</a>
         <a href="https://sewdirect.com" target="_blank" style="color: white;">sewdirect.com</a>          
         <a href="https://www.stylearc.com/" target="_blank" style="color: white;">stylearc.com</a>
