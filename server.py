@@ -181,13 +181,18 @@ def create():
 @app.route('/patterns/<patternID>', methods=['PUT'])
 def update_pattern(patternID):
     """Update an existing pattern by its patternID"""
+
+    user_id = request.json["userID"]
+
+    if not userDAO.findByUserID_users(user_id):
+        return jsonify({"error": "user_id_not_found"}), 400
     
     try:
         # Find the pattern to update
         foundPattern = patternDAO.findByID(patternID)
         print (foundPattern)
         if not foundPattern:
-            return jsonify({{"error": f"Pattern with ID {patternID} not found"}}), 404
+            return jsonify({"error": f"Pattern with ID {patternID} not found"}), 404
         
         currentPattern = foundPattern
         

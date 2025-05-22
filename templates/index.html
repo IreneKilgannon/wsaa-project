@@ -448,6 +448,7 @@
     
     // Function to update an existing pattern
     function doUpdate(){
+        console.log('Updating pattern...');
         var form = document.getElementById('createUpdateForm');
         
         if (!form.checkValidity()) {
@@ -460,8 +461,8 @@
         if (rowElement) {
             updatePatternAjax(pattern);
             setPatternInRow(rowElement, pattern);
-            clearForm();
-            showViewAll();
+            //clearForm();
+            //showViewAll();
         } else {
             console.log('Row element not found')
         }
@@ -825,7 +826,7 @@
             "method":"POST",
             "data":JSON.stringify(pattern),
             "dataType": "JSON",
-            "contentType": "application/json; charset=utf-8",
+            "contentType": "application/json",
             "success":function(result){
                 if (result.patternID) {
                     addPatternToTable(result);
@@ -836,7 +837,7 @@
                 showViewAll();
         },
             "error":function(xhr,status,error){
-                //et errorMsg = "Error creating pattern. Check your userID and patternID.";
+                let errorMsg = "Error creating pattern. Check your userID and patternID.";
                 if (xhr.responseJSON && xhr.responseJSON.error) {
                     // If patternID already exists, show an error message
                     if (xhr.responseJSON.error === "pattern_id_exists") {
@@ -860,12 +861,20 @@
             "method":"PUT",
             "data":JSON.stringify(pattern),
             "dataType": "JSON",
-            "contentType": "application/json; charset=utf-8",
+            "contentType": "application/json",
             "success":function(result){
-                console.log(result);
+                //console.log(result);
+                clearForm();
+                showViewAll();
             },
             "error":function(xhr,status,error){
-                console.log("error: "+status+" msg:"+error);
+                let errorMsg = "Error updating pattern. Check your userID.";
+                // If userID is not found in users table, show an error message
+                if (xhr.responseJSON.error === "user_id_not_found") {
+                    errorMsg = "UserID not found. Please enter a valid UserID.";
+                }
+                showAlert(errorMsg);
+                console.log("error: " + status + " msg: " + error);
             }
         });
     }
@@ -877,7 +886,7 @@
             "method":"DELETE",
             "data":"",
             "dataType": "JSON",
-            "contentType": "application/json; charset=utf-8",
+            "contentType": "application/json",
             "success":function(result){
                 //console.log(result);
             },
