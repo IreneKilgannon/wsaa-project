@@ -4,11 +4,9 @@ Author: Irene Kilgannon
 
 Student ID: G00220627
 
-This is my repository for the Big Project for the semester three module, _Web Services and Applications_ for a [Higher Diploma in Science in Computing in Data Analytics](https://www.atu.ie/courses/higher-diploma-in-science-data-analytics) at [Atlantic Technological University](https://www.atu.ie/). 
+This is my repository for the Big Project for the semester three module, _Web Services and Applications_ for a [Higher Diploma in Science in Computing in Data Analytics](https://www.atu.ie/courses/higher-diploma-in-science-data-analytics) at [Atlantic Technological University](https://www.atu.ie/).
 
-This project is worth 60% of the overall marks. Deadline 26th May 2025.
-
-__Project Brief__
+## __Project Brief__
 
 Write a program that demonstrates that you understand creating and consuming RESTful APIs. 
 
@@ -17,7 +15,7 @@ You should also create the web pages that can consume the API i.e. performs CRUD
 
 [Full project description on GitHub.](https://github.com/andrewbeattycourseware/WSAA-Courseware/blob/main/labs/WSAA%20Project%20Description.pdf)
 
-__Project Overview__
+## __Project Overview__
 
 My hobby is dressmaking and I have an extensive collection of sewing patterns. I also have four relatives who sew, and a common question in our group chat is "Does anyone have pattern X?". 
 
@@ -29,10 +27,10 @@ Users can register to receive a unique UserID. Once registered, they can add, up
 
 Each column can be sorted alphabetically by clicking on the column header - click again to reverse the sorting order!
 
-The project can be run locally and it is also deployed at [irenekilgannon2.eu.pythonanywhere.com](https://irenekilgannon2.eu.pythonanywhere.com/). The gitHub repository for the deployed project is available [here](https://github.com/IreneKilgannon/deploytopythonanywhere).
+The project can be run locally and is also deployed at [irenekilgannon2.eu.pythonanywhere.com](https://irenekilgannon2.eu.pythonanywhere.com/). The gitHub repository for the deployed project is available [here](https://github.com/IreneKilgannon/deploytopythonanywhere).
 
 
-__Project Structure__
+## __Project Structure__
 
     ├── static/                 # CSS file and png images for the project.
     ├── templates/              # HTML templates.
@@ -51,7 +49,7 @@ __Project Structure__
     └── UserDAO.py              # Module with the functions required to query the users table.
 
 
-__Getting Started__
+## __Getting Started__
 
 Download and install the following:
 
@@ -68,7 +66,7 @@ In Cmder or the terminal of VS code, clone the project from GitHub on your machi
     git clone https://github.com/IreneKilgannon/wsaa-project.git
 
 
-__Usage__
+## __Installation__
 
 Note: the commands are for a Windows machine.
 
@@ -108,87 +106,120 @@ Run the python script:
 
     python server.py
 
-The project should now be available to view in your browser, http://127.0.0.1:5000.
+The project should now be available to view in your browser at [localhost](http://127.0.0.1:5000).
 
 Upon completion, deactivate the virtual environment with the command:
 
     deactivate
 
+## __API Endpoints__
 
-__Known Issues__
+|Method| Endpoint     | Description |
+|-----------| ----------- | ----------- |
+|| ``/``   | Sewing patterns page       |
+|``GET``| ``/patterns``   | View all patterns        |
+|``POST``| ``/patterns/``   | Create new pattern       |
+|``GET``| ``/patterns/<patternID>``   | View pattern by patternID       |
+|``PUT``| ``/patterns/<patternID>``   | Update pattern by patternID       |
+|``DELETE``| ``/patterns/<patternID>``   | Delete pattern by patternID       |
+|``GET``| ``/patterns/brand/<brand> ``  | View patterns by brand      |
+|``GET``| ``/patterns/category/<category>``   | View patterns by category        |
+|``GET``| ``/patterns/fabric_type/<fabric_type>``   | View patterns by fabric type   |
+|``GET``| ``/patterns/format/<format>``   | View patterns by format        |
+|``GET``| ``/patterns/userID/<userID>``   | View patterns by userID        |
+|| ``/users``   | Users page       |
+|``POST``| ``/users``   | Create new user       |
+|``GET``| ``/users/<user_id>``   | View a user by userID       |
+|``PUT``| ``/users/<user_id>``   | Update a user by userID      |
+|``DELETE``| ``/users/<user_id>``   | Update a user by userID      |
+|| ``/about``   | About page       |
+
+## __Known Issues__
 
 Users can update other users profile information. 
 
 If a user wants to update their profile, they must also update their password. 
 
-__Future Improvements__
+## __Future Improvements__
 
-Login/logout functionality.
+Login/logout functionality. Specifically a group login/logout functionality so each  group can view their own patterns. 
 
-Users can only update their own information
+Users can only update their own information.
 
 Despite declarations of _"I'm not buying any more fabric"_, every sewist has an extensive fabric collection. A similar project to keep track of the ever-growing fabric collection would be very useful! The table for this would most definitely not include how much was spent on each piece!
 
 
+## __References__
 
-__References__
+Web services and applications lectures by Andrew Beatty
 
-https://github.com/andrewbeattycourseware/deploytopythonanywhere
+[Andrew Beatty, GitHub repository, deploytopythonanywhere](https://github.com/andrewbeattycourseware/deploytopythonanywhere)
 
-https://github.com/andrewbeattycourseware/WSAA-Courseware
-
-https://stackoverflow.com/questions/15735450/images-as-links-in-mysql-database
-
-Render templates Flask for beginners 2 (how to render HTML templates) https://www.youtube.com/watch?v=LuuSFH-RuBU
-
-YouTube Tech with Tim Flask Tutorial #2 - HTML Template https://www.youtube.com/watch?app=desktop&v=xIgPMguqyws&t=286s
-
-HTML & CSS Full Course for free, Bro Code, YouTube
-
-Modern Responsive Table Using DataTable, Step by step guide devRasen https://www.youtube.com/watch?v=1CPli6lkKCY
-
-How to use MySQL Database with Flask, Codemy.com https://www.youtube.com/watch?v=hQl2wyJvK5k
-
-W3 Schools How to - Sort a Table https://www.w3schools.com/howto/howto_js_sort_table.asp
-
-https://fontawesome.com/icons
-
-https://www.w3schools.com/bootstrap5/index.php
-
-W3 Schools How To Filter/Search Table https://www.w3schools.com/howto/howto_js_filter_table.asp
+[Andrew Beatty GitHub repository, WSAA-Courseware](https://github.com/andrewbeattycourseware/WSAA-Courseware)
 
 ChatGPT: Create a basic python flask api with javascript and ajax and explain how it works.
 
 ChatGPT: How do I render different templates for Python Flask API?
 
-How do hash passwords in python, uses bcrypt https://www.youtube.com/watch?v=yePHM2Ks07c
+[YouTube, Johan Godinho, Render templates Flask for beginners 2 (how to render HTML templates)](https://www.youtube.com/watch?v=LuuSFH-RuBU)
 
-YouTube, Hashing passwords with Werkzeug https://www.youtube.com/watch?v=8ebIEefhBpM
+[YouTube, Tech with Tim, Flask Tutorial #2 - HTML Template](https://www.youtube.com/watch?app=desktop&v=xIgPMguqyws)
 
-YouTube Password Hashing in Flask Using Werkzeug, Pretty Printed https://www.youtube.com/watch?v=jJ4awOToB6k
+[YouTube, Bro Code, HTML & CSS Full Course for free](https://www.youtube.com/watch?v=HGTJBPNC-Gw)
 
-Navbar Bootstrap5 Bootstrap Navbar Tutorial, Adrian Twarog, https://www.youtube.com/watch?v=qNifU_aQRio
+[W3 Schools How to - Sort a Table ](https://www.w3schools.com/howto/howto_js_sort_table.asp)
 
-ChatGPT How can I check form validity in HTML? 
+[W3 Schools How To Filter/Search Table](https://www.w3schools.com/howto/howto_js_filter_table.asp)
 
-https://www.tutorialspoint.com/how-to-submit-a-form-on-enter-button-using-jquery?
+[fontawesome.com](https://fontawesome.com/icons)
 
+[YouTube, Codemy, Hashing passwords with Werkzeug](https://www.youtube.com/watch?v=8ebIEefhBpM)
 
-https://getbootstrap.com/docs/5.3/components/alerts/
+[YouTube, Pretty Printed, Password Hashing in Flask Using Werkzeug](https://www.youtube.com/watch?v=jJ4awOToB6k)
 
-https://www.w3schools.com/bootstrap5/bootstrap_alerts.php?
+[YouTube, Adrian Twarog, Navbar Bootstrap5 Bootstrap Navbar Tutorial](https://www.youtube.com/watch?v=qNifU_aQRio)
 
-https://www.geeksforgeeks.org/how-to-create-dismissible-alerts-in-bootstrap
+ChatGPT: How can I check form validity in HTML? 
 
-[Stackoverflow, preventing negative input numbers](https://stackoverflow.com/questions/7372067/is-there-any-way-to-prevent-input-type-number-getting-negative-values)
+[Tutorialspoint.com, How to submit a form on enter button using jquery](https://www.tutorialspoint.com/how-to-submit-a-form-on-enter-button-using-jquery?)
 
-https://stackoverflow.com/questions/9139075/how-to-show-a-confirm-message-before-delete
+[Bootstrap](https://getbootstrap.com/)
 
-https://codedamn.com/news/frontend/how-to-put-image-and-text-side-by-side-in-html
+[W3 Schools, Bootstrap 5](https://www.w3schools.com/bootstrap5/index.php)
 
+[Bootstrap Alerts](https://getbootstrap.com/docs/5.3/components/alerts/)
+
+[W3 Schools, bootstrap alerts](https://www.w3schools.com/bootstrap5/bootstrap_alerts.php?)
+
+[Geeksforgeeks.org, How to create dismissible alerts in bootstrap](https://www.geeksforgeeks.org/how-to-create-dismissible-alerts-in-bootstrap)
+
+[Stackoverflow, preventing negative input numbers.](https://stackoverflow.com/questions/7372067/is-there-any-way-to-prevent-input-type-number-getting-negative-values)
+
+[Stackoverflow.com, How to show a confirm message before delete.](https://stackoverflow.com/questions/9139075/how-to-show-a-confirm-message-before-delete)
+
+[codedamn.com, How to put an image and text side by side in html](https://codedamn.com/news/frontend/how-to-put-image-and-text-side-by-side-in-html)
 
 bootstrap modal https://www.sitepoint.com/understanding-bootstrap-modals/
 
 https://getbootstrap.com/docs/5.0/components/modal/
 
 https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_delete_modal
+
+[Google fonts](https://fonts.google.com/)
+
+[How to Add Google Font to HTML Website](https://www.youtube.com/watch?v=iIqgW-stZmE)
+
+SamsTeachYourself HTML and CSS in 24 hours, 7th Edition, Dick Oliver & Michael Morrison
+
+SamsTeachYourself Javascript in 24 hours, 4th Edition, Michael Moncur
+
+HTML, CSS & Javascript in easy steps, Mike McGrath
+
+https://stackoverflow.com/questions/15735450/images-as-links-in-mysql-database
+
+[Enable Live Server on Visual Studio Code](https://www.geeksforgeeks.org/how-to-enable-live-server-on-visual-studio-code/)
+
+
+https://bootstrapexamples.com/@alaric-sloane/delete-confirmation-modal
+
+[Udemy, REST APIs with Flask and Python](https://www.udemy.com/course/rest-api-flask-and-python/)
