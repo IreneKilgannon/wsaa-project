@@ -143,7 +143,7 @@ If a user wants to update their profile, they must also update their password.
 
 ## __Future Improvements__
 
-Login/logout functionality. Specifically a group login/logout functionality so each  group can view their own patterns. 
+Login/logout functionality. Specifically a group login/logout functionality so each group can view their own patterns. Authorization and authenticate would be required.
 
 Users can only update their own information.
 
@@ -225,7 +225,6 @@ https://bootstrapexamples.com/@alaric-sloane/delete-confirmation-modal
 
 [Udemy, REST APIs with Flask and Python](https://www.udemy.com/course/rest-api-flask-and-python/)
 
+[Getbootstrap.com, grid layout](https://getbootstrap.com/docs/4.0/layout/grid/)
 
-https://getbootstrap.com/docs/4.0/layout/grid/
-
-https://www.w3schools.com/bootstrap5/bootstrap_grid_basic.php
+[W3 schools, bootstrap grid](https://www.w3schools.com/bootstrap5/bootstrap_grid_basic.php)
