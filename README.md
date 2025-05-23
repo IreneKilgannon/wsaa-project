@@ -32,6 +32,7 @@ The project can be run locally and is also deployed at [irenekilgannon2.eu.pytho
 
 ## __Project Structure__
 
+    wsaa-project
     ├── static/                 # CSS file and png images for the project.
     ├── templates/              # HTML templates.
     ├── .gitignore              # Files that github ignores.
@@ -112,7 +113,7 @@ Upon completion, deactivate the virtual environment with the command:
 
     deactivate
 
-## __API Endpoints__
+## __Route Endpoints__
 
 |Method| Endpoint     | Description |
 |-----------| ----------- | ----------- |
