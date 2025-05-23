@@ -223,3 +223,8 @@ https://stackoverflow.com/questions/15735450/images-as-links-in-mysql-database
 https://bootstrapexamples.com/@alaric-sloane/delete-confirmation-modal
 
 [Udemy, REST APIs with Flask and Python](https://www.udemy.com/course/rest-api-flask-and-python/)
+
+
+https://getbootstrap.com/docs/4.0/layout/grid/
+
+https://www.w3schools.com/bootstrap5/bootstrap_grid_basic.php
