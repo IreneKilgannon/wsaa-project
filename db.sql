@@ -22,7 +22,7 @@ create table patterns (
     FOREIGN KEY (userID) REFERENCES users (userID)
     );
 
-
+-- Fabric table for future use
 create table fabrics (
     fabricID INTEGER AUTO_INCREMENT,
     image VARCHAR(250) NOT NULL,
@@ -36,6 +36,7 @@ create table fabrics (
     PRIMARY KEY (fabricID),
 );
 
+-- Borrow requests table for future use.
 create table borrow_requests (
     loanID INTEGER AUTO_INCREMENT,
     userID INTEGER NOT NULL,

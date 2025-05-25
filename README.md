@@ -25,7 +25,9 @@ The project uses a MySQL database to store patterns and user data. The backend i
 
 Users can register to receive a unique UserID. Once registered, they can add, update and delete patterns in the database. All users can view the complete collection and use various filters to search by patternID, brand, fabric type, category, format, description or userID. 
 
-Each column can be sorted alphabetically by clicking on the column header - click again to reverse the sorting order!
+Each column in the patterns table can be sorted alphabetically by clicking on the column header - click again to reverse the sorting order!
+
+The About page gives a brief overview of how to use the website.
 
 The project can be run locally and is also deployed at [irenekilgannon2.eu.pythonanywhere.com](https://irenekilgannon2.eu.pythonanywhere.com/). The gitHub repository for the deployed project is available [here](https://github.com/IreneKilgannon/deploytopythonanywhere).
 
@@ -62,7 +64,7 @@ Download and install the following:
 
 * [Visual Studio Code](https://code.visualstudio.com/)
 
-In Cmder or the terminal of VS code, clone the project from GitHub on your machine:
+In Cmder or the terminal of VS code, clone the project from GitHub:
 
     git clone https://github.com/IreneKilgannon/wsaa-project.git
 
@@ -129,6 +131,7 @@ Upon completion, deactivate the virtual environment with the command:
 |``GET``| ``/patterns/format/<format>``   | View patterns by format        |
 |``GET``| ``/patterns/userID/<userID>``   | View patterns by userID        |
 || ``/users``   | Users page       |
+|`GET`| ``/users/all_users``   | View all users       |
 |``POST``| ``/users``   | Create new user       |
 |``GET``| ``/users/<user_id>``   | View a user by userID       |
 |``PUT``| ``/users/<user_id>``   | Update a user by userID      |
@@ -137,21 +140,23 @@ Upon completion, deactivate the virtual environment with the command:
 
 ## __Known Issues__
 
-Users can update other users profile information. 
+* Users can update other users profile information. 
 
-If a user wants to update their profile, they must also update their password. 
+* If a user wants to update their profile, they must enter a password. 
 
-Occasional glitches can usually be rectified by refreshing the page. 
+* Occasional glitches can usually be rectified by refreshing the page. 
 
 ## __Future Improvements__
 
-Login/logout functionality. Specifically a group login/logout functionality so each group can view their own patterns. Authorization and authenticate would be required.
+* Login/logout functionality. Specifically a group login/logout functionality so each group can view their own patterns. Authorization and authenticate would be required.
 
-Users can only update their own information.
+* Users should only be allowed to update their own information.
 
+* Users could request to borrow a pattern at the click of a button. 
 
+* A bootstap modal to confirm delete. Current confirm method is a bit ugly. 
 
-Despite declarations of _"I'm not buying any more fabric"_, every sewist has an extensive fabric collection. A similar project to keep track of the ever-growing fabric collection would be very useful! The table for this would most definitely not include how much was spent on each piece!
+* Despite declarations of _"I'm not buying any more fabric"_, every sewist has an extensive fabric collection. A similar project to keep track of the ever-growing fabric collection would be very useful! The table for this would most definitely not include how much was spent on each piece!
 
 
 ## __References__
@@ -224,8 +229,7 @@ https://stackoverflow.com/questions/15735450/images-as-links-in-mysql-database
 
 [Enable Live Server on Visual Studio Code](https://www.geeksforgeeks.org/how-to-enable-live-server-on-visual-studio-code/)
 
-
-https://bootstrapexamples.com/@alaric-sloane/delete-confirmation-modal
+[Delete confirmation modal](https://bootstrapexamples.com/@alaric-sloane/delete-confirmation-modal)
 
 [Udemy, REST APIs with Flask and Python](https://www.udemy.com/course/rest-api-flask-and-python/)
 
