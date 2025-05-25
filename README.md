@@ -152,12 +152,15 @@ Upon completion, deactivate the virtual environment with the command:
 
 * Users should only be allowed to update their own information.
 
-* Users could request to borrow a pattern at the click of a button. 
+* Users could request to borrow a pattern from another user at the click of a button. 
 
 * A bootstap modal to confirm delete. Current confirm method is a bit ugly. 
 
 * Despite declarations of _"I'm not buying any more fabric"_, every sewist has an extensive fabric collection. A similar project to keep track of the ever-growing fabric collection would be very useful! The table for this would most definitely not include how much was spent on each piece!
 
+## Get Help
+
+If you have any questions or queries you can contact me at g00220627@atu.ie or [submit an issue](https://github.com/IreneKilgannon/wsaa-project/issues).
 
 ## __References__
 
