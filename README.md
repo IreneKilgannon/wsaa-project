@@ -141,11 +141,15 @@ Users can update other users profile information.
 
 If a user wants to update their profile, they must also update their password. 
 
+Occasional glitches can usually be rectified by refreshing the page. 
+
 ## __Future Improvements__
 
 Login/logout functionality. Specifically a group login/logout functionality so each group can view their own patterns. Authorization and authenticate would be required.
 
 Users can only update their own information.
+
+
 
 Despite declarations of _"I'm not buying any more fabric"_, every sewist has an extensive fabric collection. A similar project to keep track of the ever-growing fabric collection would be very useful! The table for this would most definitely not include how much was spent on each piece!
 
